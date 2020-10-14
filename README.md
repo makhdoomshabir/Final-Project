@@ -3,4 +3,4 @@
 
 ### MOSCOW Prioritisation
 
-![moscow-prioritisation](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Screenshot%20from%202020-10-14%2016-00-23.png)
+![moscow-prioritisation](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Screenshot%20from%202020-10-14%2016-08-10.png)
