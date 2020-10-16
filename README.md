@@ -56,6 +56,13 @@ Implement a search bar feature, so that users can filter tickets based on keywor
 
 ## Project Planning
 ---
+
+### Risk Assessment 
+A full risk assessment was carried out before commencing with project tasks. The whole assessment can be found at the following link:
+[addlink]
+
+[Add Screenshot of Risk Assessment]
+
 ### Wireframes
 #### HOME PAGE
 ![homePageDesign](documentation/homepage.png)
