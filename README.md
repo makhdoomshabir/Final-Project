@@ -41,6 +41,25 @@ Users can filter/arrange tickets based on attributes such as:
 * Urgency
 * Title (alphabetically)
 
+### Technologies
+
+| Technology               | Constraint  |
+| -----------              | ----------- |
+| Kanban Board             | Jira        |
+| Version Control          | Git|
+| CI Server                | Jenkins |
+| Configuration Management | Ansible |
+| Cloud Server             | AWS EC2 |
+| Database Server          | AWS RDS |
+| Containerisation         | Docker  |
+| Reverse Proxy            | NGINX  |
+| Orchestration Tool       | Kubernetes  |
+| Infrastructure Management| Terraform  |
+| Programming language     | Java |
+| Front-End                | React |
+| Unit Tests               | JUnit and Mockito |
+| Integration Test         | Selenium |
+
 ### MOSCOW Prioritisation
 
 ![moscow-prioritisation](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Screenshot%20from%202020-10-14%2016-08-10.png)
