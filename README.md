@@ -60,6 +60,13 @@ Users can filter/arrange tickets based on attributes such as:
 | Unit Tests               | JUnit and Mockito |
 | Integration Test         | Selenium |
 
+### CI Pipeline
+![ci_pipeline](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/ci_pipeline.png)
+
+### AWS
+#### Network Diagram
+![aws_network_diagram](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/aws_network_diagram%20(2).png)
+
 ### MOSCOW Prioritisation
 
 ![moscow-prioritisation](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Screenshot%20from%202020-10-14%2016-08-10.png)
