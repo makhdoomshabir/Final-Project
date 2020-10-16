@@ -32,14 +32,8 @@ cohort to see the help queue specific to their class.
 
 A cohort page should display the trainers and trainees can make up that cohort.
 
-#### Filtering
-Users can filter/arrange tickets based on attributes such as:
-
-* Author
-* Date Oldest -> Newest
-* Date Newst -> Oldest
-* Urgency
-* Title (alphabetically)
+#### Keyword Search
+Implement a search bar feature, so that users can filter tickets based on keywords.
 
 ### Technologies
 
