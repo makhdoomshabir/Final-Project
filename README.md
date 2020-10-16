@@ -54,6 +54,18 @@ Implement a search bar feature, so that users can filter tickets based on keywor
 | Unit Tests               | JUnit and Mockito |
 | Integration Test         | Selenium |
 
+## Project Planning
+---
+### Wireframes
+#### HOME PAGE
+![homePageDesign](documentation/homepage.png)
+
+#### ADD TICKET
+![addTicketDesign](documentation/TicketAdd.png)
+
+#### EDIT/ADD SOLUTION
+![editAddSolution](documentation/issue.png)
+
 ### CI Pipeline
 ![ci_pipeline](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/ci_pipeline.png)
 
