@@ -7,3 +7,7 @@
 
 ### Entity Relationship Diagram
 ![erd](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/project_three_erd.png)
+
+### Authors
+
+Adama Kabba, Krystal Simmonds, Daood Khan and Makhdoom Shabir
