@@ -62,9 +62,11 @@ A full risk assessment was carried out before commencing with project tasks. The
 
 [Add Screenshot of Risk Assessment]
 
-### User Experience ###
+### User Experience
 
-
+Below we describe the users experience when using the site, 
+this is done in a flowchart diagram, where by the user 
+can access different pages in a structured environment.
 
 #### Diagram
 ![userDiagram](documentation/UserExperience.png)
