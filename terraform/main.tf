@@ -80,9 +80,27 @@ resource "aws_subnet" "subnet-2" {
   }
 }
 
-# Associate subnets with route table
-resource "aws_route_table_association" "a" {
+# Associate subnet 1 with route table
+resource "aws_route_table_association" "1" {
   subnet_id      = aws_subnet.subnet-1.id
+  route_table_id = aws_route_table.main-route-table.id
+}
+
+# Associate subnet 2 with route table
+resource "aws_route_table_association" "2" {
+  subnet_id      = aws_subnet.subnet-2.id
+  route_table_id = aws_route_table.main-route-table.id
+}
+
+# Associate subnet 3 with route table
+resource "aws_route_table_association" "3" {
+  subnet_id      = aws_subnet.subnet-3.id
+  route_table_id = aws_route_table.main-route-table.id
+}
+
+# Associate subnet 4 with route table
+resource "aws_route_table_association" "4" {
+  subnet_id      = aws_subnet.subnet-4.id
   route_table_id = aws_route_table.main-route-table.id
 }
 
@@ -159,7 +177,7 @@ resource "aws_security_group" "jenkins-sg" {
   }
 }
 
-# Create production server security group
+# Create test server security group
 resource "aws_security_group" "test-sg" {
   name        = "test-sg"
   description = "Allow SSH and HTTP traffic for specific IPs of development team"
@@ -279,38 +297,21 @@ resource "aws_security_group" "database-sg" {
 
   # SSH Rules
   ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
+    description = "MySQL"
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/32"] #Test subnet IP
   }
 
   ingress {
     description = "SSH"
-    from_port   = 22
-    to_port     = 22
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/32"] #Prod subnet IP
   }
-
-  # HTTP Rules
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
-  }
-
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
-  }
-
+  
   # Egress/Outbound rules
 
   egress {
@@ -321,6 +322,6 @@ resource "aws_security_group" "database-sg" {
   }
 
   tags = {
-    Name = "allow_access_prod_server"
+    Name = "allow_access_db_subnet"
   }
 }
