@@ -1,8 +1,11 @@
 provider "aws" {
+  version    = "~> 2.0"
   region     = "eu-west-2"
+  shared_credentials_file = "~/.aws/credentials"
   access_key = ""
   secret_key = ""
 }
+
 
 # Create a vpc
 resource "aws_vpc" "main-vpc" {
@@ -324,4 +327,12 @@ resource "aws_security_group" "database-sg" {
   tags = {
     Name = "allow_access_db_subnet"
   }
+}
+
+# Create EC2 instance
+
+resource "aws_instance" "EC2" {
+  ami           = var.ami-id
+  instance_type = var.instance-type
+  key_name      = var.pem-key
 }
