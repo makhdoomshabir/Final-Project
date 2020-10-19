@@ -1,0 +1,24 @@
+[Jenkins]
+#dns of EC2 instance
+ec2-34-252-4-136.eu-west-1.compute.amazonaws.com
+
+[Jenkins:vars]
+ansible_user=ubuntu
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/Downloads/instance-1.pem
+
+[Test]
+#dns
+ec2-3-250-22-51.eu-west-1.compute.amazonaws.com
+
+[Test:vars]
+ansible_user=ubuntu
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/Downloads/instance-1.pem
+
+
+#[Product]
+#dns
+
+#[Product:vars]
+

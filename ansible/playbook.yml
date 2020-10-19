@@ -1,0 +1,27 @@
+- hosts: Jenkins
+  # run as the root user on the remote machine
+  become: true
+  # list of tasks to run on the remote machine
+  tasks:
+  - name: 'install jenkins'
+    script: jenkins.sh
+  - name: 'install docker'
+    script: docker.sh
+  - name: 'install docker-compose'
+    script: docker-compose.sh
+
+- hosts: Test
+
+  become: true
+
+  tasks:
+  - name: 'install docker'
+    script: docker.sh
+  - name: 'install docker-compose'
+    script: docker-compose.sh
+#- hosts: Production
+
+#  become: true
+
+#  tasks:
+#kubernetes
