@@ -58,13 +58,15 @@ Implement a search bar feature, so that users can filter tickets based on keywor
 ---
 ### Risk Assessment 
 A full risk assessment was carried out before commencing with project tasks. The whole assessment can be found at the following link:
-[addlink]
+https://docs.google.com/spreadsheets/d/1dbGavZvYB49_sulU9LrpJMsQJbQKQnIY7yc4-30rA4o/edit#gid=0
 
-[Add Screenshot of Risk Assessment]
+![risk-assessment](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/risk-assessment.png)
 
-### User Experience ###
+### User Experience
 
-
+Below we describe the users experience when using the site, 
+this is done in a flowchart diagram, where by the user 
+can access different pages in a structured environment.
 
 #### Diagram
 ![userDiagram](documentation/UserExperience.png)
