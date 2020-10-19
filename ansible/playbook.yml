@@ -19,9 +19,11 @@
     script: docker.sh
   - name: 'install docker-compose'
     script: docker-compose.sh
-#- hosts: Production
 
-#  become: true
+- hosts: Production
 
-#  tasks:
-#kubernetes
+  become: true
+
+  tasks:
+  - name: 'install SDK and kubectl'
+    script: kubernetes.sh
