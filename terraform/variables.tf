@@ -1,7 +1,7 @@
 variable "ami-id" {
- #AMI NEEDS CHANGING TO EU-WEST-2 
+ 
   description = "AMI ID of ubuntu 18.04LTS eu-west-2"
-  default     = "ami-0823c236601fef765"
+  default     = "ami-09a1e275e350acf38"
 }
 
 variable "instance-type" {
