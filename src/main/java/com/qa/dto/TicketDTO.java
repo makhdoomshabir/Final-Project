@@ -6,18 +6,19 @@ public class TicketDTO {
 
     private Long ticketId;
     private Date ticketDate;
-    private String status = "Not Solved";
+    private String status = "Unresolved";
     private String title;
     private String description;
     private String author;
     private String cohort;
     private String solution;
-    private String resolvedTime;
+    private Date lastUpdated;
+    private String stopwatch;
 
     public TicketDTO() {
     }
 
-    public TicketDTO(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, String resolvedTime) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, Date lastUpdated, String stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -25,7 +26,8 @@ public class TicketDTO {
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
-        this.resolvedTime = resolvedTime;
+        this.lastUpdated = lastUpdated;
+        this.stopwatch = stopwatch;
     }
 
     public Long getTicketId() {
@@ -92,11 +94,11 @@ public class TicketDTO {
         this.solution = solution;
     }
 
-    public String getResolvedTime() {
-        return resolvedTime;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setResolvedTime(String resolvedTime) {
-        this.resolvedTime = resolvedTime;
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
