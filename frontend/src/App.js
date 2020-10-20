@@ -1,11 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './Components/Header';
+import './Components/SearchBar'
+import SearchBar from './Components/SearchBar';
+
 
 function App() {
   return (
     <div className="App">
-
+      <Header/>
+      <SearchBar/>
     </div>
   );
 }
