@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import NavigationBar from './Components/NavigationBar';
 import Nav from './Components/nav';
 import OpenTickets from './Components/OpenTicket';
+import NewTicket from './Components/NewTicketForm';
 
 
 
