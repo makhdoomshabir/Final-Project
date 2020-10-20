@@ -315,6 +315,131 @@ resource "aws_security_group" "database-sg" {
   }
 }
 
+# Create NACL for subnet with Jenkins server
+resource "aws_network_acl" "private_nacl_jenkins" {
+  vpc_id     = aws_vpc.main-vpc.id
+  subnet_ids = [aws_subnet.subnet-1.id]
+
+  # Allow inbound SSH traffic 
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  # Allow outbound SSH traffic
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  # Allow inbound HTTP traffic
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  # Allow outbound HTTP traffic
+  egress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  # Allow inbound traffic through port 8080
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 198
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 8080
+    to_port    = 8080
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 198
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 8080
+    to_port    = 8080
+  }
+
+  # Allow outbound traffic through port 8080
+  egress {
+    protocol   = "tcp"
+    rule_no    = 198
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 8080
+    to_port    = 8080
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 198
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 8080
+    to_port    = 8080
+  }
+
+  tags = {
+    Name = "Jenkins subnet NACL"
+  }
+
+}
+
 # Create NACL for public subnet
 resource "aws_network_acl" "public_nacl" {
   vpc_id     = aws_vpc.main-vpc.id
@@ -322,7 +447,7 @@ resource "aws_network_acl" "public_nacl" {
 
   # Allow inbound http traffic from internet
   ingress {
-    protocol   = -1
+    protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
@@ -332,12 +457,16 @@ resource "aws_network_acl" "public_nacl" {
 
   # Allow outbound http traffic to internet
   egress {
-    protocol   = -1
+    protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
     cidr_block = "0.0.0.0/0"
     from_port  = 80
     to_port    = 80
+  }
+
+  tags = {
+    Name = "public NACL"
   }
 
 }
