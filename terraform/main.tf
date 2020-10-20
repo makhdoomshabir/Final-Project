@@ -315,6 +315,33 @@ resource "aws_security_group" "database-sg" {
   }
 }
 
+# Create NACL for public subnet
+resource "aws_network_acl" "public_nacl" {
+  vpc_id     = aws_vpc.main-vpc.id
+  subnet_ids = [aws_subnet.subnet-4.id]
+
+  # Allow inbound http traffic from internet
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 80
+    to_port    = 80
+  }
+
+  # Allow outbound http traffic to internet
+  egress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 80
+    to_port    = 80
+  }
+
+}
+
 # Create EC2 instance
 # Commenting out the below to create VPC, subnets and internet gateway first so VPC and subnet IDs can be added to EC2 resource
 #resource "aws_instance" "EC2" {
