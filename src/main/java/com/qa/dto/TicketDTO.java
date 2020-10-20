@@ -1,13 +1,11 @@
 package com.qa.dto;
 
-import javax.persistence.Column;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class TicketDTO {
 
     private Long ticketId;
-    private String ticketDate;
+    private Date ticketDate;
     private String status = "Not Solved";
     private String title;
     private String description;
@@ -19,7 +17,7 @@ public class TicketDTO {
     public TicketDTO() {
     }
 
-    public TicketDTO(String ticketDate, String status, String title, String description, String author, String cohort, String solution, String resolvedTime) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, String resolvedTime) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -38,11 +36,11 @@ public class TicketDTO {
         this.ticketId = ticketId;
     }
 
-    public String getTicketDate() {
+    public Date getTicketDate() {
         return ticketDate;
     }
 
-    public void setTicketDate(String ticketDate) {
+    public void setTicketDate(Date ticketDate) {
         this.ticketDate = ticketDate;
     }
 

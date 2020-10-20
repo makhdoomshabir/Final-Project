@@ -50,8 +50,9 @@ public class TicketsService {
         update.setAuthor(ticket.getAuthor());
         update.setCohort(ticket.getCohort());
         update.setStatus(ticket.getStatus());
-        update.setResolvedTime(ticket.getResolvedTime());
+        update.setLastUpdated(ticket.getLastUpdated());
         update.setSolution(ticket.getSolution());
+        update.setStopwatch(ticket.getStopwatch());
         return this.mapToDTO(this.tRepo.save(update));
     }
 
