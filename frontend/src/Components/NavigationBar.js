@@ -12,14 +12,13 @@ const NavigationBar = () => {
     >
         <img alt="logo" src="https://i.imgur.com/smguoM3.png" width="100" />
     </a>
-
+    <button type="submit">Cohort</button>
     <form>
         <input type="text"/>
         <button type="submit">Search</button>
     </form>
     
     <button type="submit">New Ticket</button>
-    <button type="submit">Cohort</button>
     </nav>
   );
 };
