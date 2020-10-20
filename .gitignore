@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 
+**/.terraform/*
 # Log file
 *.log
 
