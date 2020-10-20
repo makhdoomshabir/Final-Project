@@ -65,7 +65,7 @@ https://docs.google.com/spreadsheets/d/1dbGavZvYB49_sulU9LrpJMsQJbQKQnIY7yc4-30r
 ### User Experience
 
 Below we describe the users experience when using the site, 
-this is done in a flowchart diagram, where by the user 
+this is done in a flowchart diagram, where the user 
 can access different pages in a structured environment.
 
 #### Diagram

@@ -24,3 +24,10 @@ hs_err_pid*
 
 # IDE package folders
 *.idea
+
+*.iml
+
+package-lock.json
+
+node_modules
+
