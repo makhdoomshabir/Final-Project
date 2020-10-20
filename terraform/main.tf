@@ -1,9 +1,9 @@
 provider "aws" {
-  version    = "~> 2.0"
-  region     = "eu-west-2"
+  version                 = "~> 2.0"
+  region                  = "eu-west-2"
   shared_credentials_file = "~/.aws/credentials"
-  access_key = ""
-  secret_key = ""
+  access_key              = ""
+  secret_key              = ""
 }
 
 
@@ -45,8 +45,8 @@ resource "aws_route_table" "main-route-table" {
 
 # Create subnet 1
 resource "aws_subnet" "subnet-1" {
-  vpc_id     = aws_vpc.main-vpc.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id            = aws_vpc.main-vpc.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "eu-west-2"
   tags = {
     Name = "jenkins-subnet "
@@ -55,8 +55,8 @@ resource "aws_subnet" "subnet-1" {
 
 # Create subnet 2
 resource "aws_subnet" "subnet-2" {
-  vpc_id     = aws_vpc.main-vpc.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.main-vpc.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "eu-west-2"
   tags = {
     Name = "test-subnet"
@@ -65,8 +65,8 @@ resource "aws_subnet" "subnet-2" {
 
 # Create subnet 3
 resource "aws_subnet" "subnet-3" {
-  vpc_id     = aws_vpc.main-vpc.id
-  cidr_block = "10.0.3.0/24"
+  vpc_id            = aws_vpc.main-vpc.id
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "eu-west-2"
   tags = {
     Name = "db-subnet"
@@ -74,9 +74,9 @@ resource "aws_subnet" "subnet-3" {
 }
 
 # Create subnet 4
-resource "aws_subnet" "subnet-2" {
-  vpc_id     = aws_vpc.main-vpc.id
-  cidr_block = "10.0.4.0/24"
+resource "aws_subnet" "subnet-4" {
+  vpc_id            = aws_vpc.main-vpc.id
+  cidr_block        = "10.0.4.0/24"
   availability_zone = "eu-west-2"
   tags = {
     Name = "prod-subnet"
@@ -84,30 +84,30 @@ resource "aws_subnet" "subnet-2" {
 }
 
 # Associate subnet 1 with route table
-resource "aws_route_table_association" "1" {
+resource "aws_route_table_association" "subnet-1" {
   subnet_id      = aws_subnet.subnet-1.id
   route_table_id = aws_route_table.main-route-table.id
 }
 
 # Associate subnet 2 with route table
-resource "aws_route_table_association" "2" {
+resource "aws_route_table_association" "subnet-2" {
   subnet_id      = aws_subnet.subnet-2.id
   route_table_id = aws_route_table.main-route-table.id
 }
 
 # Associate subnet 3 with route table
-resource "aws_route_table_association" "3" {
+resource "aws_route_table_association" "subnet-3" {
   subnet_id      = aws_subnet.subnet-3.id
   route_table_id = aws_route_table.main-route-table.id
 }
 
 # Associate subnet 4 with route table
-resource "aws_route_table_association" "4" {
+resource "aws_route_table_association" "subnet-4" {
   subnet_id      = aws_subnet.subnet-4.id
   route_table_id = aws_route_table.main-route-table.id
 }
 
-# Create jenkins security group. Each IP will need an ingress rule of its own
+# Create jenkins security group. Each IP will need an ingress rule of its own. (subnet 1)
 resource "aws_security_group" "jenkins-sg" {
   name        = "jenkins-sg"
   description = "Allow SSH, HTTP traffic and traffic through port 8080 for specific IPs of development team"
@@ -180,7 +180,7 @@ resource "aws_security_group" "jenkins-sg" {
   }
 }
 
-# Create test server security group
+# Create test server security group (subnet 2)
 resource "aws_security_group" "test-sg" {
   name        = "test-sg"
   description = "Allow SSH and HTTP traffic for specific IPs of development team"
@@ -236,6 +236,7 @@ resource "aws_security_group" "test-sg" {
   }
 }
 
+# Create prod server security group (subnet 4)
 resource "aws_security_group" "prod-sg" {
   name        = "prod-sg"
   description = "Allow SSH and HTTP traffic for specific IPs of development team"
@@ -291,6 +292,7 @@ resource "aws_security_group" "prod-sg" {
   }
 }
 
+# Create security group for databases. (subnet 3)
 resource "aws_security_group" "database-sg" {
   name        = "database-sg"
   description = "Allow access from test and production subnets"
@@ -314,7 +316,7 @@ resource "aws_security_group" "database-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/32"] #Prod subnet IP
   }
-  
+
   # Egress/Outbound rules
 
   egress {
@@ -330,9 +332,9 @@ resource "aws_security_group" "database-sg" {
 }
 
 # Create EC2 instance
-
-resource "aws_instance" "EC2" {
-  ami           = var.ami-id
-  instance_type = var.instance-type
-  key_name      = var.pem-key
-}
+# Commenting out the below to create VPC, subnets and internet gateway first so VPC and subnet IDs can be added to EC2 resource
+#resource "aws_instance" "EC2" {
+#  ami           = var.ami-id
+#  instance_type = var.instance-type
+#  key_name      = var.pem-key
+#}
