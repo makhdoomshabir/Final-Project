@@ -33,10 +33,10 @@ resource "aws_route_table" "main-route-table" {
     gateway_id = aws_internet_gateway.main-gateway.id
   }
 
-  route {
-    ipv6_cidr_block        = "::/0"
-    egress_only_gateway_id = aws_internet_gateway.main-gateway.id
-  }
+#  route {
+ #   ipv6_cidr_block        = "::/0"
+  #  egress_only_gateway_id = aws_internet_gateway.main-gateway.id
+ # }
 
   tags = {
     Name = "main-route-table"
@@ -47,7 +47,7 @@ resource "aws_route_table" "main-route-table" {
 resource "aws_subnet" "subnet-1" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "eu-west-2"
+  availability_zone = "eu-west-2a"
   tags = {
     Name = "jenkins-subnet "
   }
@@ -57,7 +57,7 @@ resource "aws_subnet" "subnet-1" {
 resource "aws_subnet" "subnet-2" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.2.0/24"
-  availability_zone = "eu-west-2"
+  availability_zone = "eu-west-2a"
   tags = {
     Name = "test-subnet"
   }
@@ -67,7 +67,7 @@ resource "aws_subnet" "subnet-2" {
 resource "aws_subnet" "subnet-3" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = "eu-west-2"
+  availability_zone = "eu-west-2a"
   tags = {
     Name = "db-subnet"
   }
@@ -77,7 +77,7 @@ resource "aws_subnet" "subnet-3" {
 resource "aws_subnet" "subnet-4" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.4.0/24"
-  availability_zone = "eu-west-2"
+  availability_zone = "eu-west-2a"
   tags = {
     Name = "prod-subnet"
   }
@@ -239,27 +239,8 @@ resource "aws_security_group" "test-sg" {
 # Create prod server security group (subnet 4)
 resource "aws_security_group" "prod-sg" {
   name        = "prod-sg"
-  description = "Allow SSH and HTTP traffic for specific IPs of development team"
+  description = "Allow web traffic from anywhere"
   vpc_id      = aws_vpc.main-vpc.id
-
-  # Ingress/inbound rules
-
-  # SSH Rules
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
-  }
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
-  }
 
   # HTTP Rules
   ingress {
@@ -267,15 +248,7 @@ resource "aws_security_group" "prod-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
-  }
-
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #allow web traffic
   }
 
   # Egress/Outbound rules
@@ -306,15 +279,7 @@ resource "aws_security_group" "database-sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Test subnet IP
-  }
-
-  ingress {
-    description = "SSH"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Prod subnet IP
+    cidr_blocks = ["0.0.0.0/32"] #Test & Prod subnet IP
   }
 
   # Egress/Outbound rules
