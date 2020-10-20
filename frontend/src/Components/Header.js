@@ -3,9 +3,10 @@ import React from 'react';
 const Header = () => {
 
   return (
-<header>
- <h1>QA Ticket System</h1>
-</header>
+    <div>
+        <h1>Trainee Ticket System</h1>
+    </div>
+
   );
 };
 
