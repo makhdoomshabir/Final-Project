@@ -1,9 +1,7 @@
 provider "aws" {
-  version                 = "~> 2.0"
-  region                  = "eu-west-2"
-  shared_credentials_file = "~/.aws/credentials"
-  access_key              = ""
-  secret_key              = ""
+  version = "~> 2.0"
+  region  = "eu-west-2"
+  profile = "myprofile"
 }
 
 
@@ -15,6 +13,17 @@ resource "aws_vpc" "main-vpc" {
   }
 }
 
+# Elastic IP for NAT Gateway
+resource "aws_eip" "nat_gw_eip" {
+  vpc = true
+}
+
+# NAT Gateway
+resource "aws_nat_gateway" "nat-gw" {
+  allocation_id = aws_eip.nat_gw_eip.id
+  subnet_id     = aws_subnet.subnet-4.id
+}
+
 # Create internet gateway
 resource "aws_internet_gateway" "main-gateway" {
   vpc_id = aws_vpc.main-vpc.id
@@ -24,8 +33,23 @@ resource "aws_internet_gateway" "main-gateway" {
   }
 }
 
-# Create route table
-resource "aws_route_table" "main-route-table" {
+# Create route table for private subnet
+resource "aws_route_table" "private-route-table" {
+  vpc_id = aws_vpc.main-vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat-gw.id
+  }
+
+  tags = {
+    Name = "private-route-table"
+  }
+
+}
+
+# Create route table for public subnet
+resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.main-vpc.id
 
   route {
@@ -33,13 +57,8 @@ resource "aws_route_table" "main-route-table" {
     gateway_id = aws_internet_gateway.main-gateway.id
   }
 
-#  route {
- #   ipv6_cidr_block        = "::/0"
-  #  egress_only_gateway_id = aws_internet_gateway.main-gateway.id
- # }
-
   tags = {
-    Name = "main-route-table"
+    Name = "public-route-table"
   }
 }
 
@@ -49,7 +68,7 @@ resource "aws_subnet" "subnet-1" {
   cidr_block        = "10.0.1.0/24"
   availability_zone = "eu-west-2a"
   tags = {
-    Name = "jenkins-subnet "
+    Name = "jenkins-subnet-private"
   }
 }
 
@@ -59,7 +78,7 @@ resource "aws_subnet" "subnet-2" {
   cidr_block        = "10.0.2.0/24"
   availability_zone = "eu-west-2a"
   tags = {
-    Name = "test-subnet"
+    Name = "test-subnet-private"
   }
 }
 
@@ -69,7 +88,7 @@ resource "aws_subnet" "subnet-3" {
   cidr_block        = "10.0.3.0/24"
   availability_zone = "eu-west-2a"
   tags = {
-    Name = "db-subnet"
+    Name = "db-subnet-private"
   }
 }
 
@@ -79,32 +98,32 @@ resource "aws_subnet" "subnet-4" {
   cidr_block        = "10.0.4.0/24"
   availability_zone = "eu-west-2a"
   tags = {
-    Name = "prod-subnet"
+    Name = "prod-subnet-public"
   }
 }
 
-# Associate subnet 1 with route table
+# Associate subnet 1 with private route table
 resource "aws_route_table_association" "subnet-1" {
   subnet_id      = aws_subnet.subnet-1.id
-  route_table_id = aws_route_table.main-route-table.id
+  route_table_id = aws_route_table.private-route-table.id
 }
 
-# Associate subnet 2 with route table
+# Associate subnet 2 with private route table
 resource "aws_route_table_association" "subnet-2" {
   subnet_id      = aws_subnet.subnet-2.id
-  route_table_id = aws_route_table.main-route-table.id
+  route_table_id = aws_route_table.private-route-table.id
 }
 
-# Associate subnet 3 with route table
+# Associate subnet 3 with private route table
 resource "aws_route_table_association" "subnet-3" {
   subnet_id      = aws_subnet.subnet-3.id
-  route_table_id = aws_route_table.main-route-table.id
+  route_table_id = aws_route_table.private-route-table.id
 }
 
-# Associate subnet 4 with route table
+# Associate subnet 4 with public route table
 resource "aws_route_table_association" "subnet-4" {
   subnet_id      = aws_subnet.subnet-4.id
-  route_table_id = aws_route_table.main-route-table.id
+  route_table_id = aws_route_table.public-route-table.id
 }
 
 # Create jenkins security group. Each IP will need an ingress rule of its own. (subnet 1)
