@@ -3,9 +3,7 @@ package com.qa.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.xml.soap.Text;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "notes"})
@@ -16,7 +14,7 @@ public class Ticket {
     private Long ticketId;
 
     @Column
-    private String ticketDate;
+    private Date ticketDate;
 
     @Column
     private String status = "Not Solved";
@@ -37,13 +35,16 @@ public class Ticket {
     private String solution;
 
     @Column
-    private String resolvedTime;
+    private Date lastUpdated;
+
+    @Column
+    private Float stopwatch;
 
     public Ticket() {
 
     }
 
-    public Ticket(String ticketDate, String status, String title, String description, String author, String cohort, String solution, String resolveTime) {
+    public Ticket(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -51,7 +52,8 @@ public class Ticket {
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
-        this.resolvedTime = resolveTime;
+        this.lastUpdated = lastUpdated;
+        this.stopwatch = stopwatch;
     }
 
     public Long getTicketId() {
@@ -62,11 +64,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public String getTicketDate() {
+    public Date getTicketDate() {
         return ticketDate;
     }
 
-    public void setTicketDate(String ticketDate) {
+    public void setTicketDate(Date ticketDate) {
         this.ticketDate = ticketDate;
     }
 
@@ -110,12 +112,20 @@ public class Ticket {
         this.cohort = cohort;
     }
 
-    public String getResolvedTime() {
-        return resolvedTime;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setResolvedTime(String resolvedTime) {
-        this.resolvedTime = resolvedTime;
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Float getStopwatch() {
+        return stopwatch;
+    }
+
+    public void setStopwatch(Float stopwatch) {
+        this.stopwatch = stopwatch;
     }
 
     public String getSolution() {

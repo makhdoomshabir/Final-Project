@@ -21,7 +21,7 @@ public class TicketController {
     }
 
     @GetMapping(value = "/allTickets")
-    public ResponseEntity<List<TicketDTO>> getAllNotSolvedTickets() {
+    public ResponseEntity<List<TicketDTO>> getAllTickets() {
         return ResponseEntity.ok(this.ticketsService.readTickets());
     }
 
