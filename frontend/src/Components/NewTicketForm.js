@@ -4,31 +4,40 @@ import { Form, Col, Button} from 'react-bootstrap';
 const NewTicket = () => {
     return(
         <div>
-            <Form>
+  <Form>
   <Form.Row>
-    <Form.Group as={Col} controlId="formGridEmail">
+    <Form.Group as={Col} controlId="formGridEmail" id="cohort">
       <Form.Label>Cohort</Form.Label>
       <Form.Control as="select" defaultValue="Choose...">
         <option>Choose...</option>
-        <option>Software Developer</option>
-        <option>Cloud Native</option>
+        <option>Software Development</option>
+        <option>Cloud Computing</option>
+        <option>DevOps</option>
+        <option>Robotic Process Automation</option>
+        <option>Pega</option>
       </Form.Control>
     </Form.Group>
 
-    <Form.Group as={Col} controlId="formGridPassword">
+    <Form.Group as={Col} id="author">
       <Form.Label>Author</Form.Label>
-      <Form.Control type="password"/>
+      <Form.Control type="text"/>
     </Form.Group>
   </Form.Row>
 
-  <Form.Group controlId="formGridAddress1">
+  <Form.Group id="issueTitle">
     <Form.Label>Issue Title</Form.Label>
-    <Form.Control />
+    <Form.Control type="text"/>
   </Form.Group>
 
-  <Form.Group controlId="formGridAddress2">
+  <Form.Group id="issueDescription">
     <Form.Label>Issue Description</Form.Label>
     <Form.Control as="textarea" rows="4"/>
+  </Form.Group>
+
+  <Form.Group id="links">
+    <Form.Label>Links</Form.Label>
+    <Form.Control type="text"/>
+    <button> Add Link</button>
   </Form.Group>
 
 
