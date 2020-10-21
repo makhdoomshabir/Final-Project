@@ -21,7 +21,7 @@ resource "aws_eip" "nat_gw_eip" {
 # NAT Gateway
 resource "aws_nat_gateway" "nat-gw" {
   allocation_id = aws_eip.nat_gw_eip.id
-  subnet_id     = aws_subnet.subnet-4.id
+  subnet_id     = aws_subnet.subnet-4-prod.id
 }
 
 # Create internet gateway
@@ -63,7 +63,7 @@ resource "aws_route_table" "public-route-table" {
 }
 
 # Create subnet 1
-resource "aws_subnet" "subnet-1" {
+resource "aws_subnet" "subnet-1-jenkins" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "eu-west-2a"
@@ -73,7 +73,7 @@ resource "aws_subnet" "subnet-1" {
 }
 
 # Create subnet 2
-resource "aws_subnet" "subnet-2" {
+resource "aws_subnet" "subnet-2-test" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "eu-west-2a"
@@ -83,7 +83,7 @@ resource "aws_subnet" "subnet-2" {
 }
 
 # Create subnet 3
-resource "aws_subnet" "subnet-3" {
+resource "aws_subnet" "subnet-3-db" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = "eu-west-2a"
@@ -93,7 +93,7 @@ resource "aws_subnet" "subnet-3" {
 }
 
 # Create subnet 4
-resource "aws_subnet" "subnet-4" {
+resource "aws_subnet" "subnet-4-prod" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.4.0/24"
   availability_zone = "eu-west-2a"
@@ -103,26 +103,26 @@ resource "aws_subnet" "subnet-4" {
 }
 
 # Associate subnet 1 with private route table
-resource "aws_route_table_association" "subnet-1" {
-  subnet_id      = aws_subnet.subnet-1.id
+resource "aws_route_table_association" "subnet-1-jenkins" {
+  subnet_id      = aws_subnet.subnet-1-jenkins.id
   route_table_id = aws_route_table.private-route-table.id
 }
 
 # Associate subnet 2 with private route table
-resource "aws_route_table_association" "subnet-2" {
-  subnet_id      = aws_subnet.subnet-2.id
+resource "aws_route_table_association" "subnet-2-test" {
+  subnet_id      = aws_subnet.subnet-2-test.id
   route_table_id = aws_route_table.private-route-table.id
 }
 
 # Associate subnet 3 with private route table
-resource "aws_route_table_association" "subnet-3" {
-  subnet_id      = aws_subnet.subnet-3.id
+resource "aws_route_table_association" "subnet-3-db" {
+  subnet_id      = aws_subnet.subnet-3-db.id
   route_table_id = aws_route_table.private-route-table.id
 }
 
 # Associate subnet 4 with public route table
-resource "aws_route_table_association" "subnet-4" {
-  subnet_id      = aws_subnet.subnet-4.id
+resource "aws_route_table_association" "subnet-4-prod" {
+  subnet_id      = aws_subnet.subnet-4-prod.id
   route_table_id = aws_route_table.public-route-table.id
 }
 
@@ -315,10 +315,97 @@ resource "aws_security_group" "database-sg" {
   }
 }
 
-# Create NACL for subnet with Jenkins server
+# Create NACL for private subnet with Test server
+resource "aws_network_acl" "private_nacl_test" {
+  vpc_id     = aws_vpc.main-vpc.id
+  subnet_ids = [aws_subnet.subnet-2-test.id]
+
+  # Allow inbound SSH traffic 
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  # Allow outbound SSH traffic
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 22
+    to_port    = 22
+  }
+
+  # Allow inbound HTTP traffic
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  # Allow outbound HTTP traffic
+  egress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Adama IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 199
+    action     = "allow"
+    cidr_block = "0.0.0.0/32" #Daood IP
+    from_port  = 80
+    to_port    = 80
+  }
+
+  tags = {
+    Name = "Test subnet NACL"
+  }
+
+}
+
+# Create NACL for private subnet with Jenkins server
 resource "aws_network_acl" "private_nacl_jenkins" {
   vpc_id     = aws_vpc.main-vpc.id
-  subnet_ids = [aws_subnet.subnet-1.id]
+  subnet_ids = [aws_subnet.subnet-1-jenkins.id]
 
   # Allow inbound SSH traffic 
   ingress {
@@ -440,10 +527,10 @@ resource "aws_network_acl" "private_nacl_jenkins" {
 
 }
 
-# Create NACL for public subnet
+# Create NACL for public subnet with Prod server
 resource "aws_network_acl" "public_nacl" {
   vpc_id     = aws_vpc.main-vpc.id
-  subnet_ids = [aws_subnet.subnet-4.id]
+  subnet_ids = [aws_subnet.subnet-4-prod.id]
 
   # Allow inbound http traffic from internet
   ingress {
