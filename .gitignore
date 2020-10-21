@@ -4,6 +4,7 @@
 # Terraform files
 *.tfstate
 *.tfstate.*
+.terraform/
 
 # Log file
 *.log
