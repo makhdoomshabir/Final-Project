@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Col, Button} from 'react-bootstrap';
-import NavigationBar from './NavigationBar';
 
 const NewTicket = () => {
     return(
