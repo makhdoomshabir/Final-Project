@@ -3,6 +3,8 @@ package com.qa.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -11,19 +13,22 @@ public class Ticket {
 
     @Id
     @GeneratedValue
-    private Long ticketId;
+    private Long ticketId; // Done automatically do not implement on form!
 
     @Column
-    private Date ticketDate;
+    private Date ticketDate; // Done automatically do not implement on form!
 
     @Column
-    private String status = "Not Solved";
+    private String status = "Not Solved"; // Done automatically do not implement on form!
 
     @Column
     private String title;
 
     @Column
     private String description;
+
+    @Column
+    private List links = new List();
 
     @Column
     private String author;
@@ -35,20 +40,21 @@ public class Ticket {
     private String solution;
 
     @Column
-    private Date lastUpdated;
+    private Date lastUpdated; // Done automatically do not implement on form!
 
     @Column
-    private Float stopwatch;
+    private Float stopwatch; // Done automatically do not implement on form!
 
     public Ticket() {
 
     }
 
-    public Ticket(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
+    public Ticket(Date ticketDate, String status, String title, String description, List links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
         this.description = description;
+        this.links = links;
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
@@ -106,6 +112,14 @@ public class Ticket {
 
     public String getCohort() {
         return cohort;
+    }
+
+    public List getLinks() {
+        return links;
+    }
+
+    public void setLinks(List links) {
+        this.links = links;
     }
 
     public void setCohort(String cohort) {

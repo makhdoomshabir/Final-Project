@@ -1,6 +1,6 @@
 package com.qa.dto;
 
-import java.util.Date;
+import java.util.*;
 
 public class TicketDTO {
 
