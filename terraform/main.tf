@@ -18,6 +18,18 @@ resource "aws_eip" "nat_gw_eip" {
   vpc = true
 }
 
+# Elastic IP for bastion server
+resource "aws_eip" "bastion_eip" {
+  instance = aws_instance.Bastion.id
+  vpc      = true
+}
+
+# EIP association for bastion server
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.Bastion.id
+  allocation_id = aws_eip.bastion_eip.id
+}
+
 # NAT Gateway
 resource "aws_nat_gateway" "nat-gw" {
   allocation_id = aws_eip.nat_gw_eip.id
@@ -281,6 +293,35 @@ resource "aws_security_group" "prod-sg" {
 
   tags = {
     Name = "allow_access_prod_server"
+  }
+}
+
+# Create bastion server security group (subnet 4)
+resource "aws_security_group" "bastion-sg" {
+  name        = "bastion-sg"
+  description = "Allow web traffic from specific IPs"
+  vpc_id      = aws_vpc.main-vpc.id
+
+  # SSH Traffic
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["46.64.73.251/32"] #allow web traffic
+  }
+
+  # Egress/Outbound rules
+
+  egress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp" # -1 means any protocol
+    cidr_blocks = ["46.64.73.251/32"]
+  }
+
+  tags = {
+    Name = "allow_access_bastion_server"
   }
 }
 
@@ -607,10 +648,40 @@ resource "aws_network_acl" "public_nacl" {
 
 }
 
-# Create EC2 instance
-# Commenting out the below to create VPC, subnets and internet gateway first so VPC and subnet IDs can be added to EC2 resource
-#resource "aws_instance" "EC2" {
-#  ami           = var.ami-id
-#  instance_type = var.instance-type
-#  key_name      = var.pem-key
-#}
+# Key pair resource
+resource "aws_key_pair" "jenkins" {
+  key_name   = "JenkinsKeyPair"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+# Bastion box key pair
+resource "aws_key_pair" "bastion" {
+  key_name   = "bastion"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+# Create Jenkins EC2 instance. 
+resource "aws_instance" "Jenkins" {
+  ami                    = var.ami-id
+  instance_type          = var.instance-type
+  key_name               = "JenkinsKeyPair"
+  vpc_security_group_ids = ["sg-09d345cc99081bddd"]
+  subnet_id              = "subnet-04f8e8cc22d944a1e"
+
+  tags = {
+    Name = "Jenkins Server"
+  }
+}
+
+# Create bastion box so I can SSH in and add public keys of adama and daood to grant them ssh access to other servers in VPC. 
+resource "aws_instance" "Bastion" {
+  ami                    = var.ami-id
+  instance_type          = var.instance-type
+  key_name               = "bastion"
+  vpc_security_group_ids = ["sg-04b44ef5732d6e8c2"]
+  subnet_id              = "subnet-015bc127ab67ebad0"
+
+  tags = {
+    Name = "Bastion Server"
+  }
+}
