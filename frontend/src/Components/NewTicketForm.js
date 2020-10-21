@@ -6,7 +6,7 @@ const NewTicket = () => {
         <div>
   <Form>
   <Form.Row>
-    <Form.Group as={Col} controlId="formGridEmail" id="cohort">
+    <Form.Group as={Col} id="cohort">
       <Form.Label>Cohort</Form.Label>
       <Form.Control as="select" defaultValue="Choose...">
         <option>Choose...</option>
