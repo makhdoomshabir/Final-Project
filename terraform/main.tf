@@ -152,7 +152,7 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   ingress {
@@ -160,7 +160,15 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
+  }
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
   }
 
   # HTTP Rules
@@ -169,7 +177,7 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   ingress {
@@ -177,7 +185,7 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
   }
 
   # Port 8080 Rules
@@ -186,7 +194,7 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   ingress {
@@ -194,7 +202,7 @@ resource "aws_security_group" "jenkins-sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
   }
 
   # Egress/Outbound rules
@@ -225,7 +233,7 @@ resource "aws_security_group" "test-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   ingress {
@@ -233,7 +241,7 @@ resource "aws_security_group" "test-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
   }
 
   # HTTP Rules
@@ -242,7 +250,7 @@ resource "aws_security_group" "test-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   ingress {
@@ -250,7 +258,7 @@ resource "aws_security_group" "test-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Adama IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = ["0.0.0.0/0"] #Adama IP goes here. /32 CIDR notation for single IP
   }
 
   # Egress/Outbound rules
@@ -305,18 +313,18 @@ resource "aws_security_group" "bastion-sg" {
   # SSH Traffic
   ingress {
     description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #allow web traffic.
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"] #allow web traffic.46.64.73.251/32
   }
 
   # Egress/Outbound rules
 
   egress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -339,7 +347,7 @@ resource "aws_security_group" "database-sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/32"] #Test & Prod subnet IP
+    cidr_blocks = ["0.0.0.0/0"] #Test & Prod subnet IP
   }
 
   # Egress/Outbound rules
@@ -358,7 +366,7 @@ resource "aws_security_group" "database-sg" {
 
 # Key pair resource
 resource "aws_key_pair" "jenkins" {
-  key_name   = "JenkinsKeyPair"
+  key_name   = "j-key"
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
@@ -372,13 +380,23 @@ resource "aws_key_pair" "bastion" {
 resource "aws_instance" "Jenkins" {
   ami                    = var.ami-id
   instance_type          = var.instance-type
-  key_name               = "JenkinsKeyPair"
-  vpc_security_group_ids = ["sg-09d345cc99081bddd"]
-  subnet_id              = "subnet-04f8e8cc22d944a1e"
+  key_name               = "j-key"
+  vpc_security_group_ids = ["sg-07b8199a1b669f31e"]   #jenkins sg
+  subnet_id              = "subnet-07f5fa3c71d947b88" #jenkins subnet
 
   tags = {
     Name = "Jenkins Server"
   }
+}
+
+# Security group rule to allow bastion server to ssh into Jenkins server
+resource "aws_security_group_rule" "bastion-to-jenkins" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = "sg-0bfd706da27f396d0"
+  security_group_id        = "sg-07b8199a1b669f31e" #jenkins sg
 }
 
 # Create bastion box so I can SSH in and add public keys of adama and daood to grant them ssh access to other servers in VPC. 
@@ -386,8 +404,8 @@ resource "aws_instance" "Bastion" {
   ami                    = var.ami-id
   instance_type          = var.instance-type
   key_name               = "bastion"
-  vpc_security_group_ids = ["sg-04b44ef5732d6e8c2"]
-  subnet_id              = "subnet-015bc127ab67ebad0"
+  vpc_security_group_ids = ["sg-0bfd706da27f396d0"]
+  subnet_id              = "subnet-0cda02ab4d3057b44"
 
   tags = {
     Name = "Bastion Server"
