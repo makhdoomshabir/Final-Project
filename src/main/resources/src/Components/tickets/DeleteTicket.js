@@ -3,7 +3,7 @@ import React from "react";
 /*
 THIS IS THE DELETE PRODUCT SECTION
  */
-function DeleteTicket() {
+export function DeleteTicket() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const ticket = urlParams.get('id');

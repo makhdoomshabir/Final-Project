@@ -3,8 +3,9 @@ import './css/App.css';
 import Footer from "./Components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navigation from "./Components/nav";
-// import AddSolution from "./Components/tickets/AddSolution";
-// import AddTicket from "./Components/tickets/AddTicket"
+import AddSolution from "./Components/tickets/AddSolution";
+import AddTicket from "./Components/tickets/AddTicket";
+import {UpdateTicket} from "./Components/tickets/UpdateTicket";
 import Welcome from "./Components/Pages/Welcome";
 import HomeSoftware from "./Components/Pages/HomeSoftware"
 import HomeCloud from "./Components/Pages/HomeCloud"
@@ -37,9 +38,9 @@ function App() {
                 ticket needs to go on the navigation bar?
 
                 */}
-                {/*<Route path="/add-ticket" component={AddTicket} exact/>*/}
-                {/*<Route path="/update-ticket" component={UpdateTicket} exact/>*/}
-                {/*<Route path="/add-solution" component={AddSolution} exact/>*/}
+                <Route path="/add-ticket" component={AddTicket} exact/>
+                <Route path="/update-ticket" component={UpdateTicket} exact/>
+                <Route path="/add-solution" component={AddSolution} exact/>
 
             </Switch>
             </Router>
