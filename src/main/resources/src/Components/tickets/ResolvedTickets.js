@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import {Card, Button} from "react-bootstrap";
+import {Button, Card, CardDeck} from "react-bootstrap";
 import axios from "axios";
 
 export default class ResolvedTickets extends Component {
@@ -8,38 +8,43 @@ export default class ResolvedTickets extends Component {
         super(props);
 
         this.state = {
-            ticket: []
+            tickets: []
         };
     }
 
     componentDidMount() {
         axios.get("http://localhost:8080/allTickets")
-            .then(response => console.log(response.data))
-            .then((data) => {
-                this.setState({ticket: data});
-            });
+            .then(response => response.data)
+            .then(
+                (data) => {
+                    this.setState({tickets: data});
+                });
     }
 
     render() {
         return (
-            <>
+            <CardDeck>
                 {
-                    // this.state.ticket.map((ticket) => {
-                    //     <div key={ticket.id}>
-                    //         <Card style={{width: '25rem'}}>
-                    //             <Card.Body>
-                    //                 <Card.Title>{this.state.tickets.title}</Card.Title>
-                    //                 <Card.Subtitle className="mb-2 text-muted">{this.state.tickets.author}</Card.Subtitle>
-                    //                 <Card.Text>{this.state.tickets.description}</Card.Text>
-                    //                 <Button variant="primary">Update</Button>
-                    //                 <Button variant="primary">Add Solution</Button>
-                    //                 <Button variant="primary">Delete</Button>
-                    //             </Card.Body>
-                    //         </Card>
-                    //     </div>
-                })
+                    this.state.tickets === 0 ?
+                        <h1>
+                            not hereeee
+                        </h1> :
+                        this.state.tickets.map((ticket) => (
+                            <Card key={ticket.id}>
+                                <Card.Body key={ticket.id}>
+                                    <Card.Title>{ticket.title}</Card.Title>
+                                    <Card.Subtitle>{ticket.author}</Card.Subtitle>
+                                    <Card.Text>{ticket.description}</Card.Text>
+                                    <Card.Text>{ticket.cohort}</Card.Text>
+                                    <Card.Text>{ticket.author}</Card.Text>
+                                    <Button>Update</Button>
+                                    <Button>Add Solution</Button>
+                                    <Button>Delete</Button>
+                                </Card.Body>
+                            </Card>
+                        ))
                 }
-            </>
+            </CardDeck>
         );
     }
 }
