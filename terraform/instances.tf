@@ -1,25 +1,25 @@
-# # Create Jenkins EC2 instance. 
-# resource "aws_instance" "Jenkins" {
-#   ami                    = var.ami-id
-#   instance_type          = var.instance-type
-#   key_name               = "j-key"
-#   vpc_security_group_ids = ["sg-07b8199a1b669f31e"]   #jenkins sg
-#   subnet_id              = "subnet-07f5fa3c71d947b88" #jenkins subnet
+# Create Jenkins EC2 instance. 
+resource "aws_instance" "Jenkins" {
+  ami                    = var.ami-id
+  instance_type          = var.instance-type
+  key_name               = "j-key"
+  vpc_security_group_ids = ["sg-04c0d391fb6b827aa"]   #jenkins sg
+  subnet_id              = "subnet-01f8a9cc5ccba08d9" #jenkins subnet
 
-#   tags = {
-#     Name = "Jenkins Server"
-#   }
-# }
+  tags = {
+    Name = "Jenkins Server"
+  }
+}
 
-# # Create bastion box so I can SSH in and add public keys of adama and daood to grant them ssh access to other servers in VPC. 
-# resource "aws_instance" "Bastion" {
-#   ami                    = var.ami-id
-#   instance_type          = var.instance-type
-#   key_name               = "bastion"
-#   vpc_security_group_ids = ["sg-0bfd706da27f396d0"]
-#   subnet_id              = "subnet-0cda02ab4d3057b44"
+# Create bastion server so I can SSH in and add public keys of adama and daood to grant them ssh access to other servers in VPC. 
+resource "aws_instance" "Bastion" {
+  ami                    = var.ami-id
+  instance_type          = var.instance-type
+  key_name               = "bastion"
+  vpc_security_group_ids = ["sg-006fadfb34553a46e"]   #bastion sg
+  subnet_id              = "subnet-0d34663f30d07b049" #public subnet 
 
-#   tags = {
-#     Name = "Bastion Server"
-#   }
-# }
+  tags = {
+    Name = "Bastion Server"
+  }
+}
