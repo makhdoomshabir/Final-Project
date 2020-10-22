@@ -3,12 +3,14 @@
   become: true
   # list of tasks to run on the remote machine
   tasks:
-  - name: 'install docker'
-    script: installdocker.sh
+  - name: 'update system'
+    apt: update_cache=yes apt_get=yes
+ # - name: 'install docker'
+  #  script: installdocker.sh
 
-  - name: 'install docker-compose'
-    script: installdockercompose.sh
+ # - name: 'install docker-compose'
+  #  script: installdockercompose.sh
 
-  - name: 'install Jenkins'
-    script: installjenkins.sh
+ # - name: 'install Jenkins'
+  #  script: installjenkins.sh
 
