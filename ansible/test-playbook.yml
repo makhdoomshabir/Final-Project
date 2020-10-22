@@ -6,11 +6,11 @@
   - name: 'update system'
     apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
   - name: 'install docker'
-    script: installdocker.sh
+    script: docker.sh
 
   - name: 'install docker-compose'
-    script: installdockercompose.sh
+    script: docker-compose.sh
 
   - name: 'install Jenkins'
-    script: installjenkins.sh
+    script: jenkins.sh
 
