@@ -1,6 +1,6 @@
 [jenkins]
-#dns of EC2 instance
-ip-10-0-1-19.eu-west-2.compute.internal
+#ip of EC2 instance
+10.0.1.19
 
 [jenkins:vars]
 ansible_user=ubuntu
