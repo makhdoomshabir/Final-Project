@@ -4,7 +4,7 @@
   # list of tasks to run on the remote machine
   tasks:
   - name: 'update system'
-    apt: update_cache=yes apt_get=yes
+    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
  # - name: 'install docker'
   #  script: installdocker.sh
 
