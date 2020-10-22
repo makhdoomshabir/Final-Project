@@ -87,7 +87,7 @@ can access different pages in a structured environment.
 
 ### AWS
 #### Network Diagram
-![aws_network_diagram](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/aws_network_diagram%20(2).png)
+![aws_network_diagram](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/aws_net_diagram.png)
 
 ### MOSCOW Prioritisation
 
