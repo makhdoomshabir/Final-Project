@@ -4,6 +4,7 @@ THIS IS THE CREATE TICKETS SECTION
 
 function createTicket() {
 
+
     let elements = document.getElementById("ticketForm").elements;
     let obj = {};
     for (let i = 0; i < elements.length - 1; i++) {
