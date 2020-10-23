@@ -18,7 +18,7 @@ const Header = () => {
                     resolved.
                 </p>
                 <footer className="blockquote-footer">
-                    <h3>QA Academy</h3>
+                    <h4>QA Academy</h4>
                 </footer>
          </blockquote>
         </Jumbotron>
