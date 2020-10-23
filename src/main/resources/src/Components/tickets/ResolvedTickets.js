@@ -1,36 +1,45 @@
-import React from 'react';
-import {Card, Button} from "react-bootstrap";
-import {DeleteTicket} from "./DeleteTicket";
-import {UpdateTicket} from "./UpdateTicket";
+import React, {Component} from 'react';
+// import {Card, Button} from "react-bootstrap";
+import axios from "axios";
 
-const ResolvedTickets = () => {
-    const req = new XMLHttpRequest();
-    return req.onreadystatechange = () => {
-        // Example Handle Logic
-        if (req.status === 200 && req.readyState === 4) {
-            if (req.getResponseHeader("Content-Type") === "application/json") {
-                let stuff = JSON.parse(req.response);
-                return (
-                    stuff.forEach(ticket => {
-                        return (
-                            <div>
-                                <Card style={{width: '25rem'}}>
-                                    <Card.Body>
-                                        <Card.Title>{ticket.title}</Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted">{ticket.author}</Card.Subtitle>
-                                        <Card.Text>{ticket.description}</Card.Text>
-                                        <Button variant="primary" onClick={UpdateTicket}>Update</Button>
-                                        <Button variant="primary">Add Solution</Button>
-                                        <Button variant="primary" onClick={DeleteTicket(ticket)}>Delete</Button>
-                                    </Card.Body>
-                                </Card>
-                            </div>
-                        );
-                    })
-                );
-            }
-        }
+export default class ResolvedTickets extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            ticket: []
+        };
+    }
+
+    componentDidMount() {
+        axios.get("http://localhost:8080/allTickets")
+            .then(response => console.log(response.data))
+            .then((data) => {
+                this.setState({ticket: data});
+            });
+    }
+
+    render() {
+        return (
+            <>
+                {
+                    // this.state.ticket.map((ticket) => {
+                    //     <div key={ticket.id}>
+                    //         <Card style={{width: '25rem'}}>
+                    //             <Card.Body>
+                    //                 <Card.Title>{this.state.tickets.title}</Card.Title>
+                    //                 <Card.Subtitle className="mb-2 text-muted">{this.state.tickets.author}</Card.Subtitle>
+                    //                 <Card.Text>{this.state.tickets.description}</Card.Text>
+                    //                 <Button variant="primary">Update</Button>
+                    //                 <Button variant="primary">Add Solution</Button>
+                    //                 <Button variant="primary">Delete</Button>
+                    //             </Card.Body>
+                    //         </Card>
+                    //     </div>
+                })
+                }
+            </>
+        );
     }
 }
-
-export default ResolvedTickets;
