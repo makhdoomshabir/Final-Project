@@ -1,23 +1,24 @@
 import React from 'react';
 import {Form, Navbar, FormControl, Button, NavDropdown, Nav} from 'react-bootstrap';
+import {Link} from "react-router-dom";
 
 export function Navigation() {
   return (
       <div>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand>
-            <img alt="logo" src="https://i.imgur.com/smguoM3.png" width="100"/>
+        <Navbar className="bg-dark text-white" expand="lg">
+          <Navbar.Brand tag={Link} to="/">
+            <img alt="logo" src=" " width="100"/>
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <NavDropdown title="Cohort" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Software Development</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Cloud Computing</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">DevOps</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Robotic Process Automation</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Pega</NavDropdown.Item>
+                <NavDropdown.Item tag={Link} to="/software-development">Software Development</NavDropdown.Item>
+                <NavDropdown.Item tag={Link} to="/cloud-computing">Cloud Computing</NavDropdown.Item>
+                <NavDropdown.Item tag={Link} to="/dev-ops">DevOps</NavDropdown.Item>
+                <NavDropdown.Item tag={Link} to="/robotic-process-automation">Robotic Process Automation</NavDropdown.Item>
+                <NavDropdown.Item tag={Link} to="/pega">Pega</NavDropdown.Item>
               </NavDropdown>
             </Nav>
         </Navbar.Collapse>
@@ -27,9 +28,11 @@ export function Navigation() {
                   <Button variant="outline-success">Search</Button>
           </Form>
 
-          <Button variant="outline-success">Add Ticket</Button>
+          <Button variant="outline-success" tag={Link} to="/add-ticket">Add Ticket</Button>
 
         </Navbar>
       </div>
   );
 }
+
+export default Navigation;
