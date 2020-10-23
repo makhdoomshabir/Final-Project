@@ -1,26 +1,29 @@
 import React from 'react';
 import {Form, Navbar, FormControl, Button, NavDropdown, Nav} from 'react-bootstrap';
-import {Link} from "react-router-dom";
-// import logo from './images/qalogo-removebg-preview (1).png';
+import {BrowserRouter as Router, Link, NavLink} from "react-router-dom";
+import logo from './images/qalogo-removebg-preview (1).png';
 
 export function Navigation() {
   return (
       <div>
+          <Router>
         <Navbar className="bg-dark text-white" expand="lg">
-          <Navbar.Brand tag={Link} to="/">
-              {/*<img alt="logo" src={logo} width="50"/>*/}
-          </Navbar.Brand>
+          <Link to="/" classname="bg-dark text-white" expand="lg">
+              <img src={logo} width="50"/>
+        </Link>
+         
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <NavDropdown title="Cohort" id="collasible-nav-dropdown">
-                <NavDropdown.Item tag={Link} to="/software-development">Software Development</NavDropdown.Item>
-                <NavDropdown.Item tag={Link} to="/cloud-computing">Cloud Computing</NavDropdown.Item>
-                <NavDropdown.Item tag={Link} to="/dev-ops">DevOps</NavDropdown.Item>
-                <NavDropdown.Item tag={Link} to="/robotic-process-automation">Robotic Process Automation</NavDropdown.Item>
-                <NavDropdown.Item tag={Link} to="/pega">Pega</NavDropdown.Item>
+              <NavDropdown title="Cohort" id="collasible-nav-dropdown" >
+                  <Link className="dropdown-item" to="/software-development">Software Development</Link>
+                  <Link className="dropdown-item" to="/cloud-computing">Cloud Computing</Link>
+                  <Link className="dropdown-item" to="/dev-ops">DevOps</Link>
+                  <Link className="dropdown-item" to="/robotic-process-automation">Robotic Process Automation</Link>
+                  <Link className="dropdown-item" to="/pega">Pega</Link>
               </NavDropdown>
+
             </Nav>
         </Navbar.Collapse>
 
@@ -29,9 +32,14 @@ export function Navigation() {
                   <Button variant="outline-success">Search</Button>
           </Form>
 
-          <Button variant="outline-success" tag={Link} to="/add-ticket">Add Ticket</Button>
+            <Link to="/add-ticket">
+                <Button variant="outline-success" className="is-rounded">
+                    <span>Add Ticket</span>
+                </Button>
+            </Link>
 
         </Navbar>
+        </Router>
       </div>
   );
 }

@@ -4,7 +4,7 @@ import { Form, Col, Button} from 'react-bootstrap';
 const NewTicket = () => {
     return(
         <div>
-            <Form>
+            <Form id="ticketForm">
             <Form.Row>
                 <Form.Group as={Col} id="cohort">
                 <Form.Label>Cohort</Form.Label>
