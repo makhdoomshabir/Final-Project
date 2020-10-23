@@ -1,3 +1,4 @@
+/*
 .App {
   text-align: center;
 }
@@ -36,9 +37,14 @@
     transform: rotate(360deg);
   }
 }
+*/
+
 
 #homepageHeader {
-  margin: 100px;
+  margin-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px
+;
 }
 body {
   background-color: #272B30;}
