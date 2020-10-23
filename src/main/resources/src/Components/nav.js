@@ -1,13 +1,14 @@
 import React from 'react';
 import {Form, Navbar, FormControl, Button, NavDropdown, Nav} from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import logo from './images/qalogo-removebg-preview (1).png';
 
 export function Navigation() {
   return (
       <div>
         <Navbar className="bg-dark text-white" expand="lg">
           <Navbar.Brand tag={Link} to="/">
-            <img alt="logo" src=" " width="100"/>
+            <img alt="logo" src={logo} width="50"/>
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
