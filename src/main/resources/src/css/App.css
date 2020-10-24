@@ -70,3 +70,9 @@ body {
   margin-bottom: 50px;
   color: white;
 }
+
+#pageheader {
+  color: white;
+  text-align: center;
+  margin-top: 2.5%;
+}
