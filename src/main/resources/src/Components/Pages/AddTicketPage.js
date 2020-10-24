@@ -4,7 +4,7 @@ import AddTicket from '../tickets/AddTicket'
 const AddTicketPage = () =>  {
     return(
         <div>
-            <h1 className="pageheader"> New Ticket</h1>
+            <h1 id="pageheader"> New Ticket</h1>
             <AddTicket/>
 
         </div>
