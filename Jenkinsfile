@@ -41,8 +41,8 @@ pipeline{
             stage('Run tests'){
                 steps{
                     sh '''
-                    echo docker --version
-                    echo docker-compose --version
+                    echo $(docker --version)
+                    echo $(docker-compose --version)
                     '''
                     }
                 }
