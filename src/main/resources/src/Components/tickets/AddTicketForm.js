@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Col, Button} from 'react-bootstrap';
 
-const NewTicket = () => {
+const AddTicketForm = () => {
     return(
         <div>
             <Form id="ticketForm">
@@ -46,11 +46,11 @@ const NewTicket = () => {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Update Issue
+                Add Issue
             </Button>
             </Form>
         </div>
     );
 };
 
-export default NewTicket;
+export default AddTicketForm;
