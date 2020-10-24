@@ -8,20 +8,21 @@ export function Navigation() {
       <div>
           <Router>
         <Navbar className="bg-dark text-white" expand="lg">
-          <Link to="/" classname="bg-dark text-white" expand="lg">
+
+          <a href="/" classname="bg-dark text-white" expand="lg">
               <img src={logo} width="50"/>
-        </Link>
+        </a>
          
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <NavDropdown title="Cohort" id="collasible-nav-dropdown" >
-                  <Link className="dropdown-item" to="/software-development">Software Development</Link>
-                  <Link className="dropdown-item" to="/cloud-computing">Cloud Computing</Link>
-                  <Link className="dropdown-item" to="/dev-ops">DevOps</Link>
-                  <Link className="dropdown-item" to="/robotic-process-automation">Robotic Process Automation</Link>
-                  <Link className="dropdown-item" to="/pega">Pega</Link>
+                  <a className="dropdown-item" href="/software-development">Software Development</a>
+                  <a className="dropdown-item" href="/cloud-computing">Cloud Computing</a>
+                  <a className="dropdown-item" href="/dev-ops">DevOps</a>
+                  <a className="dropdown-item" href="/robotic-process-automation">Robotic Process Automation</a>
+                  <a className="dropdown-item" href="/pega">Pega</a>
               </NavDropdown>
 
             </Nav>
@@ -29,14 +30,14 @@ export function Navigation() {
 
         <Form inline>
                   <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-                  <Button variant="outline-success">Search</Button>
+            <a> <Button variant="outline-success">Search</Button> </a>
           </Form>
 
-            <Link to="/add-ticket">
+            <a href="/add-ticket">
                 <Button variant="outline-success" className="is-rounded">
                     <span>Add Ticket</span>
                 </Button>
-            </Link>
+            </a>
 
         </Navbar>
         </Router>
