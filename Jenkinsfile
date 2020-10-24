@@ -22,8 +22,7 @@ pipeline{
                     sudo chmod +x /usr/local/bin/docker-compose
                     '''
                 }
-            }
-                
+            }  
             // stage('Spin up containers'){
             //     steps{
             //     withCredentials([file(credentialsId: 'TestServKeyPair', variable: 'TestServKeyPair'), string(credentialsId: 'DATABASE_URI', variable: 'DATABASE_URI'), string(credentialsId: 'TEST_DATABASE_URI', variable: 'TEST_DATABASE_URI'), string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'), string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD')]){
