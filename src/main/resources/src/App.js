@@ -4,7 +4,6 @@ import Footer from "./Components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navigation from "./Components/nav";
 import AddSolution from "./Components/tickets/AddSolution";
-import AddTicket from "./Components/tickets/AddTicket";
 import {UpdateTicket} from "./Components/tickets/UpdateTicket";
 import Welcome from "./Components/Pages/Welcome";
 import HomeSoftware from "./Components/Pages/HomeSoftware"
