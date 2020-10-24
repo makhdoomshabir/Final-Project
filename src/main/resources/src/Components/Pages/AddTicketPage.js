@@ -1,11 +1,11 @@
 import React from "react";
-import AddTicket from '../tickets/AddTicket'
+import AddTicketForm from '../tickets/AddTicketForm'
 
 const AddTicketPage = () =>  {
     return(
         <div>
             <h1 id="pageheader"> New Ticket</h1>
-            <AddTicket/>
+            <AddTicketForm/>
 
         </div>
     )
