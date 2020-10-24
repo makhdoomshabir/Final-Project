@@ -12,6 +12,7 @@ import HomeCloud from "./Components/Pages/HomeCloud"
 import HomeDev from "./Components/Pages/HomeDev"
 import HomeRPA from "./Components/Pages/HomeRPA"
 import HomePega from "./Components/Pages/HomePega"
+import AddTicketPage from "./Components/Pages/AddTicketPage";
 
 function App() {
     return (
@@ -38,7 +39,7 @@ function App() {
                 ticket needs to go on the navigation bar?
 
                 */}
-                <Route path="/add-ticket" component={AddTicket} exact/>
+                <Route path="/add-ticket" component={AddTicketPage} exact/>
                 <Route path="/update-ticket" component={UpdateTicket} exact/>
                 <Route path="/add-solution" component={AddSolution} exact/>
 
