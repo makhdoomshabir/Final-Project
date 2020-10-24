@@ -23,3 +23,16 @@ resource "aws_instance" "Bastion" {
     Name = "Bastion Server"
   }
 }
+
+#Create Test EC2 instance.
+resource "aws_instance" "Test" {
+  ami                    = var.ami-id
+  instance_type          = var.instance-type
+  key_name               = "test"
+  vpc_security_group_ids = ["sg-00a049e5d7875387c"]   #test sg
+  subnet_id              = "subnet-0603791b1ee37f9b3" #test subnet
+
+  tags = {
+    Name = "Test Server"
+  }
+}
