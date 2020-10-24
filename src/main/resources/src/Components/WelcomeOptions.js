@@ -11,7 +11,7 @@ const WelcomeOptions = () => {
                 <Card.Body>
                     <Card.Title> <h3>Software Development</h3> </Card.Title>
                 </Card.Body>
-                <Button> See Tickets</Button>
+                <Button > See Tickets</Button>
             </Card>
 
             <Card >
