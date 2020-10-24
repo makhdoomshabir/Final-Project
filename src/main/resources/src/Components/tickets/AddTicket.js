@@ -46,7 +46,7 @@ const NewTicket = () => {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Update Issue
+                Add Issue
             </Button>
             </Form>
         </div>
