@@ -9,8 +9,7 @@ variable "instance-type" {
   default     = "t2.micro"
 }
 
-# variable "pem-key" {
-#   #PEM KEY MAY NEED CHANGING
-#   description = "Associated Key to SSH into the EC2 Instance"
-#   default     = "instance-1"
-# }
+variable "availability_zone" {
+  description = "Default availability zone"
+  default     = ["eu-west-2"]
+}
