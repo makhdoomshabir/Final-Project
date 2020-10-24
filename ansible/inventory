@@ -1,12 +1,27 @@
+[bastion]
+#ip for bastion host
+3.8.61.35
+
+[bastion:vars]
+ansible_ssh_user=ubuntu
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ubuntu@3.8.61.35"'
+ansible_ssh_private_key_file=~/.ssh/bastion.pem
+
 [jenkins]
 #ip of EC2 instance
-10.0.1.19
+10.0.1.49
 
 [jenkins:vars]
-ansible_user=ubuntu
+ansible_ssh_user=ubuntu
 ansible_python_interpreter=/usr/bin/python3
-#ansible_ssh_common_args='-o ProxyCommand="ssh ubuntu@10.0.1.19"
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#ansible_ssh_common_args='-o ubuntu@10.0.1.49'
+#ansible_ssh_common_args='-o ProxyCommand="ssh -J ubuntu@3.8.61.35 ubuntu@10.0.1.49"'
+#ansible_ssh_common_args='-J ubuntu@3.8.61.35 ssh ubuntu@10.0.1.49'
+#ansible_ssh_common_args='-o ProxyCommand="ssh ubuntu@3.8.61.35 'nc 10.0.1.49 22'" ubuntu@10.0.1.49'
+#ansible_ssh_common_args='-o ProxyCommand="ssh -A -q ubuntu@3.8.61.35 -w 300"'
 ansible_ssh_private_key_file=~/j-key.pem
 
 #[Test]

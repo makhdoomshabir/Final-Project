@@ -1,3 +1,7 @@
+- hosts: bastion
+  become: true
+  gather_facts: true
+
 - hosts: jenkins
   # run as the root user on the remote machine
   become: true
@@ -5,6 +9,7 @@
   tasks:
   - name: 'update system'
     apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
   - name: 'install docker'
     script: docker.sh
 
