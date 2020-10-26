@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Card, CardDeck} from "react-bootstrap";
+import {Button, Card, CardDeck, ButtonGroup} from "react-bootstrap";
 import axios from "axios";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit, faSave, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default class ResolvedTickets extends Component {
 
@@ -23,28 +25,30 @@ export default class ResolvedTickets extends Component {
 
     render() {
         return (
-            <CardDeck>
+            <div>
                 {
                     this.state.tickets === 0 ?
                         <h1>
-                            not hereeee
+                            No Tickets
                         </h1> :
                         this.state.tickets.map((ticket) => (
-                            <Card key={ticket.id}>
+                            <Card key={ticket.id} id="resolvedTicketsCards">
                                 <Card.Body key={ticket.id}>
                                     <Card.Title>{ticket.title}</Card.Title>
                                     <Card.Subtitle>{ticket.author}</Card.Subtitle>
                                     <Card.Text>{ticket.description}</Card.Text>
                                     <Card.Text>{ticket.cohort}</Card.Text>
-                                    <Card.Text>{ticket.author}</Card.Text>
-                                    <Button>Update</Button>
-                                    <Button>Add Solution</Button>
-                                    <Button>Delete</Button>
+                                    <Card.Text>{ticket.links}</Card.Text>
+                                    <ButtonGroup>
+                                        <Button>Add Solution</Button>
+                                        <Button><FontAwesomeIcon icon={faEdit} /></Button>
+                                        <Button><FontAwesomeIcon icon={faTrash} /></Button>
+                                    </ButtonGroup>
                                 </Card.Body>
                             </Card>
                         ))
                 }
-            </CardDeck>
+            </div>
         );
     }
 }
