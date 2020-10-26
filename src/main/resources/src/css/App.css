@@ -76,3 +76,11 @@ body {
   text-align: center;
   margin-top: 2.5%;
 }
+
+#resolvedTicketsCards {
+  margin-top: 50px;
+  margin-left: 100px;
+  margin-right: 200px;
+  margin-bottom: 50px;
+  width: 500px;;
+}
