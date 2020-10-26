@@ -19,7 +19,7 @@ public class Ticket {
     private Date ticketDate; // Done automatically do not implement on form!
 
     @Column
-    private String status = "Not Solved"; // Done automatically do not implement on form!
+    private String status = "unresolved"; // Done automatically do not implement on form!
 
     @Column
     private String title;
@@ -54,7 +54,6 @@ public class Ticket {
         this.status = status;
         this.title = title;
         this.description = description;
-
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;

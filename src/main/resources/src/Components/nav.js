@@ -9,9 +9,9 @@ export function Navigation() {
           <Router>
         <Navbar className="bg-dark text-white" expand="lg">
 
-          <a href="/" classname="bg-dark text-white" expand="lg">
+          <a href="/" className="bg-dark text-white" expand="lg">
               <img src={logo} width="50"/>
-        </a>
+          </a>
          
 
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />

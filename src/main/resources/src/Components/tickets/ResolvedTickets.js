@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Card, CardDeck, ButtonGroup} from "react-bootstrap";
+import {Button, Card, CardDeck} from "react-bootstrap";
 import axios from "axios";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEdit, faSave, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default class ResolvedTickets extends Component {
 
@@ -23,32 +21,40 @@ export default class ResolvedTickets extends Component {
                 });
     }
 
+    deleteTicket = (ticketId) => {
+        alert(ticketId);
+        axios.delete("http://localhost:8080/deleteTicket/" + ticketId)
+            .then(response => {
+                    if (response.data != null) {
+                        alert("Ticket removed successfully");
+                        this.setState({
+                            tickets: this.state.tickets.filter(ticket => ticket.id !== ticketId)
+                        });
+                    }
+                }
+            );
+    };
+
     render() {
         return (
-            <div>
+            <CardDeck>
                 {
-                    this.state.tickets === 0 ?
-                        <h1>
-                            No Tickets
-                        </h1> :
-                        this.state.tickets.map((ticket) => (
-                            <Card key={ticket.id} id="resolvedTicketsCards">
-                                <Card.Body key={ticket.id}>
-                                    <Card.Title>{ticket.title}</Card.Title>
-                                    <Card.Subtitle>{ticket.author}</Card.Subtitle>
-                                    <Card.Text>{ticket.description}</Card.Text>
-                                    <Card.Text>{ticket.cohort}</Card.Text>
-                                    <Card.Text>{ticket.links}</Card.Text>
-                                    <ButtonGroup>
-                                        <Button>Add Solution</Button>
-                                        <Button><FontAwesomeIcon icon={faEdit} /></Button>
-                                        <Button><FontAwesomeIcon icon={faTrash} /></Button>
-                                    </ButtonGroup>
-                                </Card.Body>
-                            </Card>
-                        ))
+                    this.state.tickets.map((ticket, ticketID) => (
+                        <Card>
+                            <Card.Body key={ticketID}>
+                                <Card.Title>{ticket.title}</Card.Title>
+                                <Card.Subtitle>{ticket.author}</Card.Subtitle>
+                                <Card.Text>{ticket.description}</Card.Text>
+                                <Card.Text>{ticket.cohort}</Card.Text>
+                                <Card.Text>{ticket.author}</Card.Text>
+                                <Button>Update</Button>
+                                <Button>Add Solution</Button>
+                                <Button key={ticketID} onClick={() => this.deleteTicket(ticketID)}>Delete</Button>
+                            </Card.Body>
+                        </Card>
+                    ))
                 }
-            </div>
+            </CardDeck>
         );
     }
 }
