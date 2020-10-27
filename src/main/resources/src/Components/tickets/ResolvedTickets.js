@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {Button, Card, CardDeck, ButtonGroup} from "react-bootstrap";
+import {Button, Card, CardDeck} from "react-bootstrap";
 import axios from "axios";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEdit, faSave, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default class ResolvedTickets extends Component {
 
@@ -10,7 +8,7 @@ export default class ResolvedTickets extends Component {
         super(props);
 
         this.state = {
-            tickets: []
+            tickets: {}
         };
     }
 
@@ -23,32 +21,44 @@ export default class ResolvedTickets extends Component {
                 });
     }
 
-    render() {
-        return (
-            <div>
-                {
-                    this.state.tickets === 0 ?
-                        <h1>
-                            No Tickets
-                        </h1> :
-                        this.state.tickets.map((ticket) => (
-                            <Card key={ticket.id} id="resolvedTicketsCards">
-                                <Card.Body key={ticket.id}>
-                                    <Card.Title>{ticket.title}</Card.Title>
-                                    <Card.Subtitle>{ticket.author}</Card.Subtitle>
-                                    <Card.Text>{ticket.description}</Card.Text>
-                                    <Card.Text>{ticket.cohort}</Card.Text>
-                                    <Card.Text>{ticket.links}</Card.Text>
-                                    <ButtonGroup>
-                                        <Button>Add Solution</Button>
-                                        <Button><FontAwesomeIcon icon={faEdit} /></Button>
-                                        <Button><FontAwesomeIcon icon={faTrash} /></Button>
-                                    </ButtonGroup>
-                                </Card.Body>
-                            </Card>
-                        ))
+    deleteTicket = (ticketId) => {
+        alert(ticketId);
+        axios.delete("http://localhost:8080/deleteTicket/" + ticketId)
+            .then(response => response.data)
+            .then(
+                (data) => {
+                    if (data != null) {
+                        alert("Ticket removed successfully");
+                        this.setState(
+                            {
+                                tickets: this.state.tickets.filter(ticket => ticket.id !== ticketId)
+                            }
+                        );
+                    }
                 }
-            </div>
+            );
+    };
+
+    _renderObject() {
+        return Object.entries(
+            <CardDeck>
+                {
+                    this.state.tickets.forEach(ticket => {
+                        <Card key={ticket.id}>
+                            <Card.Body key={ticket.id}>
+                                <Card.Title>{ticket.title}</Card.Title>
+                                <Card.Subtitle>{ticket.author}</Card.Subtitle>
+                                <Card.Text>{ticket.description}</Card.Text>
+                                <Card.Text>{ticket.cohort}</Card.Text>
+                                <Card.Text>{ticket.author}</Card.Text>
+                                <Button>Update</Button>
+                                <Button>Add Solution</Button>
+                                <Button key={ticket.id} onClick={() => this.deleteTicket(ticket.id)}>Delete</Button>
+                            </Card.Body>
+                        </Card>
+                    })
+                }
+            </CardDeck>
         );
     }
 }
