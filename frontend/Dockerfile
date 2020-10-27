@@ -12,4 +12,4 @@ RUN npm build
 # Stage 2
 FROM nginx:latest
 WORKDIR /app
-COPY --from=build-step /app/build /usr/share/nginx/html
+COPY --from=build-step /app/build /etc/nginx/nginx.conf
