@@ -51,6 +51,7 @@ resource "aws_instance" "Prod" {
   }
 }
 
+# Create Prod RDS instance
 resource "aws_db_instance" "prod" {
   allocated_storage      = 20
   storage_type           = "gp2"
@@ -66,6 +67,7 @@ resource "aws_db_instance" "prod" {
   identifier             = "prod-db"
 }
 
+# Create Test RDS instance
 resource "aws_db_instance" "test" {
   allocated_storage      = 20
   storage_type           = "gp2"
