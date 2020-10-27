@@ -8,7 +8,7 @@ export default class ResolvedTickets extends Component {
         super(props);
 
         this.state = {
-            tickets: {}
+            tickets: []
         };
     }
 
@@ -24,28 +24,24 @@ export default class ResolvedTickets extends Component {
     deleteTicket = (ticketId) => {
         alert(ticketId);
         axios.delete("http://localhost:8080/deleteTicket/" + ticketId)
-            .then(response => response.data)
-            .then(
-                (data) => {
-                    if (data != null) {
+            .then(response => {
+                    if (response.data != null) {
                         alert("Ticket removed successfully");
-                        this.setState(
-                            {
-                                tickets: this.state.tickets.filter(ticket => ticket.id !== ticketId)
-                            }
-                        );
+                        this.setState({
+                            tickets: this.state.tickets.filter(ticket => ticket.id !== ticketId)
+                        });
                     }
                 }
             );
     };
 
-    _renderObject() {
-        return Object.entries(
+    render() {
+        return (
             <CardDeck>
                 {
-                    this.state.tickets.forEach(ticket => {
-                        <Card key={ticket.id}>
-                            <Card.Body key={ticket.id}>
+                    this.state.tickets.map((ticket, ticketID) => (
+                        <Card>
+                            <Card.Body key={ticketID}>
                                 <Card.Title>{ticket.title}</Card.Title>
                                 <Card.Subtitle>{ticket.author}</Card.Subtitle>
                                 <Card.Text>{ticket.description}</Card.Text>
@@ -53,10 +49,10 @@ export default class ResolvedTickets extends Component {
                                 <Card.Text>{ticket.author}</Card.Text>
                                 <Button>Update</Button>
                                 <Button>Add Solution</Button>
-                                <Button key={ticket.id} onClick={() => this.deleteTicket(ticket.id)}>Delete</Button>
+                                <Button key={ticketID} onClick={() => this.deleteTicket(ticketID)}>Delete</Button>
                             </Card.Body>
                         </Card>
-                    })
+                    ))
                 }
             </CardDeck>
         );
