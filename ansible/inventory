@@ -21,7 +21,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [test]
 #ip for test server
-10.0.2.215
+10.0.2.152
 
 [test:vars]
 ansible_user=ubuntu
@@ -31,10 +31,12 @@ ansible_ssh_private_key_file=~/.ssh/test.pem
 
 
 [Product]
-#dns
+#ip for prod server
+10.0.4.127
 
 [Product:vars]
-#ansible_user=ubuntu
-#ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-#ansible_ssh_private_key_file=~/Downloads/instance-1.pem
+ansible_user=ubuntu
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/prod.pem
 
