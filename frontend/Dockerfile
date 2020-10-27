@@ -12,4 +12,4 @@ RUN npm build
 FROM nginx:latest
 WORKDIR /app
 COPY --from=build /build . 
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
