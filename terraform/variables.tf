@@ -13,3 +13,12 @@ variable "availability_zone" {
   description = "Default availability zone"
   default     = ["eu-west-2"]
 }
+
+# DB variables
+variable "db-username" {
+  default = "admin"
+}
+
+variable "db-password" {
+  default = "password"
+}

@@ -57,13 +57,3 @@ resource "aws_db_subnet_group" "db-subnet-group" {
     Name = "DB Subnet group"
   }
 }
-
-# Create DB Subnet group for Test DB
-resource "aws_db_subnet_group" "db-subnet-group-test" {
-  name       = "db-subnet-test"
-  subnet_ids = [aws_subnet.subnet-3-db.id, aws_subnet.subnet-5-spare.id]
-
-  tags = {
-    Name = "Test DB Subnet group"
-  }
-}
