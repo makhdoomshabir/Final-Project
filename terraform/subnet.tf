@@ -37,3 +37,33 @@ resource "aws_subnet" "subnet-4-prod" {
     Name = "prod-subnet-public"
   }
 }
+
+# Create extra subnet in different availability zone (Private)
+resource "aws_subnet" "subnet-5-spare" {
+  vpc_id            = aws_vpc.main-vpc.id
+  cidr_block        = "10.0.5.0/24"
+  availability_zone = "eu-west-2b"
+  tags = {
+    Name = "spare-subnet-private"
+  }
+}
+
+# Create DB Subnet group for Prod DB
+resource "aws_db_subnet_group" "db-subnet-group" {
+  name       = "db-subnet-group"
+  subnet_ids = [aws_subnet.subnet-3-db.id, aws_subnet.subnet-5-spare.id]
+
+  tags = {
+    Name = "DB Subnet group"
+  }
+}
+
+# Create DB Subnet group for Test DB
+resource "aws_db_subnet_group" "db-subnet-group-test" {
+  name       = "db-subnet-test"
+  subnet_ids = [aws_subnet.subnet-3-db.id, aws_subnet.subnet-5-spare.id]
+
+  tags = {
+    Name = "Test DB Subnet group"
+  }
+}
