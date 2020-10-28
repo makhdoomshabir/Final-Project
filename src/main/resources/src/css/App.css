@@ -77,10 +77,16 @@ body {
   margin-top: 2.5%;
 }
 
-#resolvedTicketsCards {
-  margin-top: 50px;
+#resolvedTicketsCardDeck {
+  margin-top: 25px;
   margin-left: 100px;
-  margin-right: 200px;
+  margin-right: 100px;
   margin-bottom: 50px;
-  width: 500px;;
+  padding:3%;
+  width: 85%;
 }
+
+#resolvedtickets{
+
+}
+

@@ -29,8 +29,11 @@ export function Navigation() {
         </Navbar.Collapse>
 
         <Form inline>
-                  <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-            <a> <Button variant="outline-success">Search</Button> </a>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
+            <a>
+                <Button variant="outline-success">Search</Button>
+            </a>
+
           </Form>
 
             <a href="/add-ticket">
