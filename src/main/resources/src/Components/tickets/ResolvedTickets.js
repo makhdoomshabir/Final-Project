@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Card, CardDeck} from "react-bootstrap";
+import {Button, Card, CardDeck, FormControl, InputGroup} from "react-bootstrap";
 import axios from "axios";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStepBackward, faFastBackward, faStepForward, faFastForward, faPlusSquare
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class ResolvedTickets extends Component {
 
@@ -8,7 +11,9 @@ export default class ResolvedTickets extends Component {
         super(props);
 
         this.state = {
-            tickets: []
+            tickets: [],
+            currentPage: 1,
+            ticketsPerPage: 5 ,
         };
     }
 
@@ -38,26 +43,76 @@ export default class ResolvedTickets extends Component {
     };
 
     render() {
+
+        const {tickets, currentPage, ticketsPerPage } = this.state;
+        const lastIndex = currentPage * ticketsPerPage;
+        const firstIndex = lastIndex - ticketsPerPage;
+        const currentTickets = tickets.slice(firstIndex, lastIndex);
+        const totalPages = tickets.length / ticketsPerPage;
+
+        const pageNumCss = {
+            width: "45px",
+            boarder: "1px solid #17A2B8",
+            color: "17A2B8",
+            textAlign: "center",
+            fontWeight: "bold"
+        };
+
         return (
-            <CardDeck>
-                {
+            <Card id="resolvedTicketsCardDeck" className={"bg-dark text-white"}>
+                <Card.Header> <h3>Resolved Tickets</h3></Card.Header>
+                {tickets.length === 0 ?
+                    <h3> No Tickets in this Cohort</h3>
+                    :
                     this.state.tickets.map((ticket) => (
-                        <Card key={ticket.ticketId}>
-                            <Card.Body key={ticket.ticketId}>
-                                <Card.Title>{ticket.title}</Card.Title>
-                                <Card.Subtitle>{ticket.author}</Card.Subtitle>
-                                <Card.Text>{ticket.description}</Card.Text>
-                                <Card.Text>{ticket.cohort}</Card.Text>
-                                <Card.Text>{ticket.author}</Card.Text>
-                                <Button>Update</Button>
-                                <Button>Add Solution</Button>
-                                <Button key={ticket.ticketId}
-                                        onClick={() => this.deleteTicket(ticket.ticketId)}>Delete</Button>
-                            </Card.Body>
-                        </Card>
-                    ))
+
+                        <div key={ticket.ticketId}>
+                            <Card.Title>{ticket.title}</Card.Title>
+                            <Card.Subtitle>{ticket.author}</Card.Subtitle>
+                            <Card.Text>{ticket.description}</Card.Text>
+                            <Card.Text>{ticket.cohort}</Card.Text>
+                            <Card.Text>{ticket.author}</Card.Text>
+                            <Button>Update</Button>
+                            <Button>Add Solution</Button>
+                            <Button key={ticket.ticketId}
+                                    onClick={() => this.deleteTicket(ticket.ticketId)}>Delete</Button>
+                        </div>))
                 }
-            </CardDeck>
+
+                    <Card.Footer>
+                    <div style={{"float":"left"}}>
+                    Showing Page {currentPage} of {totalPages}
+                    </div>
+                    <div style={{"float":"right"}}>
+                    <InputGroup size="sm">
+                    <InputGroup.Prepend>
+                    <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                    onClick={this.firstPage}>
+                    <FontAwesomeIcon icon={faFastBackward} /> First
+                    </Button>
+                    <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                    onClick={this.prevPage}>
+                    <FontAwesomeIcon icon={faStepBackward} /> Prev
+                    </Button>
+                    </InputGroup.Prepend>
+                    <FormControl style={pageNumCss} className={"bg-dark"} name="currentPage" value={currentPage}
+                    onClick={this.changePage}/>
+                    <InputGroup.Append>
+                    <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                    onClick={this.nextPage}>
+                    <FontAwesomeIcon icon={faFastForward} /> Next
+                    </Button>
+                    <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                    onClick={this.lastPage}>
+                    <FontAwesomeIcon icon={faStepBackward} /> Last
+                    </Button>
+                    </InputGroup.Append>
+                    </InputGroup>
+                    </div>
+                    </Card.Footer>
+
+
+            </Card>
         );
     }
 }
