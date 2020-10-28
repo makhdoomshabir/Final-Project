@@ -1,15 +1,9 @@
-#Dockerfile for frontend
-
-# Stage 1
 FROM node:15-alpine as build
-WORKDIR /build
-COPY ./package*.json ./
-RUN npm install
-COPY . .
-RUN npm build
-
-# Stage 2
-FROM nginx:latest
+RUN mkdir /app
 WORKDIR /app
-COPY --from=build /build . 
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY package.json /app
+RUN npm install
+COPY . /app
+RUN npm run build
+FROM nginx:latest
+COPY --from=build /app/build nginx.conf
