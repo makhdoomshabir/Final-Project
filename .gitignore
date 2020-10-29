@@ -1,11 +1,6 @@
 # Compiled class file
 *.class
 
-# Terraform files
-*.tfstate
-*.tfstate.*
-.terraform/
-
 # Log file
 *.log
 
@@ -29,3 +24,9 @@ hs_err_pid*
 
 # IDE package folders
 *.idea
+
+*.iml
+
+package-lock.json
+
+node_modules
