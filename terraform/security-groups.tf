@@ -7,13 +7,13 @@ resource "aws_security_group" "jenkins-sg" {
   #Ingress/inbound rules
 
   #SSH Rules
-  # ingress {
-  #   description = "SSH"
-  #   from_port   = 22
-  #   to_port     = 22
-  #   protocol    = "tcp"
-  #   cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
-  # }
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+  }
 
   # HTTP Rules
   ingress {
@@ -122,6 +122,15 @@ resource "aws_security_group" "prod-sg" {
   vpc_id      = aws_vpc.main-vpc.id
 
   # Ingress/Inbound rules
+
+  # SSH Rules
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] #allow web traffic
+  }
 
   # HTTP Rules
   ingress {
