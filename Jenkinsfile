@@ -1,50 +1,156 @@
 pipeline{
         agent any
-        stages{
-            stage('Install Docker'){
-                steps{
-                    sh ''' 
-                    curl https://get.docker.com | sudo bash
-                    sudo usermod -aG docker $(whoami)
-                    '''
-                }
-            }
-                
-            stage('Install Docker-Compose'){
-                steps{
-                    sh ''' 
-                    sudo apt install -y curl jq
-                    # set which version to download (latest)
-                    version=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')
-                    # download to /usr/local/bin/docker-compose
-                    sudo curl -L "https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                    # make the file executable
-                    sudo chmod +x /usr/local/bin/docker-compose
-                    '''
-                }
-            }  
-            // stage('Spin up containers'){
-            //     steps{
-            //     withCredentials([file(credentialsId: 'TestServKeyPair', variable: 'TestServKeyPair'), string(credentialsId: 'DATABASE_URI', variable: 'DATABASE_URI'), string(credentialsId: 'TEST_DATABASE_URI', variable: 'TEST_DATABASE_URI'), string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'MYSQL_ROOT_PASSWORD'), string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD')]){
-            //         sh '''
-            //         ssh -tt -o "StrictHostKeyChecking=no" -i ${TestServKeyPair} ubuntu@ec2-35-178-75-123.eu-west-2.compute.amazonaws.com << EOF
-            //         export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} DATABASE_URI=${DATABASE_URI} DB_PASSWORD=${DB_PASSWORD} TEST_DATABASE_URI=${TEST_DATABASE_URI}
-            //         git clone https://github.com/krystal-simmonds/SFIA_2.git
-            //         cd SFIA_2
-            //         sudo -E MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} DATABASE_URI=${DATABASE_URI} DB_PASSWORD=${DB_PASSWORD} TEST_DATABASE_URI=${TEST_DATABASE_URI} docker-compose up -d
-            //         EOF
-            //         '''
-            //     }
-            //     }
-            // }
+        options {
+          skipDefaultCheckout true
+        }
+        environment {
+            app_version = 'v1'
+            rollback = 'false'
+        }
 
-            stage('Run tests'){
+            stage('Install Java and Maven on test server & Clone repo'){
                 steps{
-                    sh '''
-                    echo $(docker --version)
-                    echo $(docker-compose --version)
-                    '''
+                    withCredentials([file(credentialsId: 'test', variable: 'test')]){
+                        sh '''
+                        ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
+                        sudo apt-get install -y git openjdk-8-jdk maven
+                        rm -r Final-Project
+                        git clone https://github.com/makhdoomshabir/Final-Project.git
+                        cd Final-Project
+
+                        docker-compose up -d
+                        echo $(docker container ps)
+                        '''
                     }
                 }
-        }    
-}
+            }
+
+//             stage('Build application using docker-compose'){
+//                 steps{
+//                     withCredentials([file(credentialsId: 'test', variable: 'test')]){
+//                         sh '''
+//                         ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
+//                         sudo apt-get update && sudo apt-get install -y git openjdk-8-jdk maven
+//                         '''
+//                     }
+//                 }
+//             }
+        
+//             stage('Build Frontend Image'){
+//                 steps{      
+//                     script{
+//                         dir("/Final-Project/frontend"){
+//                           if (env.rollback == 'false'){
+//                             frontendimage = docker.build("krystalsimmonds/sfia-three-react")
+//                         }
+//                       }          
+//                     }
+//                 }          
+//             }
+
+//             stage('Tag & Push FrontImage'){
+//                 steps{
+//                     script{
+//                         if (env.rollback == 'false'){
+//                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+//                                 frontendimage.push("${env.app_version}")    
+//                             }
+//                         }
+//                     }
+//                 }          
+//             }                
+
+//             stage('Build BackImage'){
+//                 steps{      
+//                     script{
+//                         dir("SFIA2/backend"){
+//                           if (env.rollback == 'false'){
+//                             backendimage = docker.build("adamal5/sfia2-backend")
+//                         }
+//                       }          
+//                     }
+//                 }          
+//             }   
+                
+//             stage('Tag & Push BackImages'){
+//                 steps{
+//                     script{
+//                         if (env.rollback == 'false'){
+//                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+//                                 backendimage.push("${env.app_version}")  
+//                             }
+//                         }
+//                     }
+//                 }          
+//             } 
+ 
+//             stage('Build DatabaseImage'){
+//                 steps{      
+//                     script{
+//                         dir("SFIA2/database"){
+//                           if (env.rollback == 'false'){
+//                             databaseimage = docker.build("adamal5/sfia2-database")
+//                         }
+//                       }          
+//                     }
+//                 }          
+//             }                
+
+//             stage('Tag & Push DatabaseImage'){
+//                 steps{
+//                     script{
+//                         if (env.rollback == 'false'){
+//                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+//                                 databaseimage.push("${env.app_version}")    
+//                             }
+//                         }
+//                     }
+//                 }          
+//             }
+
+                                                     
+//             stage('Deploy App'){
+//                 steps{ 
+//                     sh '''
+//                     ssh ubuntu@ip-172-31-8-254 <<EOF
+//                     sudo rm -rf SFIA2
+//                     git clone https://github.com/adamal5/SFIA2
+//                     cd SFIA2
+//                     export DATABASE_URI=mysql+pymysql://admin:ab5gh78af@terraform-20201014184555657300000001.cdsmwkad1q7o.eu-west-2.rds.amazonaws.com:3306:3306/users
+//                     export TEST_DATABASE_URI=mysql+pymysql://admin:ab5gh78hj@terraform-20201014184555658100000002.cdsmwkad1q7o.eu-west-2.rds.amazonaws.com:3306/test
+//                     export SECTRET_KEY=hjbsdjbsd
+//                     docker pull adamal5/sfia2-frontend:v1
+//                     docker pull adamal5/sfia2-backend:v1
+//                     docker pull adamal5/sfia2-database:v1
+                    
+//                     docker-compose up -d
+// EOF
+//                     '''
+//                     }
+                
+//                 }   
+                
+//             stage('Run Frontend Test'){
+//                 steps{
+//                     sh '''
+//                     ssh ubuntu@ip-172-31-8-254 -y <<EOF
+//                     sleep 15
+//                     cd SFIA2/frontend/tests
+//                     docker-compose exec -T frontend pytest --cov application > frontend-test.txt
+// EOF
+//                     '''
+//                     }
+//                 }                 
+//             stage('Run Backend Test'){
+//                 steps{
+//                     sh '''
+//                     ssh ubuntu@ip-172-31-8-254 -y <<EOF
+//                     cd SFIA2/frontend/tests
+//                     docker-compose exec -T backend pytest --cov application > backend-test.txt
+
+// EOF
+//                     '''
+//                     }
+//                 }                 
+//             }
+// }
