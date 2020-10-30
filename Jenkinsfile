@@ -15,9 +15,10 @@ pipeline{
                             sh '''
                             ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
                             rm -rf Final-Project
-                            git clone https://github.com/makhdoomshabir/Final-Project.git
+                            git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            ls
+                            docker-compose up -d
+                            docker container ps
 EOF
                             '''
                         }
