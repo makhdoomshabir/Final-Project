@@ -18,7 +18,7 @@ pipeline{
                             git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
                             sudo docker-compose up -d
-                            docker container ps
+                            sudo docker container ps
 EOF
                             '''
                         }
