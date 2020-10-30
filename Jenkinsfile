@@ -17,7 +17,7 @@ pipeline{
                             rm -rf Final-Project
                             git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            docker-compose up -d
+                            sudo docker-compose up -d
                             docker container ps
 EOF
                             '''
