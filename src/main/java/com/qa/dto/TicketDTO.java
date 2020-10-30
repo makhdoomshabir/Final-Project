@@ -9,6 +9,7 @@ public class TicketDTO {
     private String status = "Unresolved";
     private String title;
     private String description;
+    private String links;
     private String author;
     private String cohort;
     private String solution;
@@ -18,11 +19,12 @@ public class TicketDTO {
     public TicketDTO() {
     }
 
-    public TicketDTO(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, Date lastUpdated, String stopwatch) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, String stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
         this.description = description;
+        this.links = links;
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
@@ -68,6 +70,22 @@ public class TicketDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+    public String getStopwatch() {
+        return stopwatch;
+    }
+
+    public void setStopwatch(String stopwatch) {
+        this.stopwatch = stopwatch;
     }
 
     public String getAuthor() {

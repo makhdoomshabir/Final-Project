@@ -27,8 +27,8 @@ public class Ticket {
     @Column
     private String description;
 
-//    @Column
-//    private List links = new List();
+    @Column
+    private String links;
 
     @Column
     private String author;
@@ -49,11 +49,12 @@ public class Ticket {
 
     }
 
-    public Ticket(Date ticketDate, String status, String title, String description, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
+    public Ticket(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
         this.description = description;
+        this.links = links;
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
@@ -99,6 +100,14 @@ public class Ticket {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
     }
 
     public String getAuthor() {

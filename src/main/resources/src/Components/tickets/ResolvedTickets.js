@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Card, CardDeck, FormControl, InputGroup} from "react-bootstrap";
+import {Button, ButtonGroup, Card, FormControl, InputGroup} from "react-bootstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faStepBackward, faFastBackward, faStepForward, faFastForward, faPlusSquare
+    faStepBackward, faFastBackward, faFastForward
 } from "@fortawesome/free-solid-svg-icons";
 import MyToast from "../MyToast";
-import {forEach} from "react-bootstrap/ElementChildren";
+import {Link} from "react-router-dom";
 
 export default class ResolvedTickets extends Component {
 
@@ -15,6 +15,7 @@ export default class ResolvedTickets extends Component {
 
         this.state = {
             tickets: [],
+            cohortFilter: [],
             currentPage: 1,
             ticketsPerPage: 5,
         };
@@ -25,12 +26,13 @@ export default class ResolvedTickets extends Component {
             .then(response => response.data)
             .then(
                 (data) => {
-                    this.setState({tickets: data});
+                    this.setState({
+                        tickets: data
+                    });
                 });
     }
 
     deleteTicket = (ticketId) => {
-        alert(ticketId);
         axios.delete("http://localhost:8080/deleteTicket/" + ticketId)
             .then(response => {
                 if (response.data != null) {
@@ -64,7 +66,7 @@ export default class ResolvedTickets extends Component {
         return (
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
-                    <MyToast children={{show: this.state.show, message: "Book Removed Successfully", type: "danger"}}/>
+                    <MyToast show={this.state.show} message={"Book Removed Successfully"} type={"danger"}/>
                 </div>
                 <Card id="resolvedTicketsCardDeck" className={"bg-dark text-white"}>
                     <Card.Header><h3>Resolved Tickets</h3></Card.Header>
@@ -78,11 +80,21 @@ export default class ResolvedTickets extends Component {
                                 <Card.Subtitle>{ticket.author}</Card.Subtitle>
                                 <Card.Text>{ticket.description}</Card.Text>
                                 <Card.Text>{ticket.cohort}</Card.Text>
-                                <Card.Text>{ticket.author}</Card.Text>
-                                <Button>Update</Button>
-                                <Button>Add Solution</Button>
-                                <Button key={ticket.ticketId}
-                                        onClick={() => this.deleteTicket(ticket.ticketId)}>Delete</Button>
+                                <Card.Text>{ticket.links}</Card.Text>
+                                <ButtonGroup>
+                                    <Button key={ticket.ticketId}>
+                                        <Link to={"/update-ticket/" + ticket.ticketId} className={"btn"}>
+                                            <span className={"text-white"}> UPDATE </span>
+                                        </Link>
+                                    </Button>{' '}
+                                    <Button>
+                                        <Link to={"/add-solutions/" + ticket.ticketId} className={"btn"}>
+                                            <span className={"text-white"}> SOLUTION </span>
+                                        </Link>
+                                    </Button>{' '}
+                                    <Button key={ticket.ticketId}
+                                            onClick={() => this.deleteTicket(ticket.ticketId)}>DELETE</Button>
+                                </ButtonGroup>
                             </div>
                         ))
                     }

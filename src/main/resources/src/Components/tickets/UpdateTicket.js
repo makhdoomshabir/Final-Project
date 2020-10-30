@@ -42,13 +42,8 @@ export function UpdateTicket() {
                     <button> Add Link</button>
                 </Form.Group>
 
-
-                <Form.Group id="formGridCheckbox">
-                    <Form.Check type="checkbox" label="I understand that my Issue will be posted to the public ticket board" />
-                </Form.Group>
-
                 <Button variant="primary" type="submit">
-                    Add Issue
+                    Update Issue
                 </Button>
             </Form>
         </div>

@@ -39,8 +39,8 @@ function App() {
 
                 */}
                 <Route path="/add-ticket" component={AddTicketPage} exact/>
-                <Route path="/update-ticket" component={UpdateTicket} exact/>
-                <Route path="/add-solution" component={AddSolution} exact/>
+                <Route path="/update-ticket/:id" exact component={AddTicketPage}/>
+                <Route path="/add-solution/:id" component={AddSolution} exact/>
 
             </Switch>
             </Router>
