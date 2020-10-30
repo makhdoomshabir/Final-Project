@@ -19,7 +19,8 @@ pipeline{
                             cd Final-Project
                             sudo docker-compose up -d
                             sudo docker container ps
-EOF
+                            exit
+                            EOF
                             '''
                         }
                     }
