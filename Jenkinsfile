@@ -17,7 +17,7 @@ pipeline{
                             rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            echo $(ls)
+                            echo "Hello"
                             '''
                         }
                     }
