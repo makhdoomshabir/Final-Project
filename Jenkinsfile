@@ -8,22 +8,24 @@ pipeline{
             rollback = 'false'
         }
 
-        stage('Install Java and Maven on test server & Clone repo'){
-            steps{
-                withCredentials([file(credentialsId: 'test', variable: 'test')]){
-                    sh '''
-                    ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
-                    sudo apt-get install -y git openjdk-8-jdk maven
-                    rm -r Final-Project
-                    git clone https://github.com/makhdoomshabir/Final-Project.git
-                    cd Final-Project
+            stages{
+                stage('Install Java and Maven on test server & Clone repo'){
+                    steps{
+                        withCredentials([file(credentialsId: 'test', variable: 'test')]){
+                            sh '''
+                            ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
+                            sudo apt-get install -y git openjdk-8-jdk maven
+                            rm -r Final-Project
+                            git clone https://github.com/makhdoomshabir/Final-Project.git
+                            cd Final-Project
 
-                    docker-compose up -d
-                    echo $(docker container ps)
-                    '''
+                            docker-compose up -d
+                            echo $(docker container ps)
+                            '''
+                        }
+                    }
                 }
             }
-        }
 }
 
 //             stage('Build application using docker-compose'){
