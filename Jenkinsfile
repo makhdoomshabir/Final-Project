@@ -14,8 +14,6 @@ pipeline{
                         withCredentials([file(credentialsId: 'test', variable: 'test')]){
                             sh '''
                             ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
-                            sudo apt-get install -y git openjdk-8-jdk maven
-                            rm -r Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
 
