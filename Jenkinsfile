@@ -17,7 +17,7 @@ pipeline{
                             rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            docker-compose up -d
+                            echo $(docker-compose --version)
 EOF
                             '''
                         }
