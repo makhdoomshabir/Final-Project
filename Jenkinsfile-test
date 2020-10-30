@@ -9,7 +9,7 @@ pipeline{
         }
 
             stages{
-                stage('Install Java and Maven on test server & Clone repo'){
+                stage('Clone project & run containers'){
                     steps{
                         withCredentials([file(credentialsId: 'test', variable: 'test')]){
                             sh '''
