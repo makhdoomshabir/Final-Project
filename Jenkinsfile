@@ -25,6 +25,7 @@ pipeline{
                     }
                 }
             }
+}
 
 //             stage('Build application using docker-compose'){
 //                 steps{
