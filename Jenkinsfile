@@ -16,8 +16,7 @@ pipeline{
                             ssh -tt -o "StrictHostKeyChecking=no" -i ${test} ubuntu@10.0.2.152 << EOF
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            docker-compose up -d
-                            echo $(docker container ps)
+                            echo $(ls)
                             '''
                         }
                     }
