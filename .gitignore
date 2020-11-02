@@ -35,3 +35,6 @@ hs_err_pid*
 package-lock.json
 
 node_modules
+
+*.tfstate
+*.tfstate.*
