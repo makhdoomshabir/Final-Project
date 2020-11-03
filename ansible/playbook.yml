@@ -1,29 +1,44 @@
-- hosts: Jenkins
+- hosts: bastion
+  become: true
+  gather_facts: true
+
+- hosts: Product
   # run as the root user on the remote machine
   become: true
   # list of tasks to run on the remote machine
   tasks:
-  - name: 'install jenkins'
+  - name: 'update system'
+    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+  
+  - name: 'install Jenkins'
     script: jenkins.sh
+  
+  - name: 'Make Jenkins sudo user'
+    lineinfile: 
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%jenkins'
+      line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'
+  
   - name: 'install docker'
     script: docker.sh
+  
   - name: 'install docker-compose'
     script: docker-compose.sh
 
-- hosts: Test
+  - name: 'Add Jenkins user to docker group'
+    user:
+      name: "jenkins"
+      group: "docker"
+      append: yes
+  
+  - name: 'Install kubectl'
+    command: "{{ item }}"
+    with_items:
+      - sudo snap install kubectl --classic
 
-  become: true
-
-  tasks:
-  - name: 'install docker'
-    script: docker.sh
-  - name: 'install docker-compose'
-    script: docker-compose.sh
-
-- hosts: Production
-
-  become: true
-
-  tasks:
-  - name: 'install SDK and kubectl'
-    script: kubernetes.sh
+  - name: 'Install AWS CLI'
+    command: "{{ item }}"
+    with_items: 
+      - sudo apt install awscli -y
