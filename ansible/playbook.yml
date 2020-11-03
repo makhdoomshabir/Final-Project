@@ -3,6 +3,7 @@
   gather_facts: true
 
 - hosts: Product
+  gather_facts: true
   # run as the root user on the remote machine
   become: true
   # list of tasks to run on the remote machine
