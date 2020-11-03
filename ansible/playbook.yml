@@ -7,15 +7,6 @@
   become: true
   # list of tasks to run on the remote machine
   tasks:
-
-  - name: 'install docker'
-    script: docker.sh
-  
-  - name: 'install docker-compose'
-    script: docker-compose.sh
-
-  - name: 'install Jenkins'
-    script: jenkins.sh
   
   - name: 'Install kubectl'
     command: "{{ item }}"
