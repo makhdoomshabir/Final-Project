@@ -11,7 +11,7 @@ pipeline{
             stages{
                 stage('Configure kubectl'){
                     steps{
-                        withAWS(credentials: 'aws-credentials', region: 'eu-west-2') {
+                        withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         sh '''
                         aws eks --region eu-west-2 update-kubeconfig --name sfia-three-production
                         '''
