@@ -8,9 +8,7 @@
   tasks:
   
   - name: 'Install kubectl'
-    command: "{{ item }}"
-    with_items:
-      - sudo snap install kubectl --classic
+    script: kubernetes.sh
 
   - name: 'Install AWS CLI'
     command: "{{ item }}"
