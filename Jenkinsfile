@@ -9,22 +9,6 @@ pipeline{
         }
 
             stages{
-                stage('Install kubectl'){
-                    steps{
-                        withCredentials([file(credentialsId: 'prod', variable: 'prod')]){
-                            sh '''
-                            ssh -tt -o "StrictHostKeyChecking=no" -i ${prod} ubuntu@10.0.4.127 << EOF
-                            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-                            sudo chmod +x ./kubectl
-                            sudo mv ./kubectl /usr/local/bin/kubectl
-                            echo $(kubectl version --client) 
-                            exit
-                            EOF
-                            '''
-                        }
-                    }
-                }
-
                 stage('Configure kubectl'){
                     steps{
                         withAWS(credentials: 'aws-credentials', region: 'eu-west-2') {
