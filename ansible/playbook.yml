@@ -4,6 +4,7 @@
 
 - hosts: Product
   become: true
+  gather_facts: true
   # list of tasks to run on the remote machine
   tasks:
   
