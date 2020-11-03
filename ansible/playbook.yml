@@ -7,9 +7,13 @@
   become: true
   # list of tasks to run on the remote machine
   tasks:
-  - name: 'update system'
-    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+  - name: 'install docker'
+    script: docker.sh
   
+  - name: 'install docker-compose'
+    script: docker-compose.sh
+
   - name: 'install Jenkins'
     script: jenkins.sh
   
@@ -20,12 +24,6 @@
       regexp: '^%jenkins'
       line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
       validate: 'visudo -cf %s'
-  
-  - name: 'install docker'
-    script: docker.sh
-  
-  - name: 'install docker-compose'
-    script: docker-compose.sh
 
   - name: 'Add Jenkins user to docker group'
     user:
