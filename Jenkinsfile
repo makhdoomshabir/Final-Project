@@ -21,7 +21,7 @@ pipeline{
 
                 stage('Deploy with k8s'){
                     steps{
-                        dir('./home/ubuntu/Final-Project/kubernetes'){
+                        dir('./home/jenkins/Final-Project/kubernetes'){
                             sh '''
                             kubectl apply -f mysql-db.yaml
                             kubectl apply -f backend.yaml
