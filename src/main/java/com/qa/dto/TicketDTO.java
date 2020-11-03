@@ -1,7 +1,5 @@
 package com.qa.dto;
 
-import com.qa.domain.Stopwatch;
-
 import java.util.*;
 
 public class TicketDTO {
