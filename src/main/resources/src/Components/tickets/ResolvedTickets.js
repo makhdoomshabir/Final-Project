@@ -132,19 +132,20 @@ export default class ResolvedTickets extends Component {
                                         <div key={ticket.ticketId}>
                                             <Card.Header>{ticket.title}</Card.Header>
                                             <Card.Body>
-                                                <Card.Title>{ticket.author}</Card.Title>
-                                                <Card.Subtitle>{ticket.cohort}</Card.Subtitle>
+                                                <Card.Title
+                                                    className="text-white">{ticket.author + ' | ' + ticket.cohort + ' | ' + ticket.lastUpdated.toString()}</Card.Title>
                                                 <Card.Text>{ticket.description}</Card.Text>
                                                 <Card.Text>{ticket.links}</Card.Text>
                                                 <Card.Title>
                                                     {this.state.date.getMinutes() > 5 ?
                                                         <span
-                                                            className={"text-red"}>{this.state.date.toLocaleTimeString()}ms</span>
+                                                            className={"text-red"}>{this.state.date.toLocaleTimeString()}ms
+                                                        </span>
                                                         :
                                                         <span
-                                                            className={"text-white"}>{this.state.date.toLocaleTimeString()}ms</span>}
-
-                                                    {runningTime} ms
+                                                            className={"text-white"}>{this.state.date.toLocaleTimeString()}ms
+                                                        </span>
+                                                    }
                                                 </Card.Title>
                                             </Card.Body>
                                             <Card.Footer className="text-muted">
@@ -154,14 +155,14 @@ export default class ResolvedTickets extends Component {
                                                         <Link to={"/update-ticket/" + ticket.ticketId}
                                                               className={"btn"}>
                                                         <span
-                                                            className={"text-white"}> {ticket.status ? 'PAUSED' : 'UPDATE'}</span>
+                                                            className={"text-white"}> {ticket.status ? 'UPDATE' : 'PAUSED'}</span>
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button onClick={this.handleStop}>
                                                         <Link to={"/add-solutions/" + ticket.ticketId}
                                                               className={"btn"}>
                                                         <span
-                                                            className={"text-white"}> {ticket.status ? 'CLOSED' : 'UNRESOLVED'} </span>
+                                                            className={"text-white"}> {ticket.status ? 'UNRESOLVED' : 'CLOSED'} </span>
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button key={ticket.ticketId}
@@ -189,18 +190,19 @@ export default class ResolvedTickets extends Component {
                                     ).map(ticketClsd => (
                                         <div key={ticketClsd.ticketId}>
                                             <Card.Header className="text-white">{ticketClsd.title}</Card.Header>
-                                            <Card.Title className="text-white">{ticketClsd.author}</Card.Title>
-                                            <Card.Subtitle className="text-white">{ticketClsd.cohort}</Card.Subtitle>
+                                            <Card.Title
+                                                className="text-white">{ticketClsd.author + ' | ' + ticketClsd.cohort + ' | ' + ticketClsd.lastUpdated.toString()}</Card.Title>
                                             <Card.Text>{ticketClsd.description}</Card.Text>
+                                            <Card.Text>{ticketClsd.solution}</Card.Text>
                                             <Card.Text>{ticketClsd.links}</Card.Text>
                                             <Card.Footer className="text-danger">
                                                 {ticketClsd.lastUpdated.toString()}
                                                 <ButtonGroup className={"text-success"}>
                                                     <Button onClick={this.handleClick} className={"text-success"}>
-                                                        <Link to={"/update-ticket/" + ticketClsd.ticketId}
+                                                        <Link to={"/add-solutions/" + ticketClsd.ticketId}
                                                               className={"btn"}>
-                                                        <span
-                                                            className={"text-white"}> {ticketClsd.status ? 'UPDATE' : 'CLOSED'}</span>
+                                                            <span
+                                                                className={"text-white"}> {ticketClsd.status ? 'CLOSED' : 'UPDATED'}</span>
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button key={ticketClsd.ticketId} className={"text-danger"}
