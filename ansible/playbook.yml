@@ -17,20 +17,6 @@
   - name: 'install Jenkins'
     script: jenkins.sh
   
-  - name: 'Make Jenkins sudo user'
-    lineinfile: 
-      dest: /etc/sudoers
-      state: present
-      regexp: '^%jenkins'
-      line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
-      validate: 'visudo -cf %s'
-
-  - name: 'Add Jenkins user to docker group'
-    user:
-      name: "jenkins"
-      group: "docker"
-      append: yes
-  
   - name: 'Install kubectl'
     command: "{{ item }}"
     with_items:
