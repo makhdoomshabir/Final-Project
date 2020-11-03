@@ -56,11 +56,13 @@ export default class extends Component {
         event.preventDefault();
 
         const tickets = {
-                cohort: this.state.cohort,
-                author: this.state.author,
-                title: this.state.title,
-                description: this.state.description,
-                links: this.state.links
+            ticketDate: new Date(),
+            cohort: this.state.cohort,
+            author: this.state.author,
+            title: this.state.title,
+            description: this.state.description,
+            links: this.state.links,
+            lastUpdated: new Date()
         };
 
         axios.post("http://localhost:8080/createTicket", tickets)
@@ -87,7 +89,8 @@ export default class extends Component {
             author: this.state.author,
             title: this.state.title,
             description: this.state.description,
-            links: this.state.links
+            links: this.state.links,
+            lastUpdated: new Date()
         };
 
         axios.put("http://localhost:8080/updateTicket/" + this.state.ticketId, tickets)

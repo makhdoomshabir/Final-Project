@@ -1,12 +1,14 @@
 package com.qa.dto;
 
+import com.qa.domain.Stopwatch;
+
 import java.util.*;
 
 public class TicketDTO {
 
     private Long ticketId;
     private Date ticketDate;
-    private String status = "Unresolved";
+    private String status = "unresolved";
     private String title;
     private String description;
     private String links;
@@ -14,12 +16,12 @@ public class TicketDTO {
     private String cohort;
     private String solution;
     private Date lastUpdated;
-    private String stopwatch;
+    private Float stopwatch;
 
     public TicketDTO() {
     }
 
-    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, String stopwatch) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -80,11 +82,11 @@ public class TicketDTO {
         this.links = links;
     }
 
-    public String getStopwatch() {
+    public Float getStopwatch() {
         return stopwatch;
     }
 
-    public void setStopwatch(String stopwatch) {
+    public void setStopwatch(Float stopwatch) {
         this.stopwatch = stopwatch;
     }
 
