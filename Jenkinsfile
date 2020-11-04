@@ -31,7 +31,6 @@ pipeline{
                             kubectl apply -f nginx-service.yaml
                             kubectl apply -f mysql-db.yaml
                             kubectl apply -f backend.yaml
-                            kubectl apply -f frontend.yaml
                             '''
                             }
                     } 
