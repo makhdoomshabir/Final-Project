@@ -4,7 +4,6 @@ import {Jumbotron} from "react-bootstrap";
 
 const HomePega = () =>  {
     return(
-
         <div>
             <Jumbotron className="bg-dark text-white" id="HomeSoftwareHeader">
                 <h1>Pega</h1>
