@@ -38,7 +38,7 @@ export default class extends Component {
                         author: response.data.author,
                         title: response.data.title,
                         description: response.data.description,
-                        solution: response.data.description,
+                        solution: response.data.solution,
                         links: response.data.links
                     });
                 }
