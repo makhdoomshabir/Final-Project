@@ -23,6 +23,7 @@ pipeline{
                     steps{
                         dir('./home/jenkins/Final-Project/kubernetes'){
                             sh '''
+                            aws configure
                             kubectl apply -f mysql-db.yaml
                             kubectl apply -f backend.yaml
                             kubectl apply -f frontend.yaml
