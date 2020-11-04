@@ -24,7 +24,7 @@ pipeline{
                         withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         dir('./home/jenkins/Final-Project/kubernetes'){
                             sh '''
-                            aws configure set --profile terraform
+                            aws configure --profile terraform
                             kubectl apply -f mysql-db.yaml
                             kubectl apply -f backend.yaml
                             kubectl apply -f frontend.yaml
