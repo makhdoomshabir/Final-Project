@@ -1,9 +1,9 @@
 import React, {Component, useEffect, useState} from 'react';
-import {Button, ButtonGroup, Card, FormControl, InputGroup} from "react-bootstrap";
+import {Button, ButtonGroup, Card, FormControl, InputGroup, Tooltip} from "react-bootstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faStepBackward, faFastBackward, faFastForward
+    faStepBackward, faFastBackward, faFastForward, faTimes, faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import MyToast from "../MyToast";
 import {Link} from "react-router-dom";
@@ -15,6 +15,7 @@ export default class ResolvedTickets extends Component {
 
         this.state = {
             tickets: [],
+            keyword:'',
             cohortFilter: "",
             currentPage: 1,
             ticketsPerPage: 5,
@@ -88,7 +89,88 @@ export default class ResolvedTickets extends Component {
         clearInterval(this.timerID);
     };
 
+    changePage = event => {
+        this.setState({
+            [event.target.name]:parseInt(event.target.value)
+        })
+    }
+
+    //Pageation
+    firstPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: 1
+            })
+        }
+    }
+
+    prevPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: this.state.currentPage -1
+            })
+        }
+    }
+
+    lastPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.tickets.length / this.state.ticketsPerPage)) {
+            this.setState({
+                currentPage: (Math.ceil(this.state.tickets.length / this.state.ticketsPerPage))
+            })
+        }
+    }
+
+    nextPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.tickets.length / this.state.ticketsPerPage)) {
+            this.setState({
+                currentPage: this.state.currentPage +1
+            })
+        }
+    };
+
+    // Code for filtering through data by keyword
+    searchChange = event => {
+        this.setState({
+            "keyword" : event.target.value
+        })
+    }
+
+    cancelSearch = () => {
+        this.setState({
+            "keyword" : ""
+        })
+    }
+
+    searchData = () => {
+        axios.get("http://localhost:8080/allTickets?keyword="+this.state.keyword)
+            .then(response => response.data)
+            .then(
+                (data) => {
+                    this.setState({tickets: data});
+                });
+    }
+
+
+
     render() {
+
+        //tooltips
+        const renderEditTooltip = (props) => (
+            <Tooltip id="button-tooltip" {...props}>
+                Edit Ticket
+            </Tooltip>
+        );
+        const renderDeleteTooltip = (props) => (
+            <Tooltip id="button-tooltip" {...props}>
+                Delete Ticket
+            </Tooltip>
+        );
+
+        const renderSolutionTooltip = (props) => (
+            <Tooltip id="button-tooltip" {...props}>
+                Add Solution
+            </Tooltip>
+        );
 
         const {tickets, currentPage, ticketsPerPage} = this.state;
         const lastIndex = currentPage * ticketsPerPage;
@@ -122,6 +204,20 @@ export default class ResolvedTickets extends Component {
                                     <h3>
                                         Unresolved Tickets
                                     </h3>
+                                    <div style={{"float": "right"}}>
+                                        <InputGroup size= "sm">
+                                            <FormControl placeholder="Search" name="keyword" className={"bg-dark text-white"}
+                                                         onChange={this.searchChange}/>
+                                            <InputGroup.Append>
+                                                <Button size="sm" variant="outline-info" type="button" onClick={this.searchData}>
+                                                    <FontAwesomeIcon icon={faSearch} />
+                                                </Button>
+                                                <Button size="sm" variant="outline-info" type="button" onClick={this.cancelSearch}>
+                                                    <FontAwesomeIcon icon={faTimes} />
+                                                </Button>
+                                            </InputGroup.Append>
+                                        </InputGroup>
+                                    </div>
                                 </Card.Header>
                                 <Card.Body>{
                                     this.state.tickets.filter(
