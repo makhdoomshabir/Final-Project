@@ -31,7 +31,7 @@ spec:
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: $MYSQL_ROOT_PASSWORD
-        -name: SECRET_KEY
-         value: $SECRET_KEY
+        - name: SECRET_KEY
+          value: $SECRET_KEY
         ports:
         - containerPort: 3001
