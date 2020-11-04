@@ -3,7 +3,6 @@ import './css/App.css';
 import Footer from "./Components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navigation from "./Components/nav";
-import AddSolution from "./Components/tickets/AddSolution";
 import {UpdateTicket} from "./Components/tickets/UpdateTicket";
 import Welcome from "./Components/Pages/Welcome";
 import HomeSoftware from "./Components/Pages/HomeSoftware"
@@ -12,6 +11,7 @@ import HomeDev from "./Components/Pages/HomeDev"
 import HomeRPA from "./Components/Pages/HomeRPA"
 import HomePega from "./Components/Pages/HomePega"
 import AddTicketPage from "./Components/Pages/AddTicketPage";
+import AddSolutionPage from "./Components/Pages/AddSolutionPage";
 
 function App() {
     return (
@@ -40,7 +40,7 @@ function App() {
                 */}
                 <Route path="/add-ticket" component={AddTicketPage} exact/>
                 <Route path="/update-ticket" component={UpdateTicket} exact/>
-                <Route path="/add-solution" component={AddSolution} exact/>
+                <Route path="/add-solution" component={AddSolutionPage} exact/>
 
             </Switch>
             </Router>

@@ -90,3 +90,33 @@ body {
 
 }
 
+#howItWorks {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+}
+
+#mid {
+  margin-top: 25px;
+  margin-left: 350px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+
+}
+
+#last {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+
+}
+
+#solutionForm {
+  margin-top: 50px;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 50px;
+  color: white;
+}
