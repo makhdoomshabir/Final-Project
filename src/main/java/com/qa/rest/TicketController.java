@@ -4,6 +4,9 @@ import com.qa.domain.Ticket;
 import com.qa.dto.TicketDTO;
 import com.qa.service.TicketsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +26,12 @@ public class TicketController {
     }
 
     @GetMapping(value = "/allTickets")
-    public ResponseEntity<List<TicketDTO>> getAllTickets() {
-        return ResponseEntity.ok(this.ticketsService.readTickets());
+    public ResponseEntity<List<TicketDTO>> getAllTickets(String keyword) {
+        if (keyword != null) {
+        return ResponseEntity.ok(this.ticketsService.findByKeyword(keyword));
+        }
+        else {
+        return ResponseEntity.ok(this.ticketsService.readTickets());}
     }
 
     @PostMapping(value = "/createTicket")
