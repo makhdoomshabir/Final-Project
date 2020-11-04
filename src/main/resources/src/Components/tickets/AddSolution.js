@@ -4,7 +4,7 @@ import {Form, Button} from 'react-bootstrap';
 const AddSolution = () => {
     return (
         <div>
-            <Form>
+            <Form id="solutionForm">
                 <Form.Group id="solutionDescription">
                     <Form.Label>Solution Description</Form.Label>
                     <Form.Control as="textarea" rows="4"/>
@@ -13,7 +13,8 @@ const AddSolution = () => {
                 <Form.Group id="links">
                     <Form.Label>Links</Form.Label>
                     <Form.Control type="text"/>
-                    <button> Add Link</button>
+                    <br/>
+                    <Button variant="primary" size="sm"> Add Link</Button>
                 </Form.Group>
 
 
