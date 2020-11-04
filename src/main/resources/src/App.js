@@ -4,12 +4,7 @@ import Footer from "./Components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navigation from "./Components/nav";
 import AddSolution from "./Components/tickets/AddSolution";
-import {UpdateTicket} from "./Components/tickets/UpdateTicket";
 import Welcome from "./Components/Pages/Welcome";
-import HomeSoftware from "./Components/Pages/HomeSoftware"
-import HomeCloud from "./Components/Pages/HomeCloud"
-import HomeDev from "./Components/Pages/HomeDev"
-import HomeRPA from "./Components/Pages/HomeRPA"
 import QueueSysPage from "./Components/Pages/QueueSysPage"
 import AddTicketPage from "./Components/Pages/AddTicketPage";
 
