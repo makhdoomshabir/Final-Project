@@ -21,6 +21,7 @@ pipeline{
 
                 stage('Deploy with k8s'){
                     steps{
+                        withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         dir('./home/jenkins/Final-Project/kubernetes'){
                             sh '''
                             aws configure
@@ -30,6 +31,7 @@ pipeline{
                             kubectl apply -f nginx-service.yaml
                             kubectl apply -f config-map.yaml
                             '''
+                        }
                         }
                     } 
                 }
