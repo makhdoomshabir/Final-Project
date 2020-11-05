@@ -7,3 +7,8 @@ provider "kubernetes" {
   load_config_file       = false
   version                = "~> 1.9"
 }
+
+provider "aws" {
+  region = "eu-west-2"
+  version = " ~>3.3.0"
+}
