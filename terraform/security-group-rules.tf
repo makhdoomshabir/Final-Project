@@ -54,12 +54,12 @@ resource "aws_security_group_rule" "bastion-to-test-http" {
   security_group_id        = "sg-00a049e5d7875387c" #test sg
 }
 
-# Security group rule to allow bastion server access to Prod server
-resource "aws_security_group_rule" "bastion-to-prod-ssh" {
-  type                     = "ingress"
-  from_port                = 22
-  to_port                  = 22
-  protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-0a3b9745c0d579e7b" #prod sg
-}
+# # Security group rule to allow bastion server access to cluster
+# resource "aws_security_group_rule" "bastion-to-cluster-ssh" {
+#   type                     = "ingress"
+#   from_port                = 22
+#   to_port                  = 22
+#   protocol                 = "tcp"
+#   source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
+#   security_group_id        = "sg-0a3b9745c0d579e7b" #prod sg
+# }
