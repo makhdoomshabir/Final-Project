@@ -6,7 +6,7 @@
 ansible_ssh_user=ubuntu
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ubuntu@3.8.61.35"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ubuntu@35.177.238.87"'
 ansible_ssh_private_key_file=~/.ssh/bastion.pem
 
 [jenkins]
