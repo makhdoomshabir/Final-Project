@@ -7,6 +7,6 @@
 #   description = "Domain name of load balancer"
 # }
 
-output "cluster-endpoint" {
-    value = aws_eks_cluster.my-cluster.endpoint
-}
+# output "cluster-endpoint" {
+#     value = aws_eks_cluster.my-cluster.endpoint
+# }

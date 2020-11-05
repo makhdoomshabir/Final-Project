@@ -28,7 +28,7 @@ resource "aws_subnet" "subnet-3-db" {
   }
 }
 
-# Create subnet 4 (Public - Production Server)
+# Create subnet 4 (Public - Production Cluster)
 resource "aws_subnet" "subnet-4-prod" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.4.0/24"

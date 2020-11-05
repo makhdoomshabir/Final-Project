@@ -38,19 +38,6 @@ resource "aws_instance" "Test" {
   }
 }
 
-# Create Prod EC2 instance
-resource "aws_instance" "Prod" {
-  ami                    = var.ami-id
-  instance_type          = var.instance-type
-  key_name               = "prod"
-  vpc_security_group_ids = ["sg-0a3b9745c0d579e7b"]   #prod sg
-  subnet_id              = "subnet-0d34663f30d07b049" #prod subnet
-
-  tags = {
-    Name = "Prod Server"
-  }
-}
-
 # Create Prod RDS instance
 resource "aws_db_instance" "prod" {
   allocated_storage      = 20
