@@ -11,8 +11,22 @@
   - name: 'Install jenkins'
     script: jenkins.sh
 
+  - name: 'Add Jenkins to sudoers group'
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%jenkins'
+      line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'
+
   - name: 'install docker'
-     script: docker.sh
+    script: docker.sh
+
+  - name: 'Add Jenkins user to docker group'
+    user:
+      name: "jenkins"
+      group: "docker"
+      append: yes
 
   - name: 'install docker-compose'
     script: docker-compose.sh
@@ -22,18 +36,3 @@
 
   - name: 'Install AWS CLI'
     script: aws-cli.sh
-
-
-- hosts: test
-  become: true
-  gather_facts: true
-
-  tasks:
-  - name: 'update system'
-    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
-
-  - name: 'install docker'
-    script: docker.sh
-
-  - name: 'install docker-compose'
-    script: docker-compose.sh
