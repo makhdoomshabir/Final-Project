@@ -12,6 +12,6 @@ resource "aws_key_pair" "bastion" {
 
 # Test server key pair
 resource "aws_key_pair" "test" {
-  key_name = "test"
-  public_key = file("~/ssh/id_rsa.pub")
+  key_name   = "test"
+  public_key = file("~/.ssh/id_rsa.pub")
 }
