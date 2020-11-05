@@ -8,29 +8,29 @@ resource "aws_security_group" "jenkins-sg" {
 
   #SSH Rules
   ingress {
-    description = "SSH"
+    description = "SSH from VPC"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   # HTTP Rules
   ingress {
-    description = "HTTP"
+    description = "HTTP from VPC"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   # Port 8080 Rules
   ingress {
-    description = "port-8080"
+    description = "port-8080 from VPC"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   #Egress/Outbound rules
@@ -56,20 +56,20 @@ resource "aws_security_group" "test-sg" {
 
   # SSH Rules
   ingress {
-    description = "SSH"
+    description = "SSH from VPC"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   # HTTP Rules
   ingress {
-    description = "HTTP"
+    description = "HTTP from VPC"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Daood IP goes here. /32 CIDR notation for single IP
   }
 
   # Egress/Outbound rules
@@ -95,11 +95,11 @@ resource "aws_security_group" "database-sg" {
 
   # MySQL Rules
   ingress {
-    description = "MySQL"
+    description = "MySQL from VPC"
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #Test & Prod subnet IP
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #Test & Prod subnet IP
   }
 
   # Egress/Outbound rules
@@ -111,11 +111,11 @@ resource "aws_security_group" "database-sg" {
   }
 
   tags = {
-    Name = "allow_access_db_subnet"
+    Name = "allow_access_db_server"
   }
 }
 
-# Create production server security group. (subnet 4)
+# Create production security group. (subnet 4)
 resource "aws_security_group" "prod-sg" {
   name        = "prod-sg"
   description = "Allow web traffic from anywhere"
@@ -125,11 +125,11 @@ resource "aws_security_group" "prod-sg" {
 
   # SSH Rules
   ingress {
-    description = "SSH"
+    description = "SSH from VPC"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] #allow web traffic
+    cidr_blocks = [aws_vpc.main-vpc.cidr_block] #allow web traffic
   }
 
   # HTTP Rules
@@ -168,7 +168,7 @@ resource "aws_security_group" "bastion-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["46.64.73.251/32"]
   }
 
   # HTTP Traffic
@@ -177,7 +177,7 @@ resource "aws_security_group" "bastion-sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["46.64.73.251/32"]
   }
 
   # Egress/Outbound rules

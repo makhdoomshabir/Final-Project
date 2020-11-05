@@ -28,7 +28,7 @@ resource "aws_subnet" "subnet-3-db" {
   }
 }
 
-# Create subnet 4 (Public - Production Cluster)
+# Create subnet 4 (Public - Production)
 resource "aws_subnet" "subnet-4-prod" {
   vpc_id            = aws_vpc.main-vpc.id
   cidr_block        = "10.0.4.0/24"
@@ -49,8 +49,8 @@ resource "aws_subnet" "subnet-5-spare" {
 }
 
 # Create DB Subnet group for Prod DB
-resource "aws_db_subnet_group" "db-subnet-group" {
-  name       = "db-subnet-group"
+resource "aws_db_subnet_group" "db-subnet-group1" {
+  name       = "db-subnet-group1"
   subnet_ids = [aws_subnet.subnet-3-db.id, aws_subnet.subnet-5-spare.id]
 
   tags = {

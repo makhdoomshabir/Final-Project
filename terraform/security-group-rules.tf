@@ -4,8 +4,8 @@ resource "aws_security_group_rule" "bastion-to-jenkins-ssh" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-04c0d391fb6b827aa" #jenkins sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-09ee96be54576478d" #jenkins sg
 }
 
 resource "aws_security_group_rule" "bastion-to-jenkins-p8080" {
@@ -13,8 +13,8 @@ resource "aws_security_group_rule" "bastion-to-jenkins-p8080" {
   from_port                = 8080
   to_port                  = 8080
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-04c0d391fb6b827aa" #jenkins sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-09ee96be54576478d" #jenkins sg
 }
 
 resource "aws_security_group_rule" "bastion-to-jenkins-http" {
@@ -22,18 +22,18 @@ resource "aws_security_group_rule" "bastion-to-jenkins-http" {
   from_port                = 80
   to_port                  = 80
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-04c0d391fb6b827aa" #jenkins sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-09ee96be54576478d" #jenkins sg
 }
 
-# Security group rules to allow bastion server access to Test server
+#Security group rules to allow bastion server access to Test server
 resource "aws_security_group_rule" "bastion-to-test-ssh" {
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-00a049e5d7875387c" #test sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-03ac5ab50375df549" #test sg
 }
 
 resource "aws_security_group_rule" "bastion-to-test-p8080" {
@@ -41,8 +41,8 @@ resource "aws_security_group_rule" "bastion-to-test-p8080" {
   from_port                = 8080
   to_port                  = 8080
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-00a049e5d7875387c" #test sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-03ac5ab50375df549" #test sg
 }
 
 resource "aws_security_group_rule" "bastion-to-test-http" {
@@ -50,16 +50,16 @@ resource "aws_security_group_rule" "bastion-to-test-http" {
   from_port                = 80
   to_port                  = 80
   protocol                 = "tcp"
-  source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-  security_group_id        = "sg-00a049e5d7875387c" #test sg
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-03ac5ab50375df549" #test sg
 }
 
-# # Security group rule to allow bastion server access to cluster
-# resource "aws_security_group_rule" "bastion-to-cluster-ssh" {
-#   type                     = "ingress"
-#   from_port                = 22
-#   to_port                  = 22
-#   protocol                 = "tcp"
-#   source_security_group_id = "sg-006fadfb34553a46e" #bastion sg
-#   security_group_id        = "sg-0a3b9745c0d579e7b" #prod sg
-# }
+# Security group rule to allow bastion server access to cluster
+resource "aws_security_group_rule" "bastion-to-cluster-ssh" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = "sg-0a772d6bcc4f5d846" #bastion sg
+  security_group_id        = "sg-07a8a71bd29b9f352" #prod sg
+}
