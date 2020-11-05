@@ -7,5 +7,5 @@ RUN mvn -X clean package
 
 FROM java:8 AS runtime
 WORKDIR /opt/finalproject
-COPY --from=build-stage /build/target/finalproject.jar app.jar
+COPY --from=build-stage /build/target/billyshakes.jar app.jar
 ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
