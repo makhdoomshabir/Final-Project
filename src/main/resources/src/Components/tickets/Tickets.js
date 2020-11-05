@@ -8,15 +8,15 @@ import {
 import MyToast from "../MyToast";
 import {Link} from "react-router-dom";
 
-export default class ResolvedTickets extends Component {
+export default class Tickets extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             tickets: [],
-            keyword:'',
-            cohortFilter: "",
+            keyword: '',
+            cohortFilter: window.location.pathname.toLowerCase().replaceAll("/", ""),
             currentPage: 1,
             ticketsPerPage: 5,
             status: true,
@@ -32,8 +32,9 @@ export default class ResolvedTickets extends Component {
             .then(
                 (data) => {
                     this.setState({
-                        tickets: data
+                        tickets: data.filter(ticket => ticket.cohort === this.state.cohortFilter),
                     });
+                    console.log(this.state.tickets.filter(ticket => ticket.cohort === this.state.cohortFilter))
                 });
         this.setState({
             status: false,
@@ -178,7 +179,7 @@ export default class ResolvedTickets extends Component {
         const currentTickets = tickets.slice(firstIndex, lastIndex);
         const totalPages = tickets.length / ticketsPerPage;
         const {status, runningTime} = this.state;
-        console.log(this.state.status, this.state.runningTime)
+
 
         const pageNumCss = {
             width: "45px",
@@ -191,7 +192,7 @@ export default class ResolvedTickets extends Component {
         return (
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
-                    <MyToast show={this.state.show} message={"Book Removed Successfully"} type={"danger"}/>
+                    <MyToast show={this.state.show} message={"Ticket Removed Successfully"} type={"danger"}/>
                 </div>
                 <Card id="resolvedTicketsCardDeck" className={"bg-dark text-white"}>
 
@@ -228,8 +229,9 @@ export default class ResolvedTickets extends Component {
                                         <div key={ticket.ticketId}>
                                             <Card.Header>{ticket.title}</Card.Header>
                                             <Card.Body>
-                                                <Card.Title
-                                                    className="text-white">{ticket.author + ' | ' + ticket.cohort + ' | ' + ticket.lastUpdated.toString()}</Card.Title>
+                                                <Card.Title className="text-white">
+                                                    {ticket.author + ' | ' + ticket.cohort + ' | ' + ticket.lastUpdated.toString()}
+                                                </Card.Title>
                                                 <Card.Text>{ticket.description}</Card.Text>
                                                 <Card.Text>{ticket.links}</Card.Text>
                                                 <Card.Title>

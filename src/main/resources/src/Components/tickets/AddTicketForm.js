@@ -135,11 +135,11 @@ export default class extends Component {
                                           value={cohort}
                                           onChange={this.ticketChange}>
                                 <option>Choose...</option>
-                                <option>Software Development</option>
-                                <option>Cloud Computing</option>
-                                <option>DevOps</option>
-                                <option>Robotic Process Automation</option>
-                                <option>Pega</option>
+                                <option>software-development</option>
+                                <option>cloud-computing</option>
+                                <option>dev-ops</option>
+                                <option>robotic-process-automation</option>
+                                <option>pega</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formAuthor">

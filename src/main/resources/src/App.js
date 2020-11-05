@@ -4,13 +4,8 @@ import Footer from "./Components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Navigation from "./Components/nav";
 import AddSolution from "./Components/tickets/AddSolution";
-import {UpdateTicket} from "./Components/tickets/UpdateTicket";
 import Welcome from "./Components/Pages/Welcome";
-import HomeSoftware from "./Components/Pages/HomeSoftware"
-import HomeCloud from "./Components/Pages/HomeCloud"
-import HomeDev from "./Components/Pages/HomeDev"
-import HomeRPA from "./Components/Pages/HomeRPA"
-import HomePega from "./Components/Pages/HomePega"
+import QueueSysPage from "./Components/Pages/QueueSysPage"
 import AddTicketPage from "./Components/Pages/AddTicketPage";
 
 function App() {
@@ -18,19 +13,19 @@ function App() {
         <div className="App">
             <Navigation/>
             <Router>
-            <Switch>
+                <Switch>
 
-                <Route path="/" component={Welcome} exact/>
+                    <Route path="/" component={Welcome} exact/>
 
-                {/* Route to Cohort Specific Ticket Display */}
+                    {/* Route to Cohort Specific Ticket Display */}
 
-                <Route path="/software-development" component={HomeSoftware} exact/>
-                <Route path="/cloud-computing" component={HomeCloud} exact/>
-                <Route path="/dev-ops" component={HomeDev} exact/>
-                <Route path="/robotic-process-automation" component={HomeRPA} exact/>
-                <Route path="/pega" component={HomePega} exact/>
+                    <Route path="/software-development" component={QueueSysPage} exact/>
+                    <Route path="/cloud-computing" component={QueueSysPage} exact/>
+                    <Route path="/dev-ops" component={QueueSysPage} exact/>
+                    <Route path="/robotic-process-automation" component={QueueSysPage} exact/>
+                    <Route path="/pega" component={QueueSysPage} exact/>
 
-                {/*
+                    {/*
 
                 Route to Add Tickets, Solutions and Update Tickets
 
@@ -38,7 +33,7 @@ function App() {
                 ticket needs to go on the navigation bar?
 
                 */}
-                <Route path="/add-ticket" component={AddTicketPage} exact/>
+                    <Route path="/add-ticket" component={AddTicketPage} exact/>
                 <Route path="/update-ticket/:id" exact component={AddTicketPage}/>
                 <Route path="/add-solutions/:id" component={AddSolution} exact/>
 

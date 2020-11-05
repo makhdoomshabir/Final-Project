@@ -1,19 +1,19 @@
 import React from "react";
-import ResolvedTickets from "../tickets/ResolvedTickets";
+import Tickets from "../tickets/Tickets";
 import {Jumbotron} from "react-bootstrap";
 
-const HomePega = () =>  {
-    return(
+const QueueSysPage = () => {
+    return (
         <div>
             <Jumbotron className="bg-dark text-white" id="HomeSoftwareHeader">
-                <h1>Pega</h1>
+                <h1>{window.location.pathname.toLowerCase().replaceAll("/", "")}</h1>
                 <p>
                     Use the Cohort dropdown to filter for tickets specific to your cohort.
                 </p>
             </Jumbotron>
-            <ResolvedTickets/>
+            <Tickets/>
         </div>
     )
 
 }
-export default HomePega;
+export default QueueSysPage;
