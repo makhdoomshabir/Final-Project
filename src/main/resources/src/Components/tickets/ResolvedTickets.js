@@ -1,9 +1,9 @@
 import React, {Component, useEffect, useState} from 'react';
-import {Button, ButtonGroup, Card, FormControl, InputGroup, Tooltip} from "react-bootstrap";
+import {Button, ButtonGroup, Card, FormControl, InputGroup, Tooltip, OverlayTrigger} from "react-bootstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faStepBackward, faFastBackward, faFastForward, faTimes, faSearch
+    faStepBackward, faFastBackward, faFastForward, faTimes, faSearch, faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import MyToast from "../MyToast";
 import {Link} from "react-router-dom";
@@ -261,10 +261,16 @@ export default class ResolvedTickets extends Component {
                                                             className={"text-white"}> {ticket.status ? 'UNRESOLVED' : 'CLOSED'} </span>
                                                         </Link>
                                                     </Button>{' '}
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        delay={{show: 250, hide: 400}}
+                                                        overlay={renderDeleteTooltip}
+                                                    >
                                                     <Button key={ticket.ticketId}
                                                             onClick={() => this.deleteTicket(ticket.ticketId) + this.handleStop()}>
-                                                        DELETE
+                                                        <FontAwesomeIcon icon={faTrash} />
                                                     </Button>
+                                                    </OverlayTrigger>
                                                 </ButtonGroup>
                                             </Card.Footer>
                                         </div>
