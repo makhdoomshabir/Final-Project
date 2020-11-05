@@ -150,18 +150,18 @@ export default class extends Component {
                             onChange={this.ticketChange}/>
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formSolution">
+                    <Form.Group controlId="formSolution">
                         <Form.Label>Solution</Form.Label>
                         <Form.Control
                             required autoComplete="off"
-                            type="textarea"
+                            as="textarea"
                             rows="4"
                             name="solution"
                             value={solution}
                             onChange={this.ticketChange}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formLinks">
+                    <Form.Group controlId="formLinks">
                         <Form.Label>Links</Form.Label>
                         <Form.Control
                             required autoComplete="off"
