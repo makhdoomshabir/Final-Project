@@ -18,4 +18,4 @@ curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s ht
 sudo chmod +x kubectl
 # install binary in to your PATH
 sudo mv ./kubectl /usr/local/bin/kubectl
-echo $(kubectl version --client) << EOF
+echo "$(kubectl version --client)" << EOF

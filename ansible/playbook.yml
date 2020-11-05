@@ -2,16 +2,38 @@
   become: true
   gather_facts: true
 
-- hosts: Product
+- hosts: jenkins
   become: true
   gather_facts: true
   # list of tasks to run on the remote machine
   tasks:
   
-  - name: 'Install kubectl'
+  - name: 'Install jenkins'
+    script: jenkins.sh
+
+  - name: 'install docker'
+     script: docker.sh
+
+  - name: 'install docker-compose'
+    script: docker-compose.sh
+
+  - name: 'install kubectl'
     script: kubernetes.sh
 
   - name: 'Install AWS CLI'
-    command: "{{ item }}"
-    with_items: 
-      - sudo apt install awscli -y
+    script: aws-cli.sh
+
+
+- hosts: test
+  become: true
+  gather_facts: true
+
+  tasks:
+  - name: 'update system'
+    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+  - name: 'install docker'
+    script: docker.sh
+
+  - name: 'install docker-compose'
+    script: docker-compose.sh
