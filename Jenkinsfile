@@ -23,7 +23,7 @@ pipeline{
                     steps{
                         withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                             sh ''' 
-                            sudo rm -rf Final-Project
+                            rm -rf Final-Project
                             git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project/kubernetes
                             kubectl apply -f config-map.yaml
