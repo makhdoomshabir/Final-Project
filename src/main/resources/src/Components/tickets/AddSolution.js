@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Form, Col, Button} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faPlusSquare, faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
+import {faList, faSave} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import MyToast from "../MyToast";
-import {Link} from 'react-router-dom';
+import {withRouter} from "react-router";
 
 export default class extends Component {
 
@@ -87,10 +87,6 @@ export default class extends Component {
         })
     }
 
-    ticketList = () => {
-        return this.props.history.push("/pega");
-    };
-
     render() {
         const {cohort, author, title, description, solution, links} = this.state;
 
@@ -105,16 +101,16 @@ export default class extends Component {
                             <Form.Label>Cohort</Form.Label>
                             <Form.Control required autoComplete="off"
                                           as="select"
-                                          defaultValue="Choose..."
+                                          defaultValue={this.state.cohortFilter}
                                           name="cohort"
                                           value={cohort}
                                           onChange={this.ticketChange}>
                                 <option>Choose...</option>
-                                <option>Software Development</option>
-                                <option>Cloud Computing</option>
-                                <option>DevOps</option>
-                                <option>Robotic Process Automation</option>
-                                <option>Pega</option>
+                                <option>software-development</option>
+                                <option>cloud-computing</option>
+                                <option>dev-ops</option>
+                                <option>robotic-process-automation</option>
+                                <option>pega</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formAuthor">
@@ -171,18 +167,18 @@ export default class extends Component {
                             onChange={this.ticketChange}
                         />
                     </Form.Group>
-                    <Form.Group id="formGridCheckbox">
-                        <Form.Check type="checkbox"
-                                    label="I understand that this solution will be available in on the public ticket board"/>
-                    </Form.Group>
 
-                    <Button variant="success" type="submit">
-                        <Link to={"/pega"}>
-                            <FontAwesomeIcon icon={faSave}/> SOLVE
-                        </Link>
+                    <Button variant="success" type="submit" onClick={() => window.location.href = "/" + cohort}>
+                        <FontAwesomeIcon icon={faSave}/> SOLVE
+                    </Button>{'  '}
+                    <Button variant="info" type="button" onClick={() => window.location.href = "/" + cohort}>
+                        <FontAwesomeIcon icon={faList} className={"text-white"}/>
+                        <span className={"text-white"}>
+                                Ticket List
+                            </span>
                     </Button>
                 </Form>
-        </div>
-    );
-};
+            </div>
+        );
+    };
 }

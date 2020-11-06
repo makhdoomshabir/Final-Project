@@ -42,6 +42,10 @@ export default class extends Component {
                         description: response.data.description,
                         links: response.data.links
                     });
+                    this.setState({
+                        cohortFilter: response.data.cohort
+                    })
+
                 }
             }).catch((error) => {
             console.error("Error - " + error);
@@ -62,7 +66,8 @@ export default class extends Component {
             title: this.state.title,
             description: this.state.description,
             links: this.state.links,
-            lastUpdated: new Date()
+            lastUpdated: new Date(),
+            stopwatch: 0
         };
 
         axios.post("http://localhost:8080/createTicket", tickets)
@@ -85,6 +90,7 @@ export default class extends Component {
 
         const tickets = {
             ticketId: this.state.ticketId,
+            ticketDate: this.state.lastUpdated,
             cohort: this.state.cohort,
             author: this.state.author,
             title: this.state.title,
@@ -111,8 +117,8 @@ export default class extends Component {
         })
     }
 
-    ticketList = () => {
-        return this.props.history.push("/pega");
+    ticketList = (cohort) => {
+        return window.location.href = "/" + cohort;
     };
 
     render() {
@@ -121,7 +127,9 @@ export default class extends Component {
         return (
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
-                    <MyToast show={this.state.show} message={"Book Created Successfully"} type={"success"}/>
+                    <MyToast show={this.state.show}
+                             message={"Ticket " + this.state.ticketId ? " UPDATED " : " CREATED " + " Successfully"}
+                             type={"success"}/>
                 </div>
                 <Form onReset={this.resetTicket} onSubmit={this.state.ticketId ? this.updateTicket : this.submitTicket}
                       id="ticketForm">
@@ -191,16 +199,11 @@ export default class extends Component {
                                     label="I understand that my Issue will be posted to the public ticket board"/>
                     </Form.Group>
 
-                    <Button variant="success" type="submit">
-                        <FontAwesomeIcon icon={faSave}/> {this.state.ticketId ? "Update" : "Save"}
+                    <Button variant="success" type="submit" onClick={() => this.ticketList(cohort)}>
+                        <FontAwesomeIcon icon={faSave}/> {this.state.ticketId ? "UPDATE" : "SAVE"}
                     </Button>{'  '}
                     <Button variant="info" type="reset">
                         <FontAwesomeIcon icon={faUndo}/> Reset Form
-                    </Button>{'  '}
-                    <Button variant="info" type="button">
-                        <Link to={"/pega"}>
-                            <FontAwesomeIcon icon={faList} className={"text-white"}/> <span className={"text-white"}>Ticket List</span>
-                        </Link>
                     </Button>
 
                 </Form>

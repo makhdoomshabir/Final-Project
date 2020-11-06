@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import {Button, ButtonGroup, Card, FormControl, InputGroup, Tooltip} from "react-bootstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MyToast from "../MyToast";
 import {Link} from "react-router-dom";
+import {TimeAgo} from "@n1ru4l/react-time-ago";
 
 export default class Tickets extends Component {
 
@@ -20,11 +21,9 @@ export default class Tickets extends Component {
             currentPage: 1,
             ticketsPerPage: 5,
             status: true,
-            runningTime: 0,
-            date: new Date()
+            runningTime: 0
         };
     }
-
 
     componentDidMount() {
         axios.get("http://localhost:8080/allTickets")
@@ -34,16 +33,11 @@ export default class Tickets extends Component {
                     this.setState({
                         tickets: data.filter(ticket => ticket.cohort === this.state.cohortFilter),
                     });
-                    console.log(this.state.tickets.filter(ticket => ticket.cohort === this.state.cohortFilter))
                 });
         this.setState({
             status: false,
             runningTime: 0
         });
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000
-        );
     }
 
     deleteTicket = (ticketId) => {
@@ -61,42 +55,13 @@ export default class Tickets extends Component {
             });
     };
 
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
-    tick() {
-        this.setState({
-            date: new Date()
-        });
-    }
-
-    handleClick = () => {
-        this.setState(state => {
-            if (state.status) {
-                clearInterval(this.timerID);
-            } else {
-                this.timerID = setInterval(
-                    () => this.tick(),
-                    0
-                );
-            }
-            return {status: !state.status};
-        });
-    };
-
-    handleStop = () => {
-        this.setState({status: false});
-        clearInterval(this.timerID);
-    };
-
     changePage = event => {
         this.setState({
             [event.target.name]:parseInt(event.target.value)
         })
     }
 
-    //Pageation
+    //Pagination
     firstPage = () => {
         if(this.state.currentPage > 1) {
             this.setState({
@@ -204,21 +169,24 @@ export default class Tickets extends Component {
                                 <Card.Header className={"mb-2"} type={"danger"}>
                                     <h3>
                                         Unresolved Tickets
+                                        <div style={{"float": "right"}}>
+                                            <InputGroup size="sm">
+                                                <FormControl placeholder="Search" name="keyword"
+                                                             className={"bg-dark text-white"}
+                                                             onChange={this.searchChange}/>
+                                                <InputGroup.Append>
+                                                    <Button size="sm" variant="outline-info" type="button"
+                                                            onClick={this.searchData}>
+                                                        <FontAwesomeIcon icon={faSearch}/>
+                                                    </Button>
+                                                    <Button size="sm" variant="outline-info" type="button"
+                                                            onClick={this.cancelSearch}>
+                                                        <FontAwesomeIcon icon={faTimes}/>
+                                                    </Button>
+                                                </InputGroup.Append>
+                                            </InputGroup>
+                                        </div>
                                     </h3>
-                                    <div style={{"float": "right"}}>
-                                        <InputGroup size= "sm">
-                                            <FormControl placeholder="Search" name="keyword" className={"bg-dark text-white"}
-                                                         onChange={this.searchChange}/>
-                                            <InputGroup.Append>
-                                                <Button size="sm" variant="outline-info" type="button" onClick={this.searchData}>
-                                                    <FontAwesomeIcon icon={faSearch} />
-                                                </Button>
-                                                <Button size="sm" variant="outline-info" type="button" onClick={this.cancelSearch}>
-                                                    <FontAwesomeIcon icon={faTimes} />
-                                                </Button>
-                                            </InputGroup.Append>
-                                        </InputGroup>
-                                    </div>
                                 </Card.Header>
                                 <Card.Body>{
                                     this.state.tickets.filter(
@@ -230,33 +198,28 @@ export default class Tickets extends Component {
                                             <Card.Header>{ticket.title}</Card.Header>
                                             <Card.Body>
                                                 <Card.Title className="text-white">
-                                                    {ticket.author + ' | ' + ticket.cohort + ' | ' + ticket.lastUpdated.toString()}
+                                                    {ticket.author + ' | ' + ticket.cohort + ' | ' + this.getLastUpdated(ticket.ticketDate, ticket.lastUpdated)}
                                                 </Card.Title>
                                                 <Card.Text>{ticket.description}</Card.Text>
                                                 <Card.Text>{ticket.links}</Card.Text>
                                                 <Card.Title>
-                                                    {this.state.date.getMinutes() > 5 ?
-                                                        <span
-                                                            className={"text-red"}>{this.state.date.toLocaleTimeString()}ms
-                                                        </span>
-                                                        :
-                                                        <span
-                                                            className={"text-white"}>{this.state.date.toLocaleTimeString()}ms
-                                                        </span>
-                                                    }
+                                                    {/*<TimeAgo date={ticket.lastUpdated}>{({ value }) =>*/}
+                                                    {/*    <h2>*/}
+                                                    {/*        {value}*/}
+                                                    {/*    </h2>}*/}
+                                                    {/*</TimeAgo>*/}
                                                 </Card.Title>
                                             </Card.Body>
                                             <Card.Footer className="text-muted">
-                                                {ticket.lastUpdated.toString()}
                                                 <ButtonGroup>
-                                                    <Button onClick={this.handleClick}>
+                                                    <Button>
                                                         <Link to={"/update-ticket/" + ticket.ticketId}
                                                               className={"btn"}>
                                                         <span
                                                             className={"text-white"}> {ticket.status ? 'UPDATE' : 'PAUSED'}</span>
                                                         </Link>
                                                     </Button>{' '}
-                                                    <Button onClick={this.handleStop}>
+                                                    <Button>
                                                         <Link to={"/add-solutions/" + ticket.ticketId}
                                                               className={"btn"}>
                                                         <span
@@ -264,7 +227,7 @@ export default class Tickets extends Component {
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button key={ticket.ticketId}
-                                                            onClick={() => this.deleteTicket(ticket.ticketId) + this.handleStop()}>
+                                                            onClick={() => this.deleteTicket(ticket.ticketId)}>
                                                         DELETE
                                                     </Button>
                                                 </ButtonGroup>
@@ -289,7 +252,7 @@ export default class Tickets extends Component {
                                         <div key={ticketClsd.ticketId}>
                                             <Card.Header className="text-white">{ticketClsd.title}</Card.Header>
                                             <Card.Title
-                                                className="text-white">{ticketClsd.author + ' | ' + ticketClsd.cohort + ' | ' + ticketClsd.lastUpdated.toString()}</Card.Title>
+                                                className="text-white">{ticketClsd.author + ' | ' + ticketClsd.cohort + ' | ' + this.getLastUpdated(ticketClsd.ticketDate, ticketClsd.lastUpdated)}</Card.Title>
                                             <Card.Text>{ticketClsd.description}</Card.Text>
                                             <Card.Text>{ticketClsd.solution}</Card.Text>
                                             <Card.Text>{ticketClsd.links}</Card.Text>
@@ -304,7 +267,7 @@ export default class Tickets extends Component {
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button key={ticketClsd.ticketId} className={"text-danger"}
-                                                            onClick={() => this.deleteTicket(ticketClsd.ticketId) + this.handleStop()}>
+                                                            onClick={() => this.deleteTicket(ticketClsd.ticketId)}>
                                                         DELETE
                                                     </Button>
                                                 </ButtonGroup>
@@ -355,5 +318,32 @@ export default class Tickets extends Component {
                 </Card>
             </div>
         );
+    }
+
+    getLastUpdated(start, end) {
+        const seconds = Math.abs((start - end) / 1000);
+        console.log(seconds);
+        let interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes";
+        }
+        return Math.floor(seconds) + " seconds ago";
     }
 }

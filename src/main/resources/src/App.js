@@ -15,7 +15,7 @@ function App() {
             <Router>
                 <Switch>
 
-                    <Route path="/" component={Welcome} exact/>
+                    <Route exact path="/" component={Welcome} exact/>
 
                     {/* Route to Cohort Specific Ticket Display */}
 
