@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Button, ButtonGroup, Card, FormControl, InputGroup, Tooltip} from "react-bootstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faStepBackward, faFastBackward, faFastForward, faTimes, faSearch
+    faStepBackward, faFastBackward, faFastForward, faTimes, faSearch, faTrash, faPlusSquare, faEdit
 } from "@fortawesome/free-solid-svg-icons";
 import MyToast from "../MyToast";
 import {Link} from "react-router-dom";
-import {TimeAgo} from "@n1ru4l/react-time-ago";
 
 export default class Tickets extends Component {
 
@@ -21,9 +20,10 @@ export default class Tickets extends Component {
             currentPage: 1,
             ticketsPerPage: 5,
             status: true,
-            runningTime: 0
+            isResolved: true
         };
     }
+
 
     componentDidMount() {
         axios.get("http://localhost:8080/allTickets")
@@ -38,6 +38,10 @@ export default class Tickets extends Component {
             status: false,
             runningTime: 0
         });
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
     }
 
     deleteTicket = (ticketId) => {
@@ -116,11 +120,18 @@ export default class Tickets extends Component {
                 });
     }
 
+    resolve = () => {
+        this.setState({isResolved: false})
+    };
 
+    unresolved = () => {
+        this.setState({isResolved: true})
+    }
 
-    render() {
+    //Conditional Rendering of tickets based on tab selected
 
-        //tooltips
+    displayResolved = () => {
+
         const renderEditTooltip = (props) => (
             <Tooltip id="button-tooltip" {...props}>
                 Edit Ticket
@@ -138,136 +149,125 @@ export default class Tickets extends Component {
             </Tooltip>
         );
 
-        const {tickets, currentPage, ticketsPerPage} = this.state;
-        const lastIndex = currentPage * ticketsPerPage;
-        const firstIndex = lastIndex - ticketsPerPage;
-        const currentTickets = tickets.slice(firstIndex, lastIndex);
-        const totalPages = tickets.length / ticketsPerPage;
-        const {status, runningTime} = this.state;
+        if (this.state.isResolved === true) {
+            return (
+                <Card.Body>
+                    <h3>Unresolved</h3>
+                    {this.state.tickets.filter(
+                        (ticket) => {
+                            return ticket.status.toLowerCase() === "unresolved";
+                        }
+                    ).map(ticket => (
+                        <div key={ticket.ticketId}>
+                            <Card.Header>
+                                <div>
+                                    {ticket.author}
+                                </div>
 
-
-        const pageNumCss = {
-            width: "45px",
-            boarder: "1px solid #17A2B8",
-            color: "17A2B8",
-            textAlign: "center",
-            fontWeight: "bold"
-        };
-
-        return (
-            <div>
-                <div style={{"display": this.state.show ? "block" : "none"}}>
-                    <MyToast show={this.state.show} message={"Ticket Removed Successfully"} type={"danger"}/>
-                </div>
-                <Card id="resolvedTicketsCardDeck" className={"bg-dark text-white"}>
-
-                    {tickets.length === 0 ?
-                        <h3> No Tickets in this Cohort</h3>
-                        :
-                        <table>
-                            <td>
-                                <Card.Header className={"mb-2"} type={"danger"}>
-                                    <h3>
-                                        Unresolved Tickets
-                                        <div style={{"float": "right"}}>
-                                            <InputGroup size="sm">
-                                                <FormControl placeholder="Search" name="keyword"
-                                                             className={"bg-dark text-white"}
-                                                             onChange={this.searchChange}/>
-                                                <InputGroup.Append>
-                                                    <Button size="sm" variant="outline-info" type="button"
-                                                            onClick={this.searchData}>
-                                                        <FontAwesomeIcon icon={faSearch}/>
-                                                    </Button>
-                                                    <Button size="sm" variant="outline-info" type="button"
-                                                            onClick={this.cancelSearch}>
-                                                        <FontAwesomeIcon icon={faTimes}/>
-                                                    </Button>
-                                                </InputGroup.Append>
-                                            </InputGroup>
-                                        </div>
-                                    </h3>
-                                </Card.Header>
-                                <Card.Body>{
-                                    this.state.tickets.filter(
-                                        (ticket) => {
-                                            return ticket.status.toLowerCase() === "unresolved";
-                                        }
-                                    ).map(ticket => (
-                                        <div key={ticket.ticketId}>
-                                            <Card.Header>{ticket.title}</Card.Header>
-                                            <Card.Body>
-                                                <Card.Title className="text-white">
-                                                    {ticket.author + ' | ' + ticket.cohort + ' | ' + this.getLastUpdated(ticket.ticketDate, ticket.lastUpdated)}
-                                                </Card.Title>
-                                                <Card.Text>{ticket.description}</Card.Text>
-                                                <Card.Text>{ticket.links}</Card.Text>
-                                                <Card.Title>
-                                                    {/*<TimeAgo date={ticket.lastUpdated}>{({ value }) =>*/}
-                                                    {/*    <h2>*/}
-                                                    {/*        {value}*/}
-                                                    {/*    </h2>}*/}
-                                                    {/*</TimeAgo>*/}
-                                                </Card.Title>
-                                            </Card.Body>
-                                            <Card.Footer className="text-muted">
-                                                <ButtonGroup>
-                                                    <Button>
-                                                        <Link to={"/update-ticket/" + ticket.ticketId}
-                                                              className={"btn"}>
-                                                        <span
-                                                            className={"text-white"}> {ticket.status ? 'UPDATE' : 'PAUSED'}</span>
-                                                        </Link>
-                                                    </Button>{' '}
-                                                    <Button>
-                                                        <Link to={"/add-solutions/" + ticket.ticketId}
-                                                              className={"btn"}>
-                                                        <span
-                                                            className={"text-white"}> {ticket.status ? 'UNRESOLVED' : 'CLOSED'} </span>
-                                                        </Link>
-                                                    </Button>{' '}
-                                                    <Button key={ticket.ticketId}
-                                                            onClick={() => this.deleteTicket(ticket.ticketId)}>
-                                                        DELETE
-                                                    </Button>
-                                                </ButtonGroup>
-                                            </Card.Footer>
-                                        </div>
-                                    ))
+                                Posted
+                                {this.state.date.getMinutes() > 5 ?
+                                    <span
+                                        className={"text-red"}>{this.state.date.toLocaleTimeString()}ms
+                                                        </span>
+                                    :
+                                    <span
+                                        className={"text-white"}>{this.state.date.toLocaleTimeString()}ms
+                                                        </span>
                                 }
-                                </Card.Body>
-                            </td>
-                            <td>
-                                <Card.Header className={"mb-2"} type={"danger"}>
-                                    <h3>
-                                        Resolved Tickets
-                                    </h3>
-                                </Card.Header>
-                                <Card.Body>{
-                                    this.state.tickets.filter(
-                                        (ticket) => {
-                                            return ticket.status.toLowerCase() === "resolved";
-                                        }
-                                    ).map(ticketClsd => (
-                                        <div key={ticketClsd.ticketId}>
-                                            <Card.Header className="text-white">{ticketClsd.title}</Card.Header>
-                                            <Card.Title
-                                                className="text-white">{ticketClsd.author + ' | ' + ticketClsd.cohort + ' | ' + this.getLastUpdated(ticketClsd.ticketDate, ticketClsd.lastUpdated)}</Card.Title>
-                                            <Card.Text>{ticketClsd.description}</Card.Text>
-                                            <Card.Text>{ticketClsd.solution}</Card.Text>
-                                            <Card.Text>{ticketClsd.links}</Card.Text>
-                                            <Card.Footer className="text-danger">
-                                                {ticketClsd.lastUpdated.toString()}
-                                                <ButtonGroup className={"text-success"}>
-                                                    <Button onClick={this.handleClick} className={"text-success"}>
-                                                        <Link to={"/add-solutions/" + ticketClsd.ticketId}
-                                                              className={"btn"}>
+                                ago
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Title className="text-white">
+                                    {ticket.title}
+                                </Card.Title>
+
+                                <Card.Text>{ticket.description}</Card.Text>
+                                <Card.Text>{ticket.links}</Card.Text>
+                                <Card.Subtitle>
+                                    <div style={{"float": "left"}}>
+                                        Last Updated: {ticket.lastUpdated.toString()}
+                                    </div>
+
+                                </Card.Subtitle>
+
+
+                            </Card.Body>
+                            <Card.Footer className="text-muted">
+                                <div>
+                                    <ButtonGroup>
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={renderEditTooltip}
+                                        >
+                                            <Button size="sm" onClick={this.handleClick}>
+                                                <Link to={"/update-ticket/" + ticket.ticketId}
+                                                      className={"btn"}>
+                                                    <FontAwesomeIcon icon={faEdit}/>
+                                                </Link>
+                                            </Button>
+                                        </OverlayTrigger>
+                                        {' '}
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={renderSolutionTooltip}
+                                        >
+                                            <Button size="sm" onClick={this.handleStop}>
+                                                <Link to={"/add-solutions/" + ticket.ticketId}
+                                                      className={"btn"}>
+                                                    <FontAwesomeIcon icon={faPlusSquare}/>
+                                                </Link>
+                                            </Button>
+                                        </OverlayTrigger> {' '}
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={renderDeleteTooltip}
+                                        >
+                                            <Button size="sm" key={ticket.ticketId}
+                                                    onClick={() => this.deleteTicket(ticket.ticketId) + this.handleStop()}>
+                                                <FontAwesomeIcon icon={faTrash}/>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </ButtonGroup>
+                                </div>
+                            </Card.Footer>
+                            <br/>
+                        </div>
+                    ))
+                    }
+                </Card.Body>
+
+            )
+        } else {
+            return (
+            <Card.Body>
+                <h3>Resolved</h3>
+                {this.state.tickets.filter(
+                    (ticket) => {
+                        return ticket.status.toLowerCase() === "resolved";
+                    }
+                ).map(ticketClsd => (
+                    <div key={ticketClsd.ticketId}>
+                        <Card.Header className="text-white">{ticketClsd.title}</Card.Header>
+                        <Card.Title
+                            className="text-white">{ticketClsd.author + ' | ' + ticketClsd.cohort + ' | ' + ticketClsd.lastUpdated.toString()}</Card.Title>
+                        <Card.Text>{ticketClsd.description}</Card.Text>
+                        <Card.Text>{ticketClsd.solution}</Card.Text>
+                        <Card.Text>{ticketClsd.links}</Card.Text>
+                        <Card.Footer className="text-danger">
+                            {ticketClsd.lastUpdated.toString()}
+                            <ButtonGroup className={"text-success"}>
+                                <Button onClick={this.handleClick} className={"text-success"}>
+                                    <Link to={"/add-solutions/" + ticketClsd.ticketId}
+                                          className={"btn"}>
                                                             <span
                                                                 className={"text-white"}> {ticketClsd.status ? 'CLOSED' : 'UPDATED'}</span>
                                                         </Link>
                                                     </Button>{' '}
                                                     <Button key={ticketClsd.ticketId} className={"text-danger"}
-                                                            onClick={() => this.deleteTicket(ticketClsd.ticketId)}>
+                                                            onClick={() => this.deleteTicket(ticketClsd.ticketId) + this.handleStop()}>
                                                         DELETE
                                                     </Button>
                                                 </ButtonGroup>
