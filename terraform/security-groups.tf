@@ -180,6 +180,15 @@ resource "aws_security_group" "bastion-sg" {
     cidr_blocks = ["46.64.73.251/32"]
   }
 
+  # Port 8080
+  ingress {
+    description = "HTTP"
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Egress/Outbound rules
   egress {
     from_port   = 0
