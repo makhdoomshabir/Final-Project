@@ -8,31 +8,33 @@
   # list of tasks to run on the remote machine
   tasks:
   
-  - name: 'Install jenkins'
-    script: jenkins.sh
+  # - name: 'Install jenkins'
+  #   script: jenkins.sh
 
-  - name: 'Add Jenkins to sudoers group'
-    lineinfile:
-      dest: /etc/sudoers
-      state: present
-      regexp: '^%jenkins'
-      line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
-      validate: 'visudo -cf %s'
+  # - name: 'Add Jenkins to sudoers group'
+  #   lineinfile:
+  #     dest: /etc/sudoers
+  #     state: present
+  #     regexp: '^%jenkins'
+  #     line: '%jenkins ALL=(ALL) NOPASSWD:ALL'
+  #     validate: 'visudo -cf %s'
 
-  - name: 'install docker'
-    script: docker.sh
+  # - name: 'install docker'
+  #   script: docker.sh
 
-  - name: 'Add Jenkins user to docker group'
-    user:
-      name: "jenkins"
-      group: "docker"
-      append: yes
+  # - name: 'Add Jenkins user to docker group'
+  #   user:
+  #     name: "jenkins"
+  #     group: "docker"
+  #     append: yes
 
-  - name: 'install docker-compose'
-    script: docker-compose.sh
+  # - name: 'install docker-compose'
+  #   script: docker-compose.sh
 
-  - name: 'install kubectl'
-    script: kubernetes.sh
+  # - name: 'install kubectl'
+  #   script: kubernetes.sh
 
+  - name: 'install kubelet'
+    command: 'sudo snap install kubelet --classic'
   - name: 'Install AWS CLI'
     script: aws-cli.sh
