@@ -36,7 +36,7 @@ resource "aws_security_group" "jenkins-sg" {
   ingress {
     description = "port-8080 from VPC"
     from_port   = 8080
-    to_port     = 8080
+    to_port     = 8081
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] #Daood IP goes here. /32 CIDR notation for single IP
   }
