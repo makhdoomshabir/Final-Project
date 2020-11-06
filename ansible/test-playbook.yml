@@ -11,3 +11,9 @@
 
   - name: 'install docker-compose'
     script: docker-compose.sh
+
+  - name: 'Add Jenkins user to docker group'
+    user:
+      name: "jenkins"
+      group: "docker"
+      append: yes
