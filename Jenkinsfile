@@ -13,7 +13,7 @@ pipeline{
                     steps{
                         withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         sh '''
-                        aws eks update-kubeconfig --name sfia-three-production
+                        aws eks update-kubeconfig --name sfia-three
                         '''
                         }
                     } 
