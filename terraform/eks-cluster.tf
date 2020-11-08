@@ -32,8 +32,8 @@ module "eks" {
   node_groups = {
     public = {
       subnets          = ["subnet-0bff1f33f1b62dfe4"]
-      desired_capacity = 1
-      max_capacity     = 2
+      desired_capacity = 2
+      max_capacity     = 3
       min_capacity     = 1
 
       instance_type = "t2.small"
