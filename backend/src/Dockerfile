@@ -8,5 +8,5 @@ RUN mvn clean package spring-boot:repackage
 
 FROM java:8 AS runtime
 WORKDIR /opt/finalproject
-COPY --from=build-stage /build/target/billyshakes.jar app.jar
+COPY --from=build-stage /build/target/finalproject.jar app.jar
 ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
