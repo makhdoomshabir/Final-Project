@@ -17,32 +17,44 @@ provider "kubernetes" {
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "sfia-three"
-  cluster_version = "1.17"
+  cluster_version = "1.18"
   subnets         = ["subnet-0bff1f33f1b62dfe4", "subnet-0f3d20fd1c869589b"]
   vpc_id          = "vpc-01c0efe131e346574"
+
+  # worker_groups = [
+  #   {
+  #     instance_type = "t2.micro"
+  #     asg_max_size  = 3
+  #     cluster_name  = module.eks.cluster_id
+  #   }
+  # ]
 
   node_groups = {
     public = {
       subnets          = ["subnet-0bff1f33f1b62dfe4"]
       desired_capacity = 1
-      max_capacity     = 3
+      max_capacity     = 2
       min_capacity     = 1
 
       instance_type = "t2.small"
       k8s_labels = {
         Environment = "public"
       }
-    }
-    private = {
-      subnets          = ["subnet-0f3d20fd1c869589b"]
-      desired_capacity = 1
-      max_capacity     = 3
-      min_capacity     = 1
 
-      instance_type = "t2.small"
-      k8s_labels = {
-        Environment = "private"
+      tags = {
+        Name = "node-1"
       }
     }
+    # private = {
+    #   subnets          = ["subnet-0f3d20fd1c869589b"]
+    #   desired_capacity = 1
+    #   max_capacity     = 2
+    #   min_capacity     = 1
+
+    #   instance_type = "t2.micro"
+    #   k8s_labels = {
+    #     Environment = "private"
+    #   }
+    # }
   }
 }
