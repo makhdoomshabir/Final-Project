@@ -39,3 +39,5 @@ node_modules
 *.tfstate
 *.tfstate.*
 .terraform/
+
+kubeconfig_sfia-three
