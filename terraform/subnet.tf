@@ -30,11 +30,14 @@ resource "aws_subnet" "subnet-3-db" {
 
 # Create subnet 4 (Public - Production)
 resource "aws_subnet" "subnet-4-prod" {
-  vpc_id            = aws_vpc.main-vpc.id
-  cidr_block        = "10.0.4.0/24"
-  availability_zone = "eu-west-2a"
+  vpc_id                  = aws_vpc.main-vpc.id
+  cidr_block              = "10.0.4.0/24"
+  availability_zone       = "eu-west-2a"
+  map_public_ip_on_launch = "true"
   tags = {
-    Name = "prod-subnet-public"
+    Name                               = "prod-subnet-public"
+    "kubernetes.io/cluster/sfia-three" = "shared"
+    "kubernetes.io/role/elb"           = "1"
   }
 }
 
@@ -44,7 +47,9 @@ resource "aws_subnet" "subnet-5-spare" {
   cidr_block        = "10.0.5.0/24"
   availability_zone = "eu-west-2b"
   tags = {
-    Name = "spare-subnet-private"
+    Name                               = "spare-subnet-private"
+    "kubernetes.io/cluster/sfia-three" = "shared"
+    "kubernetes.io/role/internal-elb"  = "1"
   }
 }
 
