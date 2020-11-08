@@ -1,33 +1,35 @@
 package com.qa.dto;
 
-import javax.persistence.Column;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TicketDTO {
 
     private Long ticketId;
-    private String ticketDate;
-    private String status = "Not Solved";
+    private Date ticketDate;
+    private String status = "unresolved";
     private String title;
     private String description;
+    private String links;
     private String author;
     private String cohort;
     private String solution;
-    private String resolvedTime;
+    private Date lastUpdated;
+    private Float stopwatch;
 
     public TicketDTO() {
     }
 
-    public TicketDTO(String ticketDate, String status, String title, String description, String author, String cohort, String solution, String resolvedTime) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
         this.description = description;
+        this.links = links;
         this.author = author;
         this.cohort = cohort;
         this.solution = solution;
-        this.resolvedTime = resolvedTime;
+        this.lastUpdated = lastUpdated;
+        this.stopwatch = stopwatch;
     }
 
     public Long getTicketId() {
@@ -38,11 +40,11 @@ public class TicketDTO {
         this.ticketId = ticketId;
     }
 
-    public String getTicketDate() {
+    public Date getTicketDate() {
         return ticketDate;
     }
 
-    public void setTicketDate(String ticketDate) {
+    public void setTicketDate(Date ticketDate) {
         this.ticketDate = ticketDate;
     }
 
@@ -70,6 +72,22 @@ public class TicketDTO {
         this.description = description;
     }
 
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+    public Float getStopwatch() {
+        return stopwatch;
+    }
+
+    public void setStopwatch(Float stopwatch) {
+        this.stopwatch = stopwatch;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -94,11 +112,11 @@ public class TicketDTO {
         this.solution = solution;
     }
 
-    public String getResolvedTime() {
-        return resolvedTime;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setResolvedTime(String resolvedTime) {
-        this.resolvedTime = resolvedTime;
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
