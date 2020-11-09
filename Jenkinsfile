@@ -28,8 +28,7 @@ pipeline{
                             cd Final-Project/kubernetes
                             kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml
                             kubectl apply -f config-map.yaml
-                            kubectl apply -f deployment.yaml
-                            kubectl apply -f nginx-service.yaml
+                            kubectl apply -f nginx-config.yaml
                             kubectl apply -f mysql-db.yaml
                             kubectl apply -f backend.yaml
                             kubectl apply -f frontend.yaml
