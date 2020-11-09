@@ -22,7 +22,7 @@ function App() {
                     <Route path="/Azure-Devops" component={QueueSysPage} exact/>
                     <Route path="/Software-BAE" component={QueueSysPage} exact/>
                     <Route path="/SDET" component={QueueSysPage} exact/>
-                    <Route path="/Cloud Native Engineer" component={QueueSysPage} exact/>
+                    <Route path="/Cloud-Native-Engineer" component={QueueSysPage} exact/>
                     <Route path="/Scala" component={QueueSysPage} exact/>
 
                     {/*
