@@ -17,7 +17,7 @@ export default class Tickets extends Component {
         this.state = {
             tickets: [],
             keyword: '',
-            cohortFilter: window.location.pathname.toLowerCase().replaceAll("/", ""),
+            cohortFilter: window.location.pathname.replaceAll("/", ""),
             currentPage: 1,
             ticketsPerPage: 5,
             status: true,
@@ -34,7 +34,6 @@ export default class Tickets extends Component {
                     this.setState({
                         tickets: data.filter(ticket => ticket.cohort === this.state.cohortFilter),
                     });
-                    console.log(this.state.tickets.filter(ticket => ticket.cohort === this.state.cohortFilter))
                 });
         this.setState({
             status: false,
@@ -176,8 +175,8 @@ export default class Tickets extends Component {
                                 </div>
 
                                 <span className={"text-red"}>
-                                          Last seen: <ReactTimeAgo date={ticket.lastUpdated} locale="en-US"
-                                                                   timeStyle="round"/>
+                                    Last Changed: <ReactTimeAgo date={ticket.lastUpdated} locale="en-US"
+                                                                timeStyle="round"/>
                                 </span>
                             </Card.Header>
                             <Card.Body>
