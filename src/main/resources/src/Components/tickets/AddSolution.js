@@ -4,7 +4,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faList, faSave} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import MyToast from "../MyToast";
-import {withRouter} from "react-router";
 
 export default class extends Component {
 
@@ -34,12 +33,14 @@ export default class extends Component {
                 if (response.data != null) {
                     this.setState({
                         ticketId: response.data.ticketId,
+                        ticketDate: response.data.ticketDate,
                         cohort: response.data.cohort,
                         author: response.data.author,
                         title: response.data.title,
                         description: response.data.description,
                         solution: response.data.solution,
-                        links: response.data.links
+                        links: response.data.links,
+                        lastUpdated: response.data.lastUpdated
                     });
                 }
             }).catch((error) => {
@@ -60,6 +61,7 @@ export default class extends Component {
         const tickets = {
             ticketId: this.state.ticketId,
             status: "resolved",
+            ticketDate: this.state.ticketDate,
             cohort: this.state.cohort,
             author: this.state.author,
             title: this.state.title,

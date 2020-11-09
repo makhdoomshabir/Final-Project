@@ -6,7 +6,7 @@ const QueueSysPage = () => {
     return (
         <div>
             <Jumbotron className="bg-dark text-white" id="HomeSoftwareHeader">
-                <h1>{window.location.pathname.toUpperCase().replaceAll("-", " ")}</h1>
+                <h1>{window.location.pathname.toUpperCase().replaceAll("/", " ")}</h1>
                 <p>
                     Use the Cohort dropdown to filter for tickets specific to your cohort.
                 </p>

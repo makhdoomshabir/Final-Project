@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Form, Col, Button} from 'react-bootstrap';
+import {Button, Col, Form} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faPlusSquare, faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import MyToast from "../MyToast";
-import {Link} from 'react-router-dom';
 
 
 export default class extends Component {
@@ -40,12 +39,13 @@ export default class extends Component {
                         author: response.data.author,
                         title: response.data.title,
                         description: response.data.description,
-                        links: response.data.links
+                        links: response.data.links,
+                        lastUpdated: response.data.lastUpdated,
+                        ticketDate: response.data.ticketDate
                     });
                     this.setState({
                         cohortFilter: response.data.cohort
                     })
-
                 }
             }).catch((error) => {
             console.error("Error - " + error);
@@ -66,8 +66,7 @@ export default class extends Component {
             title: this.state.title,
             description: this.state.description,
             links: this.state.links,
-            lastUpdated: new Date(),
-            stopwatch: 0
+            lastUpdated: new Date()
         };
 
         axios.post("http://localhost:8080/createTicket", tickets)
@@ -90,7 +89,7 @@ export default class extends Component {
 
         const tickets = {
             ticketId: this.state.ticketId,
-            ticketDate: this.state.lastUpdated,
+            ticketDate: this.state.ticketDate,
             cohort: this.state.cohort,
             author: this.state.author,
             title: this.state.title,
@@ -143,11 +142,11 @@ export default class extends Component {
                                           value={cohort}
                                           onChange={this.ticketChange}>
                                 <option>Choose...</option>
-                                <option>software-development</option>
-                                <option>cloud-computing</option>
-                                <option>dev-ops</option>
-                                <option>robotic-process-automation</option>
-                                <option>pega</option>
+                                <option>Azure-Devops</option>
+                                <option>Software-BAE</option>
+                                <option>SDET</option>
+                                <option>Cloud-Native-Engineer</option>
+                                <option>Scala</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formAuthor">
@@ -191,12 +190,6 @@ export default class extends Component {
                             name="links"
                             value={links}
                             onChange={this.ticketChange}/>
-                    </Form.Group>
-
-
-                    <Form.Group controlId="formGridCheckbox">
-                        <Form.Check type="checkbox"
-                                    label="I understand that my Issue will be posted to the public ticket board"/>
                     </Form.Group>
 
                     <Button variant="success" type="submit" onClick={() => this.ticketList(cohort)}>
