@@ -47,11 +47,13 @@ public class TicketsService {
         update.setTitle(ticket.getTitle());
         update.setTicketDate(ticket.getTicketDate());
         update.setDescription(ticket.getDescription());
+        update.setLinks(ticket.getLinks());
         update.setAuthor(ticket.getAuthor());
         update.setCohort(ticket.getCohort());
         update.setStatus(ticket.getStatus());
-        update.setResolvedTime(ticket.getResolvedTime());
+        update.setLastUpdated(ticket.getLastUpdated());
         update.setSolution(ticket.getSolution());
+        update.setStopwatch(ticket.getStopwatch());
         return this.mapToDTO(this.tRepo.save(update));
     }
 
@@ -61,5 +63,9 @@ public class TicketsService {
         }
         this.tRepo.deleteById(id);
         return this.tRepo.existsById(id);
+    }
+
+    public List<TicketDTO> findByKeyword(String keyword) {
+        return this.tRepo.findByKeyword(keyword).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 }
