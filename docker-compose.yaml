@@ -23,9 +23,9 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=test_db
+      - MYSQL_DATABASE=test-db
       - SECRET_KEY=password
-      - TEST_DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/testdb
+      - TEST_DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/test-db
     depends_on:
       - database
 
