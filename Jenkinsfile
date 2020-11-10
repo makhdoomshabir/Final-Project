@@ -24,7 +24,7 @@ pipeline{
             stage('Build FrontImage'){
                 steps{
                     script{
-                        dir("src/main/resources"){
+                        dir("/Final-Project/src/main/resources"){
                           if (env.rollback == 'false'){
                             frontendimage = docker.build("krystalsimmonds/sfia-three-react")
                         }
