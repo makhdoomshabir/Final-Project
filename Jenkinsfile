@@ -78,7 +78,6 @@ pipeline{
                     docker-compose up -d
                     EOF
                     '''
-                    }
                 }
             }
             stage('Configure kubectl'){
@@ -108,3 +107,4 @@ pipeline{
                 }
             }
         }
+}
