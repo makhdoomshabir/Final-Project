@@ -173,7 +173,8 @@ export default class extends Component {
                     </Form.Group>
                     <Form.Group id="formGridCheckbox">
                         <Form.Check type="checkbox"
-                                    label="I understand that this solution will be available in on the public ticket board"/>
+                                    label="I understand that by adding a solution this ticket will be marked as resolved
+                                     and the solution will be publicly available on the ticket board."/>
                     </Form.Group>
 
                     <Button variant="success" type="submit">
