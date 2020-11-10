@@ -6,7 +6,6 @@ import com.qa.exceptions.error404;
 import com.qa.repo.TicketsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +47,7 @@ public class TicketsService {
         update.setTitle(ticket.getTitle());
         update.setTicketDate(ticket.getTicketDate());
         update.setDescription(ticket.getDescription());
+        update.setLinks(ticket.getLinks());
         update.setAuthor(ticket.getAuthor());
         update.setCohort(ticket.getCohort());
         update.setStatus(ticket.getStatus());

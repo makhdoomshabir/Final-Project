@@ -3,8 +3,6 @@ package com.qa.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -12,7 +10,7 @@ import java.util.Date;
 public class Ticket {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ticketId; // Done automatically do not implement on form!
 
     @Column
@@ -43,13 +41,30 @@ public class Ticket {
     private Date lastUpdated; // Done automatically do not implement on form!
 
     @Column
-    private Float stopwatch; // Done automatically do not implement on form!
+    private int stopwatch; // Done automatically do not implement on form!
 
     public Ticket() {
 
     }
 
-    public Ticket(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
+    public Ticket(Long TicketId, Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, int stopwatch) {
+        super();
+        this.ticketId = ticketId;
+        this.ticketDate = ticketDate;
+        this.status = status;
+        this.title = title;
+        this.description = description;
+        this.links = links;
+        this.author = author;
+        this.cohort = cohort;
+        this.solution = solution;
+        this.lastUpdated = lastUpdated;
+        this.stopwatch = stopwatch;
+    }
+
+
+    public Ticket(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, int stopwatch) {
+        super();
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -134,11 +149,11 @@ public class Ticket {
         this.lastUpdated = lastUpdated;
     }
 
-    public Float getStopwatch() {
+    public int getStopwatch() {
         return stopwatch;
     }
 
-    public void setStopwatch(Float stopwatch) {
+    public void setStopwatch(int stopwatch) {
         this.stopwatch = stopwatch;
     }
 
@@ -149,6 +164,5 @@ public class Ticket {
     public void setSolution(String solution) {
         this.solution = solution;
     }
-
 
 }
