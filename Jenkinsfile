@@ -29,7 +29,7 @@ pipeline{
                                 export DB_PASSWORD=${DBpass}
                                 export DATABASE_URI=${DB_uri}
 
-                                sudo -E MYSQL_DATABASE=${db} MYSQL_ROOT_PASSWORD=${DBpass} MYSQL_USER=${DB_USER} MYSQL_PASSWORD=${DBpass} SECRET_KEY=${DBpass} DB_PASSWORD=${DBpass} DATABASE_URI=${DB_uri}docker-compose build
+                                sudo -E MYSQL_DATABASE=${db} MYSQL_ROOT_PASSWORD=${DBpass} MYSQL_USER=${DB_USER} MYSQL_PASSWORD=${DBpass} SECRET_KEY=${DBpass} DB_PASSWORD=${DBpass} DATABASE_URI=${DB_uri} docker-compose build
                                 '''
                             }
                         }
