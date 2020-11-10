@@ -7,6 +7,8 @@ services:
     ports:
       - target: 3000
         published: 3000
+    stdin_open: true
+    tty: true
     depends_on:
       - backend
 
@@ -49,6 +51,8 @@ services:
     ports:
       - target: 80
         published: 80
+    stdin_open: true
+    tty: true
     volumes:
       - type: bind
         source: ./nginx/nginx.conf
