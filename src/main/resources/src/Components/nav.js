@@ -35,12 +35,12 @@ export class Navigation extends Component {
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="mr-auto">
                                 <NavDropdown title="Cohort" id="collasible-nav-dropdown">
-                                    <a className="dropdown-item" href="/software-development">Software Development</a>
-                                    <a className="dropdown-item" href="/cloud-computing">Cloud Computing</a>
-                                    <a className="dropdown-item" href="/dev-ops">DevOps</a>
-                                    <a className="dropdown-item" href="/robotic-process-automation">Robotic Process
-                                        Automation</a>
-                                    <a className="dropdown-item" href="/pega">Pega</a>
+                                    <a className="dropdown-item" href="/Azure-Devops">Azure Devops - (20OctDevOps1)</a>
+                                    <a className="dropdown-item" href="/Software-BAE">Software BAE - (20OCTBAE2)</a>
+                                    <a className="dropdown-item" href="/SDET">SDET - (20OCTSDET3</a>
+                                    <a className="dropdown-item" href="/Cloud-Native-Engineer">Cloud Native Engineer -
+                                        (20SeptCNE)</a>
+                                    <a className="dropdown-item" href="/Scala">Scala - (20NovSoftware1)</a>
                                 </NavDropdown>
 
                             </Nav>

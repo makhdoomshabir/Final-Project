@@ -11,20 +11,21 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
-    "chart.js": "^2.9.4",
     "cors": "^2.8.5",
+    "javascript-time-ago": "^2.3.2",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
-    "react-chartjs-2": "^2.11.1",
     "react-dom": "^16.14.0",
+    "react-router": "^5.2.0",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-time-ago": "^6.2.0"
   },
   "scripts": {
     "start": "./node_modules/.bin/react-scripts start",
     "build": "./node_modules/.bin/react-scripts build",
-    "test": "jest",
+    "test": "./node_modules/.bin/react-scripts test",
     "eject": "./node_modules/.bin/react-scripts eject"
   },
   "eslintConfig": {
@@ -44,7 +45,9 @@
     ]
   },
   "devDependencies": {
-    "jest": "^24.9.0",
-    "react-test-renderer": "^17.0.1"
+    "@n1ru4l/react-time-ago": "^1.1.0",
+    "datetime": "0.0.3",
+    "history": "^5.0.0",
+    "jest": "24.9.0"
   }
 }

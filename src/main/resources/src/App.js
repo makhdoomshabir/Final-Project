@@ -15,15 +15,15 @@ function App() {
             <Router>
                 <Switch>
 
-                    <Route path="/" component={Welcome} exact/>
+                    <Route exact path="/" component={Welcome} exact/>
 
                     {/* Route to Cohort Specific Ticket Display */}
 
-                    <Route path="/software-development" component={QueueSysPage} exact/>
-                    <Route path="/cloud-computing" component={QueueSysPage} exact/>
-                    <Route path="/dev-ops" component={QueueSysPage} exact/>
-                    <Route path="/robotic-process-automation" component={QueueSysPage} exact/>
-                    <Route path="/pega" component={QueueSysPage} exact/>
+                    <Route path="/Azure-Devops" component={QueueSysPage} exact/>
+                    <Route path="/Software-BAE" component={QueueSysPage} exact/>
+                    <Route path="/SDET" component={QueueSysPage} exact/>
+                    <Route path="/Cloud Native Engineer" component={QueueSysPage} exact/>
+                    <Route path="/Scala" component={QueueSysPage} exact/>
 
                     {/*
 

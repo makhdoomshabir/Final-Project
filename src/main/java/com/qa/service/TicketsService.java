@@ -48,6 +48,7 @@ public class TicketsService {
         update.setTitle(ticket.getTitle());
         update.setTicketDate(ticket.getTicketDate());
         update.setDescription(ticket.getDescription());
+        update.setLinks(ticket.getLinks());
         update.setAuthor(ticket.getAuthor());
         update.setCohort(ticket.getCohort());
         update.setStatus(ticket.getStatus());

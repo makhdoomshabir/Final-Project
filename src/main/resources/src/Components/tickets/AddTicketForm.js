@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Form, Col, Button} from 'react-bootstrap';
+import {Button, Col, Form} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faList, faPlusSquare, faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
+import {faSave, faUndo} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import MyToast from "../MyToast";
-import {Link} from 'react-router-dom';
 
 
 export default class extends Component {
@@ -40,8 +39,13 @@ export default class extends Component {
                         author: response.data.author,
                         title: response.data.title,
                         description: response.data.description,
-                        links: response.data.links
+                        links: response.data.links,
+                        lastUpdated: response.data.lastUpdated,
+                        ticketDate: response.data.ticketDate
                     });
+                    this.setState({
+                        cohortFilter: response.data.cohort
+                    })
                 }
             }).catch((error) => {
             console.error("Error - " + error);
@@ -85,6 +89,7 @@ export default class extends Component {
 
         const tickets = {
             ticketId: this.state.ticketId,
+            ticketDate: this.state.ticketDate,
             cohort: this.state.cohort,
             author: this.state.author,
             title: this.state.title,
@@ -111,8 +116,8 @@ export default class extends Component {
         })
     }
 
-    ticketList = () => {
-        return this.props.history.push("/pega");
+    ticketList = (cohort) => {
+        return window.location.href = "/" + cohort;
     };
 
     render() {
@@ -121,7 +126,9 @@ export default class extends Component {
         return (
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
-                    <MyToast show={this.state.show} message={"Book Created Successfully"} type={"success"}/>
+                    <MyToast show={this.state.show}
+                             message={"Ticket " + this.state.ticketId ? " UPDATED " : " CREATED " + " Successfully"}
+                             type={"success"}/>
                 </div>
                 <Form onReset={this.resetTicket} onSubmit={this.state.ticketId ? this.updateTicket : this.submitTicket}
                       id="ticketForm">
@@ -135,11 +142,11 @@ export default class extends Component {
                                           value={cohort}
                                           onChange={this.ticketChange}>
                                 <option>Choose...</option>
-                                <option>software-development</option>
-                                <option>cloud-computing</option>
-                                <option>dev-ops</option>
-                                <option>robotic-process-automation</option>
-                                <option>pega</option>
+                                <option>Azure-Devops</option>
+                                <option>Software-BAE</option>
+                                <option>SDET</option>
+                                <option>Cloud-Native-Engineer</option>
+                                <option>Scala</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formAuthor">
@@ -185,22 +192,11 @@ export default class extends Component {
                             onChange={this.ticketChange}/>
                     </Form.Group>
 
-
-                    <Form.Group controlId="formGridCheckbox">
-                        <Form.Check type="checkbox"
-                                    label="I understand that my Issue will be posted to the public ticket board"/>
-                    </Form.Group>
-
-                    <Button variant="success" type="submit">
-                        <FontAwesomeIcon icon={faSave}/> {this.state.ticketId ? "Update" : "Save"}
+                    <Button variant="success" type="submit" onClick={() => this.ticketList(cohort)}>
+                        <FontAwesomeIcon icon={faSave}/> {this.state.ticketId ? "UPDATE" : "SAVE"}
                     </Button>{'  '}
                     <Button variant="info" type="reset">
                         <FontAwesomeIcon icon={faUndo}/> Reset Form
-                    </Button>{'  '}
-                    <Button variant="info" type="button">
-                        <Link to={"/pega"}>
-                            <FontAwesomeIcon icon={faList} className={"text-white"}/> <span className={"text-white"}>Ticket List</span>
-                        </Link>
                     </Button>
 
                 </Form>
