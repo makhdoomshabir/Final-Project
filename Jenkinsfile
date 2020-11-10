@@ -14,8 +14,9 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                         sh '''
+                        rm -rf Final-Project
+                        git clone https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project
-                        git pull Frontend https://github.com/makhdoomshabir/Final-Project.git
                         '''
                         load "./ansible/.envvars/tf_ansible.groovy"
 
