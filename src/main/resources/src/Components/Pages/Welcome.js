@@ -1,13 +1,18 @@
 import React from "react";
 import Header from "../Header";
 import WelcomeOptions from "../WelcomeOptions";
-import Tickets from "../tickets/Tickets";
+import Dashboard from "../dashboard";
 
 const Welcome = () => {
     return (
         <div>
         <Header/>
-        <WelcomeOptions/>
+        <div>
+            <Dashboard/>
+        </div>
+
+
+
         </div>
     )
 }
