@@ -19,12 +19,8 @@ pipeline{
                         git clone https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project
 
-                        export MYSQL_DATABASE=test_db
-                        export MYSQL_ROOT_PASSWORD=root
-                        export MYSQL_USER=admin
-                        export MYSQL_PASSWORD=password
-                        export SECRET_KEY=
-                        sudo -E MYSQL_ROOT_PASSWORD=root DB_PASSWORD=root TEST_DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/testdb docker-compose build
+
+                        sudo docker-compose build
                         '''
                         }
                     }
