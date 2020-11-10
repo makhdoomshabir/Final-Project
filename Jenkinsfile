@@ -13,17 +13,16 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
-
                             sh """
                             rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
-                            export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-                            export MYSQL_USER=${MYSQL_USER}
-                            export MYSQL_PASSWORD=${MYSQL_PASSWORD}
+                            export MYSQL_ROOT_PASSWORD=root
+                            export MYSQL_USER=admin
+                            export MYSQL_PASSWORD=password
                             export TEST_DATABASE_URI=${TEST_DATABASE_URI}
-                            export DATABASE_URI=${DATABASE_URI}
-                            export SECRET_KEY=${SECRET_KEY}
+                            export DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/test-db
+                            export SECRET_KEY=password
 
                             sudo -E MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} MYSQL_USER=${MYSQL_USER} MYSQL_PASSWORD=${MYSQL_PASSWORD} DB_PASSWORD=${DB_PASSWORD} DATABASE_URI=${DATABASE_URI} SECRET_KEY=${SECRET_KEY} docker-compose build
                             """
