@@ -1,5 +1,4 @@
-version: '3.8'
-
+version: "3.3"
 services:
   frontend:
     container_name: frontend
@@ -25,8 +24,8 @@ services:
     #   - SECRET_KEY=${SECRET_KEY}
     #   - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
-      - target: 3001
-        published: 3001
+      - target: 8080
+        published: 8080
     depends_on:
       - database
 
