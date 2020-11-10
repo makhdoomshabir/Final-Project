@@ -71,29 +71,29 @@
   - name: 'Install Docker-Compose'
     script: docker-compose-install.sh
 
- - name: 'install kubectl'
-   command: "{{ item }}"
-   with_items:
-     - sudo snap install kubectl --classic
+  - name: 'install kubectl'
+    command: "{{ item }}"
+    with_items:
+      - sudo snap install kubectl --classic
 
- - name: 'Install AWS'
-   command: "{{ item }}"
-   with_items:
-     - sudo apt install awscli -y
+  - name: 'Install AWS'
+    command: "{{ item }}"
+    with_items:
+      - sudo apt install awscli -y
 
 - hosts: test
-# Install Docker
+  become: true
+  gather_facts: true
 
- become: true
- gather_facts: true
+  # Install Docker
 
- tasks:
+  tasks:
 
- - name: 'Install aptitude'
+  - name: 'Install aptitude'
     apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
 
- - name: 'install Docker'
-   script: docker-install.sh
+  - name: 'install Docker'
+    script: docker-install.sh
 
- - name: 'Install Docker-Compose'
-   script: docker-compose-install.sh
+  - name: 'Install Docker-Compose'
+    script: docker-compose-install.sh
