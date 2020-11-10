@@ -11,7 +11,7 @@ pipeline{
         stages{
             stage('Clone Repo'){
                 steps{
-                    dir("./home/jenkins"){
+                    if (env.rollback == 'false'){
                     sh '''
                     rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
