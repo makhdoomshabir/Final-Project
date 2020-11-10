@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-  container_name: frontend
+    container_name: frontend
     build: ./src/main/resources
     image: krystalsimmonds/sfia-three-react
     ports:
@@ -14,7 +14,7 @@ services:
       - backend
 
   backend:
-  container_name: backend
+    container_name: backend
     build: ./
     image: krystalsimmonds/sfia-three-spring
     # environment:
@@ -31,7 +31,7 @@ services:
       - database
 
   database:
-  container_name: database
+    container_name: database
     image: mysql:5.7
     ports:
       - target: 3306
@@ -47,7 +47,7 @@ services:
     #   - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
 
   nginx:
-  container_name: nginx
+    container_name: nginx
     image: nginx:latest
     ports:
       - target: 80
