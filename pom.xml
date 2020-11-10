@@ -81,7 +81,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration> 
-                    <mainClass>java.com.qa.FinalProjectApplication</mainClass>
+                    <mainClass>com.qa.FinalProjectApplication</mainClass>
                 </configuration>
             </plugin>
 
