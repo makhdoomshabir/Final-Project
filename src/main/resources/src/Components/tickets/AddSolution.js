@@ -108,11 +108,11 @@ export default class extends Component {
                                           value={cohort}
                                           onChange={this.ticketChange}>
                                 <option>Choose...</option>
-                                <option>software-development</option>
-                                <option>cloud-computing</option>
-                                <option>dev-ops</option>
-                                <option>robotic-process-automation</option>
-                                <option>pega</option>
+                                <option value={"Azure-Devops"}>Azure Devops - (20OctDevOps1)</option>
+                                <option value={"Software-BAE"}>Software BAE - (20OCTBAE2)</option>
+                                <option value={"SDET"}>SDET - (20OCTSDET3)</option>
+                                <option value={"Cloud-Native-Engineer"}>Cloud Native Engineer - (20SeptCNE)</option>
+                                <option value={"Scala"}>Scala - (20NovSoftware1)</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formAuthor">
