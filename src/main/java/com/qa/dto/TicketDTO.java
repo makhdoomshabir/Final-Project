@@ -14,12 +14,12 @@ public class TicketDTO {
     private String cohort;
     private String solution;
     private Date lastUpdated;
-    private Float stopwatch;
+    private int stopwatch;
 
     public TicketDTO() {
     }
 
-    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, Float stopwatch) {
+    public TicketDTO(Date ticketDate, String status, String title, String description, String links, String author, String cohort, String solution, Date lastUpdated, int stopwatch) {
         this.ticketDate = ticketDate;
         this.status = status;
         this.title = title;
@@ -79,12 +79,11 @@ public class TicketDTO {
     public void setLinks(String links) {
         this.links = links;
     }
-
-    public Float getStopwatch() {
+    public int getStopwatch() {
         return stopwatch;
     }
 
-    public void setStopwatch(Float stopwatch) {
+    public void setStopwatch(int stopwatch) {
         this.stopwatch = stopwatch;
     }
 
