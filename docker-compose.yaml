@@ -16,16 +16,16 @@ services:
     container_name: backend
     build: ./
     image: krystalsimmonds/sfia-three-spring
-    # environment:
-    #   - MYSQL_DATABASE=database
-    #   - DB_PASSWORD=${DB_PASSWORD}
-    #   - TEST_DATABASE_URI=${TEST_DATABASE_URI}
-    #   - DATABASE_URI=${DATABASE_URI}
-    #   - SECRET_KEY=${SECRET_KEY}
-    #   - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    environment:
+      MYSQL_DATABASE=database
+      DB_PASSWORD=${DB_PASSWORD}
+      TEST_DATABASE_URI=${TEST_DATABASE_URI}
+      DATABASE_URI=${DATABASE_URI}
+      SECRET_KEY=${SECRET_KEY}
+      MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
-      - target: 8080
-        published: 8080
+      - target: 3001
+        published: 3001
     depends_on:
       - database
 
@@ -35,15 +35,15 @@ services:
     ports:
       - target: 3306
         published: 3306
-    # command: source Create.sql
-    # volumes:
-    #   - ./Create.sql:/docker-entrypoint-initdb.d
-    # environment:
-    #   - MYSQL_DATABASE=database
-    #   - TEST_DATABASE_URI=${TEST_DATABASE_URI}
-    #   - DATABASE_URI=${DATABASE_URI}
-    #   - SECRET_KEY=${SECRET_KEY}
-    #   - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    command: source Create.sql
+    volumes:
+      - ./database/Create.sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE=database
+      TEST_DATABASE_URI=${TEST_DATABASE_URI}
+      DATABASE_URI=${DATABASE_URI}
+      SECRET_KEY=${SECRET_KEY}
+      MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
 
   nginx:
     container_name: nginx
