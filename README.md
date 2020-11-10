@@ -100,7 +100,7 @@ can access different pages in a structured environment.
 #### Backend: Java
 
 #### Frontend: React
-The frontend of the application was tested using Jest and the React-render-library. Snapshots were employed on all components providing 100% coverage and ensuring code consistency post deployment. Unit testing was completed on key application fucntionality such as [insert list when done]. A view of the coverage report can be seen below:
+The frontend of the application was tested using Jest and the React-render-library. Snapshots were employed on all components providing >70% coverage and ensuring code consistency post deployment. Unit testing was completed on key application fucntionality such as [insert list when done]. A view of the coverage report can be seen below:
 
 ![react-coverage](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Snapshot%20Cov.png)
 
