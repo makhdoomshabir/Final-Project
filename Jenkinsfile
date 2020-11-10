@@ -14,6 +14,7 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                         sh '''
+                        ls
                         sudo docker-compose build
                         '''
                         }
