@@ -13,7 +13,7 @@ services:
       - backend
 
   backend:
-    build: ./backend/src
+    build: ./src
     image: krystalsimmonds/sfia-three-spring
     # environment:
     #   - MYSQL_DATABASE=database
