@@ -17,8 +17,16 @@ services:
     build: ./
     image: krystalsimmonds/sfia-three-spring
     ports:
-      - target: 9500
-        published: 9500
+      - target: 8080
+        published: 8080
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      SECRET_KEY: $SECRET_KEY
+      DB_PASSWORD: $DB_PASSWORD
+    depends_on:
+      - database
 
   #  database:
   #    container_name: database
