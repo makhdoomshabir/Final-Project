@@ -24,7 +24,7 @@ pipeline{
             stage('Build FrontImage'){
                 steps{
                     script{
-                        dir("/SFIA2/frontend"){
+                        dir("src/main/resources"){
                           if (env.rollback == 'false'){
                             frontendimage = docker.build("krystalsimmonds/sfia-three-react")
                         }
@@ -48,7 +48,7 @@ pipeline{
             stage('Build BackImage'){
                 steps{
                     script{
-                        dir("SFIA2/backend"){
+                        dir("./"){
                           if (env.rollback == 'false'){
                             backendimage = docker.build("krystalsimmonds/sfia-three-spring")
                         }
