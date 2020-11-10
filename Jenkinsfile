@@ -16,7 +16,7 @@ pipeline{
                     rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
-                    sudo docker-compose up -d
+                    sudo docker-compose up -d --build
                     '''
                     }
                 }
