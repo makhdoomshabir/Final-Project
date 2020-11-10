@@ -62,6 +62,13 @@ https://docs.google.com/spreadsheets/d/1dbGavZvYB49_sulU9LrpJMsQJbQKQnIY7yc4-30r
 
 ![risk-assessment](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/risk-assessment.png)
 
+### Project Tracking
+Jira was used to track the project progress. 5 Sprints were completed over the course of the project. Full details can be found at the following link:
+https://ms9.atlassian.net/secure/RapidBoard.jspa?rapidView=6&projectKey=PT
+
+![jira-screenshot](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/jira.png)
+
+
 ### User Experience
 
 Below we describe the users experience when using the site, 
@@ -100,7 +107,7 @@ can access different pages in a structured environment.
 #### Backend: Java
 
 #### Frontend: React
-The frontend of the application was tested using Jest and the React-render-library. Snapshots were employed on all components providing >70% coverage and ensuring code consistency post deployment. Unit testing was completed on key application fucntionality such as [insert list when done]. A view of the coverage report can be seen below:
+The frontend of the application was tested using Jest and the React-render-library. Snapshots were employed on all components to ensure code consistency post deployment. Unit testing was completed on key application fucntionality such as [insert list when done]. A view of the coverage report can be seen below:
 
 ![react-coverage](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/Snapshot%20Cov.png)
 
@@ -108,5 +115,11 @@ The frontend of the application was tested using Jest and the React-render-libra
 ### Frontend Design 
 
 ### Authors
+Adama Kabba
+
+Daood Khan  
+
+Krystal Simmonds
 
 ### Acknowledgements 
+A special thank you to all the trainers that provided insight and guidance throughout this project including: Jay Grindrod, Savannah Vaithilingam and Jordan Harrison.
