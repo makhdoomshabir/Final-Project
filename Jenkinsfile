@@ -24,7 +24,7 @@ pipeline{
                             #export DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/test_db
                             #export SECRET_KEY=password
 
-                            sudo -E MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD MYSQL_USER=$MYSQL_USER MYSQL_PASSWORD=$MYSQL_PASSWORD DB_PASSWORD=$DB_PASSWORD DATABASE_URI=$DATABASE_URI SECRET_KEY=$SECRET_KEY docker-compose build
+                            sudo -E MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD MYSQL_USER=$MYSQL_USER MYSQL_PASSWORD=$MYSQL_PASSWORD DB_PASSWORD=$DB_PASSWORD DATABASE_URI=$DATABASE_URI SECRET_KEY=$SECRET_KEY    docker-compose build
                             """
 
                         }
