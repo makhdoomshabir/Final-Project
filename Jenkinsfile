@@ -13,10 +13,6 @@ pipeline{
                 steps{
                     if (env.rollback == 'false'){
                     sh '''
-                    rm -rf Final-Project
-                    git clone https://github.com/makhdoomshabir/Final-Project.git
-                    cd Final-Project
-
                     # Export variables to build project
                     export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
                     export MYSQL_USER=${MYSQL_USER}
