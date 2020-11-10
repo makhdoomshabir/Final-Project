@@ -3,13 +3,11 @@ import Tickets from "../tickets/Tickets";
 import {Jumbotron} from "react-bootstrap";
 
 const QueueSysPage = () => {
+    let removeCharacter = window.location.pathname.toUpperCase().replaceAll("-", " ")
     return (
         <div>
             <Jumbotron className="bg-dark text-white" id="HomeSoftwareHeader">
-                <h1>{window.location.pathname.toUpperCase().replaceAll("-", " ")}</h1>
-                <p>
-                    Use the Cohort dropdown to filter for tickets specific to your cohort.
-                </p>
+                <h1>{removeCharacter.replaceAll("/", "")}</h1>
             </Jumbotron>
             <Tickets/>
         </div>
