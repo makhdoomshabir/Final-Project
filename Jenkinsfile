@@ -19,13 +19,14 @@ pipeline{
                     cd Final-Project
 
                     # Export variables to build project
-                    export MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD}
-                    export DB_PASSWORD=${env.DB_PASSWORD}
+                    export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+                    export MYSQL_USER=${MYSQL_USER}
+                    export MYSQL_PASSWORD=${MYSQL_PASSWORD}
                     export TEST_DATABASE_URI=${env.TEST_DATABASE_URI}
                     export DATABASE_URI=${env.DATABASE_URI}
                     export SECRET_KEY=${env.SECRET_KEY}
 
-                    sudo -E MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose build
+                    sudo -E MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} MYSQL_USER=${MYSQL_USER} MYSQL_PASSWORD=${MYSQL_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose build
                     '''
                     }
                 }
