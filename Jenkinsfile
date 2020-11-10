@@ -69,29 +69,6 @@ pipeline{
                 }
             }
 
-            stage('Build DatabaseImage'){
-                steps{
-                    script{
-                        dir("SFIA2/database"){
-                          if (env.rollback == 'false'){
-                            databaseimage = docker.build("krystalsimmonds/mysql:5.7")
-                        }
-                      }
-                    }
-                }
-            }
-
-            stage('Tag & Push DatabaseImage'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                databaseimage.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }
-            }
 
             stage('Deploy App'){
                 steps{
