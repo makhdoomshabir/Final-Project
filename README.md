@@ -66,6 +66,7 @@ https://docs.google.com/spreadsheets/d/1dbGavZvYB49_sulU9LrpJMsQJbQKQnIY7yc4-30r
 Jira was used to track the project progress. 5 Sprints were completed over the course of the project. Full details can be found at the following link:
 https://ms9.atlassian.net/secure/RapidBoard.jspa?rapidView=6&projectKey=PT
 
+![jira-screenshot](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/jira.png)
 
 
 ### User Experience
@@ -114,5 +115,9 @@ The frontend of the application was tested using Jest and the React-render-libra
 ### Frontend Design 
 
 ### Authors
+Adama Kabba
+Daood Khan  
+Krystal Simmonds
 
 ### Acknowledgements 
+A special thank you to all the trainers that provided insight and guidance throughout this project including: Jay Grindrod, Savannah Vaithilingam and Jordan Harrison.
