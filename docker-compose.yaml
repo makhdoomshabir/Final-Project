@@ -17,17 +17,15 @@ services:
     build: ./
     image: krystalsimmonds/sfia-three-spring
     ports:
-      - target: 8080
-        published: 8080
-    depends_on:
-      - database
+      - target: 9500
+        published: 9500
 
-  database:
-    container_name: database
-    image: mysql:5.7
-    ports:
-      - target: 3306
-        published: 3306
+  #  database:
+  #    container_name: database
+  #    image: mysql:5.7
+  #    ports:
+  #      - target: 3306
+  #        published: 3306
 
   nginx:
     container_name: nginx
