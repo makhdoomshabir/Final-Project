@@ -4,7 +4,7 @@ pipeline{
           skipDefaultCheckout true
         }
         environment {
-            app_version = 'v1'
+            app_version = 'v2'
             rollback = 'false'
         }
 
@@ -12,11 +12,20 @@ pipeline{
             stage('Clone Repo'){
                 steps{
                     dir("./home/jenkins"){
+                    load "ansible/.envvars/tf_ansible.groovy"
                     sh '''
                     rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
-                    sudo -tty docker-compose up -d --build
+
+                    # Export variables to build project
+                    export MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD}
+                    export DB_PASSWORD=${env.DB_PASSWORD}
+                    export TEST_DATABASE_URI=${env.TEST_DATABASE_URI}
+                    export DATABASE_URI=${env.DATABASE_URI}
+                    export SECRET_KEY=${env.SECRET_KEY}
+
+                    sudo -E MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose up -d --build
                     '''
                     }
                 }
@@ -32,34 +41,16 @@ pipeline{
                     }
                 }
             }
-            stage('Tag & Push FrontImage'){
+            stage('Tag & Push Images'){
                 steps{
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                frontendimage.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }
-            }
-            stage('Build BackImage'){
-                steps{
-                    script{
-                        dir("Final-Project/"){
-                          if (env.rollback == 'false'){
-                            springimage = docker.build("krystalsimmonds/sfia-three-spring")
-                        }
-                      }
-                    }
-                }
-            }
-            stage('Tag & Push BackImages'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                springimage.push("${env.app_version}")
+                                sh'''
+                                docker push krystalsimmonds/sfia-three-react:${env.app_version}
+                                docker push krystalsimmonds/sfia-three-spring:${env.app_version}
+                                docker push krystalsimmonds/mysql:5.7
+                                '''
                             }
                         }
                     }
@@ -72,8 +63,8 @@ pipeline{
                     sudo rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
-                    docker pull krystalsimmonds/sfia-three-react:v1
-                    docker pull krystalsimmonds/sfia-three-spring:v1
+                    docker pull krystalsimmonds/sfia-three-react:${env.app_version}
+                    docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
                     docker pull krystalsimmonds/mysql:5.7
 
                     docker-compose up -d
