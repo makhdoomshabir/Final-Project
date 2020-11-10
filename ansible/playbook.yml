@@ -65,81 +65,35 @@
   - name: 'Install aptitude'
     apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
 
-  - name: 'Install required system packages'
-    apt: name={{ item }} state=latest update_cache=yes
-    loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common' ]
+  - name: 'install Docker'
+    script: docker-install.sh
 
-  - name: 'Add Official Docker GPG key'
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      state: present
+  - name: 'Install Docker-Compose'
+    script: docker-compose-install.sh
 
-  - name: 'Add Docker apt repository'
-    apt_repository:
-      repo: deb https://download.docker.com/linux/ubuntu bionic stable
-      state: present
+ - name: 'install kubectl'
+   command: "{{ item }}"
+   with_items:
+     - sudo snap install kubectl --classic
 
-  - name: 'Update and install Docker-ce'
-    apt: update_cache=yes name=docker-ce state=latest
+ - name: 'Install AWS'
+   command: "{{ item }}"
+   with_items:
+     - sudo apt install awscli -y
 
-  - name: 'Add jenkins user to docker group'
-    user:
-      name: "jenkins"
-      group: "docker"
-      append: yes
+- hosts: test
+# Install Docker
 
-#  - name: 'Install docker-compose'
-#    get_url:
-#      url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
-#      dest: /usr/local/bin/docker-compose
-#      mode: 0755
-#
-#  - name: 'install kubectl'
-#    command: "{{ item }}"
-#    with_items:
-#      - sudo snap install kubectl --classic
-#
-#  - name: 'Install AWS'
-#    command: "{{ item }}"
-#    with_items:
-#      - sudo apt install awscli -y
+ become: true
+ gather_facts: true
 
-#- hosts: test
-## Install Docker
-#
-#  become: true
-#  gather_facts: true
-#
-#  tasks:
-#
-#    - name: 'Install aptitude'
-#      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
-#
-#    - name: 'Install required system packages'
-#      apt: name={{ item }} state=latest update_cache=yes
-#      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common' ]
-#
-#    - name: 'Add Official Docker GPG key'
-#      apt_key:
-#        url: https://download.docker.com/linux/ubuntu/gpg
-#        state: present
-#
-#    - name: 'Add Docker apt repository'
-#      apt_repository:
-#        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-#        state: present
-#
-#    - name: 'Update and install Docker-ce'
-#      apt: update_cache=yes name=docker-ce state=latest
-#
-#    - name: 'Add jenkins user to docker group'
-#      user:
-#        name: "jenkins"
-#        group: "docker"
-#        append: yes
-#
-#    - name: 'Install docker-compose'
-#      get_url:
-#        url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
-#        dest: /usr/local/bin/docker-compose
-#        mode: 0755
+ tasks:
+
+ - name: 'Install aptitude'
+    apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+ - name: 'install Docker'
+   script: docker-install.sh
+
+ - name: 'Install Docker-Compose'
+   script: docker-compose-install.sh
