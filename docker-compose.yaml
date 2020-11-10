@@ -19,6 +19,12 @@ services:
     ports:
       - target: 8080
         published: 8080
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      SECRET_KEY: password
+      DB_PASSWORD: password
     depends_on:
       - database
 
