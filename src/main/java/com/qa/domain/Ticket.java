@@ -165,5 +165,4 @@ public class Ticket {
         this.solution = solution;
     }
 
-
 }

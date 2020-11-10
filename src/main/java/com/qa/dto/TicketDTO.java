@@ -79,7 +79,6 @@ public class TicketDTO {
     public void setLinks(String links) {
         this.links = links;
     }
-
     public int getStopwatch() {
         return stopwatch;
     }
