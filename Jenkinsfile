@@ -24,55 +24,6 @@ pipeline{
             
 
 
-            stage('Build FrontImage'){
-                steps{
-                    script{
-                        dir("/Final-Project/src/main/resources"){
-                          if (env.rollback == 'false'){
-                            frontendimage = docker.build("krystalsimmonds/sfia-three-react")
-                        }
-                      }
-                    }
-                }
-            }
-
-            stage('Tag & Push FrontImage'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                frontendimage.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }
-            }
-
-            stage('Build BackImage'){
-                steps{
-                    script{
-                        dir("./"){
-                          if (env.rollback == 'false'){
-                            backendimage = docker.build("krystalsimmonds/sfia-three-spring")
-                        }
-                      }
-                    }
-                }
-            }
-
-            stage('Tag & Push BackImages'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                backendimage.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }
-            }
-
-
             stage('Deploy App'){
                 steps{
                     sh '''
