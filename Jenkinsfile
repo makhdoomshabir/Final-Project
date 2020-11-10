@@ -14,7 +14,8 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                         sh '''
-                        ls
+                        git clone https://github.com/makhdoomshabir/Final-Project.git
+                        cd Final-Project
                         sudo docker-compose build
                         '''
                         }
