@@ -14,7 +14,7 @@ pipeline{
                     dir("./home/jenkins"){
                     sh '''
                     rm -rf Final-Project
-                    git clone https://github.com/DKhan1998/Final-Project.git
+                    git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
                     docker-compose up -d
                     '''
@@ -70,7 +70,7 @@ pipeline{
             //         sh '''
             //         ssh ubuntu@10.0.2.114 <<EOF
             //         sudo rm -rf Final-Project
-            //         git clone https://github.com/DKhan1998/Final-Project.git
+            //         git clone https://github.com/makhdoomshabir/Final-Project.git
             //         cd Final-Project
             //         docker pull krystalsimmonds/sfia-three-react:v1
             //         docker pull krystalsimmonds/sfia-three-spring:v1
@@ -95,7 +95,7 @@ pipeline{
                     withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         sh '''
                         rm -rf Final-Project
-                        git clone -b DevOps https://github.com/DKhan1998/Final-Project.git
+                        git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project/kubernetes
                         kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml
                         kubectl apply -f config-map.yaml
