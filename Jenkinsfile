@@ -13,7 +13,7 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
-                        load "./ansible/.envvars/tf_ansible.groovy"
+
                         sh '''
                         rm -rf Final-Project
                         git clone https://github.com/makhdoomshabir/Final-Project.git
@@ -24,7 +24,7 @@ pipeline{
                         export MYSQL_USER=admin
                         export MYSQL_PASSWORD=password
 
-                        sudo -E MYSQL_ROOT_PASSWORD=root DB_PASSWORD=root TEST_DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/testdb docker-compose build -d
+                        sudo -E MYSQL_ROOT_PASSWORD=root DB_PASSWORD=root TEST_DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/testdb docker-compose build
                         '''
                         }
                     }
