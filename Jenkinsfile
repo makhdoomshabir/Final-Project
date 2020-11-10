@@ -26,7 +26,6 @@ pipeline{
                 steps{
                     sh '''
                     ssh ubuntu@10.0.2.114 <<EOF
-                    sudo rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
                     docker pull krystalsimmonds/sfia-three-react:${env.app_version}
