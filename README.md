@@ -62,6 +62,12 @@ https://docs.google.com/spreadsheets/d/1dbGavZvYB49_sulU9LrpJMsQJbQKQnIY7yc4-30r
 
 ![risk-assessment](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/risk-assessment.png)
 
+### Project Tracking
+Jira was used to track the project progress. 5 Sprints were completed over the course of the project. Full details can be found at the following link:
+https://ms9.atlassian.net/secure/RapidBoard.jspa?rapidView=6&projectKey=PT
+
+
+
 ### User Experience
 
 Below we describe the users experience when using the site, 
