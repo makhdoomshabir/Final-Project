@@ -9,28 +9,52 @@ pipeline{
         }
 
         stages{
-            stage('Clone Repo'){
+             stage('Build Frontend Image'){
                 steps{
                     script{
                         if (env.rollback == 'false'){
-                            sh """
-                            rm -rf Final-Project
-                            git clone https://github.com/makhdoomshabir/Final-Project.git
-                            cd Final-Project
 
-                            #export MYSQL_ROOT_PASSWORD=root
-                            #export MYSQL_USER=admin
-                            #export MYSQL_PASSWORD=password
-                            #export DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/test_db
-                            #export SECRET_KEY=password
-
-                            sudo -E MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD MYSQL_USER=$MYSQL_USER MYSQL_PASSWORD=$MYSQL_PASSWORD DB_PASSWORD=$DB_PASSWORD DATABASE_URI=$DATABASE_URI SECRET_KEY=$SECRET_KEY    docker-compose build
-                            """
+                            // Check which dockerhub to use
+                            frontend = docker.build("krystalsimmonds/sfia-three-react", "./src/main/resources")
 
                         }
                     }
                 }
             }
+            stage('Tag & Push Frontend Image'){
+                steps{
+                    script{
+                        if (env.rollback == 'false'){
+                            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
+                                frontend.push("${env.app_version}")
+
+                            }
+                        }
+                    }
+                }
+            }
+//             stage('Clone Repo'){
+//                 steps{
+//                     script{
+//                         if (env.rollback == 'false'){
+//                             sh """
+//                             rm -rf Final-Project
+//                             git clone https://github.com/makhdoomshabir/Final-Project.git
+//                             cd Final-Project
+//
+//                             #export MYSQL_ROOT_PASSWORD=root
+//                             #export MYSQL_USER=admin
+//                             #export MYSQL_PASSWORD=password
+//                             #export DATABASE_URI=mysql+pymysql://admin:password@test-db.c66nh3bppyv6.eu-west-2.rds.amazonaws.com:3306/test_db
+//                             #export SECRET_KEY=password
+//
+//                             sudo -E MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD MYSQL_USER=$MYSQL_USER MYSQL_PASSWORD=$MYSQL_PASSWORD DB_PASSWORD=$DB_PASSWORD DATABASE_URI=$DATABASE_URI SECRET_KEY=$SECRET_KEY    docker-compose build
+//                             """
+//
+//                         }
+//                     }
+//                 }
+//             }
             stage('Tag & Push Images'){
                 steps{
                     script{

@@ -17,16 +17,9 @@ services:
     build: ./
     image: krystalsimmonds/sfia-three-spring
     ports:
-      - target: 8080
-        published: 8080
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
-      SECRET_KEY: password
-      DB_PASSWORD: password
-    depends_on:
-      - database
+      - target: 9500
+        published: 9500
+        protocol: tcp
 
   #  database:
   #    container_name: database
@@ -49,3 +42,4 @@ services:
         target: /etc/nginx/nginx.conf
     depends_on:
       - frontend
+      - backend
