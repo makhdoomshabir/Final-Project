@@ -13,7 +13,7 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
-                        load "ansible/.envvars/tf_ansible.groovy"
+                        load "./ansible/.envvars/tf_ansible.groovy"
                         sh '''
                         git clone https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project
