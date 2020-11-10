@@ -3,7 +3,6 @@ version: '3.8'
 services:
 
   frontend:
-    container_name: front
     build: ./frontend
     image: krystalsimmonds/sfia-three-react
     ports:
@@ -13,7 +12,7 @@ services:
       - backend
 
   backend:
-    build: ./src
+    build: ./
     image: krystalsimmonds/sfia-three-spring
     # environment:
     #   - MYSQL_DATABASE=database
