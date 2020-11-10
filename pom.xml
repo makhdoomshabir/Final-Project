@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.qa</groupId>
-    <artifactId>finalproject</artifactId>
+    <artifactId>final-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Final-Project</name>
+    <name>FinalProject</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
