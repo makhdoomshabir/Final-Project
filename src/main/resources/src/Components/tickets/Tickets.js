@@ -140,7 +140,7 @@ export default class Tickets extends Component {
 
     cancelSearch = () => {
         this.setState({
-            "keyword" : ""
+            "keyword" : " "
         })
     }
 
@@ -185,7 +185,6 @@ export default class Tickets extends Component {
         if (this.state.isResolved === true) {
             return (
                 <Card.Body>
-                    <h3>Unresolved</h3>
                     {this.state.tickets.filter(
                         (ticket) => {
                             return ticket.status.toLowerCase() === "unresolved";
@@ -218,11 +217,10 @@ export default class Tickets extends Component {
                                 <Card.Text>{ticket.links}</Card.Text>
                                 <Card.Subtitle>
                                     <div style={{"float": "left"}}>
-                                        Last Updated: {ticket.lastUpdated.toString()}
+                                        Posted: {ticket.lastUpdated.toString()}
                                     </div>
 
                                 </Card.Subtitle>
-
 
                             </Card.Body>
                             <Card.Footer className="text-muted">
@@ -276,7 +274,6 @@ export default class Tickets extends Component {
         } else {
             return (
             <Card.Body>
-                <h3>Resolved</h3>
                 {this.state.tickets.filter(
                     (ticket) => {
                         return ticket.status.toLowerCase() === "resolved";
@@ -341,6 +338,7 @@ export default class Tickets extends Component {
                     <MyToast show={this.state.show} message={"Ticket Removed Successfully"} type={"danger"}/>
                 </div>
 
+
                 <Card id="resolvedTicketsCardDeck" className={"bg-dark text-white"}>
                     <Card.Header>
 
@@ -352,6 +350,7 @@ export default class Tickets extends Component {
                             <Button onClick={this.resolve}> <h2>Resolved</h2></Button>
                         </Nav.Item>
                     </Nav>
+
                     </Card.Header>
 
 

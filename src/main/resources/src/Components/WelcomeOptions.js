@@ -1,12 +1,12 @@
 import React from "react";
 import {Button, Card, CardDeck, NavDropdown} from "react-bootstrap";
-import cloud from './images/cloud.png';
-import {faPlusSquare, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import devops from './images/settings.png';
 
 const WelcomeOptions = () => {
     return (
-    <div>
+    <div >
         <CardDeck id="WelcomeOptions"  >
             <Card>
                 {/* <Card.Img variant="top" src={cloud} width="250" height="250" /> */}
@@ -27,14 +27,17 @@ const WelcomeOptions = () => {
                 </a>
             </Card>
 
-            <Card >
+            <Card id="cardtest" >
+                <Card.Img variant="top" src={devops} width="250" height="250" />
                 <Card.Body>
+                    <br/>
                     <Card.Title><h3>Devops</h3></Card.Title>
                 </Card.Body>
                 <a href="/dev-ops">
                 <Button> See Tickets</Button>
                 </a>
             </Card>
+
         </CardDeck>
             <CardDeck id="WelcomeOptions"  >
             <Card >

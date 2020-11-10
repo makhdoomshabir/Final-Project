@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Col, Form} from "react-bootstrap";
 /*
-THIS IS THE UPDATE PRODUCT SECTION
+THIS IS THE UPDATE TICKET SECTION
  */
 export function UpdateTicket() {
     return (
