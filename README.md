@@ -95,3 +95,10 @@ can access different pages in a structured environment.
 
 ### Entity Relationship Diagram
 ![erd](https://github.com/makhdoomshabir/Final-Project/blob/main/documentation/project_three_erd.png)
+
+### Testing 
+#### Backend: Java
+
+#### Frontend: React
+
+### Front End 
