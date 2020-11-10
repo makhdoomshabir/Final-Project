@@ -20,7 +20,6 @@ pipeline{
                     }
                 }
             }
-
             stage('Build FrontImage'){
                 steps{
                     script{
@@ -32,7 +31,6 @@ pipeline{
                     }
                 }
             }
-
             stage('Tag & Push FrontImage'){
                 steps{
                     script{
@@ -44,7 +42,6 @@ pipeline{
                     }
                 }
             }
-
             stage('Build BackImage'){
                 steps{
                     script{
@@ -56,7 +53,6 @@ pipeline{
                     }
                 }
             }
-
             stage('Tag & Push BackImages'){
                 steps{
                     script{
@@ -68,8 +64,6 @@ pipeline{
                     }
                 }
             }
-
-
             stage('Deploy App'){
                 steps{
                     sh '''
@@ -87,34 +81,30 @@ pipeline{
                     }
                 }
             }
-
-            stages{
-                stage('Configure kubectl'){
-                    steps{
-                        withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
-                        sh '''
-                        aws eks update-kubeconfig --name sfia-three
-                        '''
-                        }
+            stage('Configure kubectl'){
+                steps{
+                    withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
+                    sh '''
+                    aws eks update-kubeconfig --name sfia-three
+                    '''
                     }
                 }
-                stage('Deploy with k8s'){
-                    steps{
-                        withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
-                            sh '''
-                            rm -rf Final-Project
-                            git clone -b DevOps https://github.com/DKhan1998/Final-Project.git
-                            cd Final-Project/kubernetes
-                            kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml
-                            kubectl apply -f config-map.yaml
-                            kubectl apply -f nginx-config.yaml
-                            kubectl apply -f mysql-db.yaml
-                            kubectl apply -f backend.yaml
-                            kubectl apply -f frontend.yaml
-                            '''
-                        }
-                    }
-                }
-
             }
-}
+            stage('Deploy with k8s'){
+                steps{
+                    withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
+                        sh '''
+                        rm -rf Final-Project
+                        git clone -b DevOps https://github.com/DKhan1998/Final-Project.git
+                        cd Final-Project/kubernetes
+                        kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml
+                        kubectl apply -f config-map.yaml
+                        kubectl apply -f nginx-config.yaml
+                        kubectl apply -f mysql-db.yaml
+                        kubectl apply -f backend.yaml
+                        kubectl apply -f frontend.yaml
+                        '''
+                    }
+                }
+            }
+        }
