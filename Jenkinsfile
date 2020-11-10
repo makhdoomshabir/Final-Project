@@ -13,15 +13,25 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
+                            withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'DBpass'),
+                                             string(credentialsId: 'MYSQL_PASSWORD', variable: 'pwd'),
+                                             string(credentialsId: 'DATABASE_URI', variable: 'DB_uri'),
+                                             string(credentialsId: 'MYSQL_USER', variable: 'DB_USER'),]){
+                                sh '''
+                                rm -rf Final-Project
+                                git clone https://github.com/makhdoomshabir/Final-Project.git
+                                cd Final-Project
+                                export MYSQL_DATABASE=${db}
+                                export MYSQL_ROOT_PASSWORD=${DBpass}
+                                export MYSQL_USER=${DB_USER}
+                                export MYSQL_PASSWORD=${DBpass}
+                                export SECRET_KEY=${DBpass}
+                                export DB_PASSWORD=${DBpass}
+                                export DATABASE_URI=${DB_uri}
 
-                        sh '''
-                        rm -rf Final-Project
-                        git clone https://github.com/makhdoomshabir/Final-Project.git
-                        cd Final-Project
-
-
-                        sudo docker-compose build
-                        '''
+                                sudo -E MYSQL_DATABASE=${db} MYSQL_ROOT_PASSWORD=${DBpass} MYSQL_USER=${DB_USER} MYSQL_PASSWORD=${DBpass} SECRET_KEY=${DBpass} DB_PASSWORD=${DBpass} DATABASE_URI=${DB_uri}docker-compose build
+                                '''
+                            }
                         }
                     }
                 }
