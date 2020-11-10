@@ -15,10 +15,8 @@ pipeline{
                         rm -rf Final-Project
                         git clone https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project
+                        sudo -E MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose build -d
                         '''
-                        load "./ansible/.envvars/tf_ansible.groovy"
-
-                        sh 'sudo -E MYSQL_ROOT_PASSWORD=${env.MYSQL_ROOT_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose build -d'
                 }
             }
             stage('Tag & Push Images'){
