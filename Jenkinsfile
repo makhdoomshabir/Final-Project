@@ -12,7 +12,6 @@ pipeline{
             stage('Clone Repo'){
                 steps{
                     dir("./home/jenkins"){
-                    load "ansible/.envvars/tf_ansible.groovy"
                     sh '''
                     rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
