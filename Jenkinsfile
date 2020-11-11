@@ -25,24 +25,25 @@ pipeline{
 //                     }
 //                 }
 //             }
-//             stage('Tag & Push Images'){
-//                 steps{
-//                     script{
-//                         if (env.rollback == 'false'){
-//                             docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-//                                 sh"""
-//                                 docker push krystalsimmonds/frontend:${env.app_version}
-//                                 docker push krystalsimmonds/backend:${env.app_version}
-//                                 """
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
+            stage('Tag & Push Images'){
+                steps{
+                    script{
+                        if (env.rollback == 'false'){
+                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
+                                sh"""
+                                docker push krystalsimmonds/sfia-three-react:${env.app_version}
+                                docker push krystalsimmonds/sfia-three-spring:${env.app_version}
+                                docker push krystalsimmonds/nginx:${env.app_version}
+                                """
+                            }
+                        }
+                    }
+                }
+            }
             stage('Deploy App'){
                 steps{
                     sh """
-                    ssh ubuntu@10.0.2.114 <<EOF
+                    ssh  -tt -o "StrictHostKeyChecking=no ubuntu@10.0.2.114 <<EOF
                     sudo rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
