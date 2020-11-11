@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: krystalsimmonds/sfia-three-nginx:v2
+        image: nginx:latest
         ports:
         - containerPort: 80
         # readinessProbe:
