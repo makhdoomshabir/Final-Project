@@ -29,6 +29,7 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
+                            sh "sudo su jenkins"
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
                                 sh"""
                                 docker push krystalsimmonds/sfia-three-react:${env.app_version}
