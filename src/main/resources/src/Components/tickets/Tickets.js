@@ -334,7 +334,6 @@ export default class Tickets extends Component {
 
 
         return (
-
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
                     <MyToast show={this.state.show} message={"Ticket Removed Successfully"} type={"danger"}/>
@@ -353,7 +352,6 @@ export default class Tickets extends Component {
                         </Nav>
 
                     </Card.Header>
-
 
                     <Card.Header className={"mb-2"} type={"danger"}>
                         <div style={{"float": "right"}}>

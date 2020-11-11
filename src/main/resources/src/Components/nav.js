@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Navbar, FormControl, Button, NavDropdown, Nav, InputGroup, Card} from 'react-bootstrap';
 import {BrowserRouter as Router, Link, NavLink} from "react-router-dom";
-import logo from './images/qalogo-removebg-preview (1).png';
+import logo from './images/qalogo.png';
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSearch, faTimes} from "@fortawesome/free-solid-svg-icons";

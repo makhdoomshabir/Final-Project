@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, Card, CardDeck, NavDropdown} from "react-bootstrap";
-import cloud from './images/cloud.png';
 import {faPlusSquare, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -9,7 +8,6 @@ const WelcomeOptions = () => {
     <div>
         <CardDeck id="WelcomeOptions"  >
             <Card>
-                {/* <Card.Img variant="top" src={cloud} width="250" height="250" /> */}
                 <Card.Body>
                     <Card.Title><h3>Azure Devops - (20OctDevOps1)</h3></Card.Title>
                 </Card.Body>
