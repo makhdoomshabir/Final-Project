@@ -6,7 +6,6 @@ import com.qa.exceptions.error404;
 import com.qa.repo.TicketsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

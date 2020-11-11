@@ -1,0 +1,2 @@
+INSERT INTO `ticket` (`ticketDate`, `title`, `cohort`, `author`, `description`, `links`, `lastUpdated`, `stopwatch`)
+VALUES (CURRENT_DATE , 'ticket system', 'Azure-DevOps', 'Test 01', 'this is a default ticket thats created for testing', 'links', CURRENT_DATE, 5);
