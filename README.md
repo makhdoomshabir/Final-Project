@@ -81,7 +81,7 @@ can access different pages in a structured environment.
 ### Wireframes
 
 #### HOME PAGE
-![homePageDesign](documentation/homepage.png)
+![homePageDesign](https://github.com/makhdoomshabir/Final-Project/blob/DevOps/documentation/homepage.png)
 
 #### ADD TICKET
 ![addTicketDesign](documentation/TicketAdd.png)
