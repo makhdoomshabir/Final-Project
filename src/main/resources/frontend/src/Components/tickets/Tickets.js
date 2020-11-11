@@ -77,15 +77,15 @@ export default class Tickets extends Component {
     }
 
     prevPage = () => {
-        if(this.state.currentPage > 1) {
+        if (this.state.currentPage > 1) {
             this.setState({
-                currentPage: this.state.currentPage -1
+                currentPage: this.state.currentPage - 1
             })
         }
     }
 
     lastPage = () => {
-        if(this.state.currentPage < Math.ceil(this.state.tickets.length / this.state.ticketsPerPage)) {
+        if (this.state.currentPage < Math.ceil(this.state.tickets.length / this.state.ticketsPerPage)) {
             this.setState({
                 currentPage: (Math.ceil(this.state.tickets.length / this.state.ticketsPerPage))
             })
@@ -119,7 +119,7 @@ export default class Tickets extends Component {
     }
 
     searchData = () => {
-        axios.get("http://localhost:8080/allTickets?keyword="+this.state.keyword)
+        axios.get("http://localhost:8080/allTickets?keyword=" + this.state.keyword)
             .then(response => response.data)
             .then(
                 (data) => {

@@ -2,7 +2,7 @@ version: "3.3"
 services:
   frontend:
     container_name: frontend
-    build: ./src/main/resources
+    build: ./src/main/resources/frontend
     image: krystalsimmonds/sfia-three-react
     ports:
       - target: 3000

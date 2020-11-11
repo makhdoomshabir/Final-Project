@@ -34,14 +34,15 @@ function App() {
 
                 */}
                     <Route path="/add-ticket" component={AddTicketPage} exact/>
-                <Route path="/update-ticket/:id" exact component={AddTicketPage}/>
-                <Route path="/add-solutions/:id" component={AddSolution} exact/>
+                    <Route path="/update-ticket/:id" exact component={AddTicketPage}/>
+                    <Route path="/add-solutions/:id" component={AddSolution} exact/>
 
-            </Switch>
+                </Switch>
             </Router>
 
             <Footer/>
         </div>
     );
 }
+
 export default App;

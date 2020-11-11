@@ -8,11 +8,11 @@ export default class MyToast extends Component {
             position: 'fixed',
             top: '10px',
             right: '20px',
-            zIndex:'1',
+            zIndex: '1',
             boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
         };
 
-        return(
+        return (
             <div style={this.props.show ? toastCss : null}>
                 <Toast
                     className={`text-white ${this.props.type === "success" ? "border-success bg-success" : "border-danger bg-danger"}`}
