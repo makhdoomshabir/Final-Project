@@ -45,7 +45,7 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             sh """
-                            ssh ubuntu@10.0.2.157 -vvv <<EOF
+                            ssh ubuntu@10.0.2.114 -vvv <<EOF
                             sudo rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
