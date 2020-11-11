@@ -17,7 +17,7 @@ pipeline{
                             sh"ls -al"
                             sh"cd Final-Project"
                             sh"ls -al"
-                            frontend = docker.build("krystalsimmonds/sfia-three-react", "./src/main/resources/frontend")
+                            frontend = docker.build("krystalsimmonds/sfia-three-react", "./src/main/resources/frontend/")
                         }
                     }
                 }
