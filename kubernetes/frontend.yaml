@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: krystalsimmonds/sfia-three-react
+        image: krystalsimmonds/sfia-three-react:v2
         ports:
         - containerPort: 3000

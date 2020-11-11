@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: krystalsimmonds/sfia-three-spring
+        image: krystalsimmonds/sfia-three-spring:v2
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: $MYSQL_ROOT_PASSWORD
