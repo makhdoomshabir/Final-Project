@@ -58,8 +58,8 @@ pipeline{
                             docker pull krystalsimmonds/sfia-three-nginx:${env.app_version}
 
                             sudo docker-compose up -d
-
-                            EOF
+                            exit
+                            >>EOF
                             """
                             }
                         }
