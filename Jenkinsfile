@@ -14,7 +14,8 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             // Check which dockerhub to use
-                            sh" pwd"
+                            sh" pwd
+                            ls -al"
                             frontend = docker.build("krystalsimmonds/sfia-three-react", "./src/main/resources/frontend")
                         }
                     }
