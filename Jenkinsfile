@@ -51,7 +51,7 @@ pipeline{
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
 
-                            docker rmi --all
+                            docker-compose down --remove-orphans
 
                             docker pull krystalsimmonds/sfia-three-react:${env.app_version}
                             docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
