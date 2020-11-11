@@ -8,49 +8,91 @@ pipeline{
             rollback = 'false'
         }
 
-        stages{
+
+          stages{
             stage('Clone Repo'){
                 steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            withCredentials([string(credentialsId: 'MYSQL_ROOT_PASSWORD', variable: 'DBpass'),
-                                             string(credentialsId: 'MYSQL_PASSWORD', variable: 'pwd'),
-                                             string(credentialsId: 'DATABASE_URI', variable: 'DB_uri'),
-                                             string(credentialsId: 'MYSQL_USER', variable: 'DB_USER'),]){
-                                sh '''
-                                rm -rf Final-Project
-                                git clone https://github.com/makhdoomshabir/Final-Project.git
-                                cd Final-Project
-                                export MYSQL_DATABASE=${db}
-                                export MYSQL_ROOT_PASSWORD=${DBpass}
-                                export MYSQL_USER=${DB_USER}
-                                export MYSQL_PASSWORD=${DBpass}
-                                export SECRET_KEY=${DBpass}
-                                export DB_PASSWORD=${DBpass}
-                                export DATABASE_URI=${DB_uri}
+                    sh '''
+                    rm -rf Final-Project
+                    git clone https://github.com/makhdoomshabir/Final-Project.git
+                    cd Final-Project
+                    '''
+              }
+              }
 
-                                sudo -E MYSQL_DATABASE=${db} MYSQL_ROOT_PASSWORD=${DBpass} MYSQL_USER=${DB_USER} MYSQL_PASSWORD=${DBpass} SECRET_KEY=${DBpass} DB_PASSWORD=${DBpass} DATABASE_URI=${DB_uri} docker-compose build
-                                '''
-                            }
+
+            stage('Build FrontImage'){
+                steps{
+                    script{
+                        dir("/SFIA2/frontend"){
+                          if (env.rollback == 'false'){
+                            frontendimage = docker.build("krystalsimmonds/sfia-three-react")
                         }
+                      }
                     }
                 }
             }
-            stage('Tag & Push Images'){
+
+            stage('Tag & Push FrontImage'){
                 steps{
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                sh'''
-                                docker push krystalsimmonds/sfia-three-react:${env.app_version}
-                                docker push krystalsimmonds/sfia-three-spring:${env.app_version}
-                                docker push krystalsimmonds/mysql:5.7
-                                '''
+                                frontendimage.push("${env.app_version}")
                             }
                         }
                     }
                 }
             }
+
+            stage('Build BackImage'){
+                steps{
+                    script{
+                        dir("SFIA2/backend"){
+                          if (env.rollback == 'false'){
+                            backendimage = docker.build("krystalsimmonds/sfia-three-spring")
+                        }
+                      }
+                    }
+                }
+            }
+
+            stage('Tag & Push BackImages'){
+                steps{
+                    script{
+                        if (env.rollback == 'false'){
+                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
+                                backendimage.push("${env.app_version}")
+                            }
+                        }
+                    }
+                }
+            }
+
+            stage('Build DatabaseImage'){
+                steps{
+                    script{
+                        dir("SFIA2/database"){
+                          if (env.rollback == 'false'){
+                            databaseimage = docker.build("krystalsimmonds/mysql:5.7")
+                        }
+                      }
+                    }
+                }
+            }
+
+            stage('Tag & Push DatabaseImage'){
+                steps{
+                    script{
+                        if (env.rollback == 'false'){
+                            docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
+                                databaseimage.push("${env.app_version}")
+                            }
+                        }
+                    }
+                }
+            }
+
             stage('Deploy App'){
                 steps{
                     sh '''
