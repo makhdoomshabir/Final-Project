@@ -53,7 +53,7 @@ pipeline{
 
                             docker pull krystalsimmonds/sfia-three-react:${env.app_version}
                             docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
-                            docker pull krystalsimmonds/nginx:${env.app_version}
+                            docker pull krystalsimmonds/sfia-three-nginx:${env.app_version}
 
                             sudo docker-compose up -d
 
