@@ -84,12 +84,11 @@ pipeline{
                     withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
                         sh """
                         rm -rf Final-Project
-                        git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
+                        git clone https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project/kubernetes
                         kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/release-1.6/config/v1.6/calico.yaml
                         kubectl apply -f config-map.yaml
                         kubectl apply -f nginx-config.yaml
-                        kubectl apply -f mysql-db.yaml
                         kubectl apply -f backend.yaml
                         kubectl apply -f frontend.yaml
                         """
