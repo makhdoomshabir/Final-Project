@@ -42,28 +42,36 @@ pipeline{
 //             }
             stage('Deploy App'){
                 steps{
-                    sh """
-                    ssh  -tt -o "StrictHostKeyChecking=no ubuntu@10.0.2.114 <<EOF
-                    sudo rm -rf Final-Project
-                    git clone https://github.com/makhdoomshabir/Final-Project.git
-                    cd Final-Project
+                    script{
+                        if (env.rollback == 'false'){
+                            sh """
+                            ssh  -tt -o "StrictHostKeyChecking=no ubuntu@10.0.2.114 <<EOF
+                            sudo rm -rf Final-Project
+                            git clone https://github.com/makhdoomshabir/Final-Project.git
+                            cd Final-Project
 
-                    docker pull krystalsimmonds/sfia-three-react:${env.app_version}
-                    docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
-                    docker pull krystalsimmonds/nginx:${env.app_version}
+                            docker pull krystalsimmonds/sfia-three-react:${env.app_version}
+                            docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
+                            docker pull krystalsimmonds/nginx:${env.app_version}
 
-                    sudo docker-compose up -d
+                            sudo docker-compose up -d
 
-                    EOF
-                    """
+                            EOF
+                            """
+                        }
+                    }
                 }
             }
             stage('Configure kubectl'){
                 steps{
-                    withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
-                    sh """
-                    aws eks update-kubeconfig --name sfia-three
-                    """
+                    script{
+                        if (env.rollback == 'false'){
+                            withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
+                            sh """
+                            aws eks update-kubeconfig --name sfia-three
+                            """
+                            }
+                        }
                     }
                 }
             }
