@@ -27,7 +27,7 @@ export default class Tickets extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:8080/allTickets")
+        axios.get("http://localhost:9500/allTickets")
             .then(response => response.data)
             .then(
                 (data) => {
@@ -42,7 +42,7 @@ export default class Tickets extends Component {
     }
 
     deleteTicket = (ticketId) => {
-        axios.delete("http://localhost:8080/deleteTicket/" + ticketId)
+        axios.delete("http://localhost:9500/deleteTicket/" + ticketId)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true});
@@ -119,7 +119,7 @@ export default class Tickets extends Component {
     }
 
     searchData = () => {
-        axios.get("http://localhost:8080/allTickets?keyword=" + this.state.keyword)
+        axios.get("http://localhost:9500/allTickets?keyword=" + this.state.keyword)
             .then(response => response.data)
             .then(
                 (data) => {

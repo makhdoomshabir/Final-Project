@@ -28,7 +28,7 @@ export default class extends Component {
     }
 
     findTicketById = (ticketId) => {
-        axios.get("http://localhost:8080/getTicketById/" + ticketId)
+        axios.get("http://localhost:9500/getTicketById/" + ticketId)
             .then(response => {
                 if (response.data != null) {
                     this.setState({
@@ -71,7 +71,7 @@ export default class extends Component {
             lastUpdated: new Date()
         };
 
-        axios.put("http://localhost:8080/updateTicket/" + this.state.ticketId, tickets)
+        axios.put("http://localhost:9500/updateTicket/" + this.state.ticketId, tickets)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true})

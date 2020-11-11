@@ -1,7 +1,6 @@
 import React from "react";
 import Tickets from "../tickets/Tickets";
 import {Jumbotron} from "react-bootstrap";
-import SlideShow from "../SlideShow"
 
 const QueueSysPage = () => {
     let removeCharacter = window.location.pathname.toUpperCase().replaceAll("-", " ")
