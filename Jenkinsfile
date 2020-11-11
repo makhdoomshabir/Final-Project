@@ -45,7 +45,7 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             sh """
-                            ssh  -tt -o "StrictHostKeyChecking=no ubuntu@10.0.2.114 <<EOF
+                            ssh  -tt -o 'StrictHostKeyChecking=no' ubuntu@10.0.2.114 <<EOF
                             sudo rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
