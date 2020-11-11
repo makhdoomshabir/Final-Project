@@ -46,6 +46,7 @@ pipeline{
                     sudo rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
                     cd Final-Project
+
                     docker pull krystalsimmonds/sfia-three-react:${env.app_version}
                     docker pull krystalsimmonds/sfia-three-spring:${env.app_version}
                     docker pull krystalsimmonds/nginx:${env.app_version}
