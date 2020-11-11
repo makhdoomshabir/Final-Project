@@ -46,7 +46,7 @@ pipeline{
                         if (env.rollback == 'false'){
                         withCredentials([file(credentialsId: 'test', variable: 'pemKey')]) {
                             sh """
-                            ssh -i $pemKey ubuntu@10.0.2.114 -vvv <<EOF
+                            ssh -i $pemKey ubuntu@10.0.2.114 <<EOF
                             sudo rm -rf Final-Project
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
