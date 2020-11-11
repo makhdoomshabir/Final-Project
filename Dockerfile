@@ -1,6 +1,6 @@
 #Backend DOCKERFILE
 
-FROM maven:latest AS build-stage
+FROM maven:latest-alpine AS build-stage
 COPY . /build
 WORKDIR /build
 RUN mvn package -Dmaven.test.skip=true
