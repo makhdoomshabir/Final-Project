@@ -18,7 +18,7 @@ pipeline{
                             git clone https://github.com/makhdoomshabir/Final-Project.git
                             cd Final-Project
 
-                            sudo docker-compose build -d
+                            sudo docker-compose build
                             """
 
                         }
