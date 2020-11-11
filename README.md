@@ -114,6 +114,10 @@ The frontend of the application was tested using Jest and the React-render-libra
 
 ### Frontend Design 
 
+![new-ticket](https://github.com/makhdoomshabir/Final-Project/blob/Frontend/documentation/newticketform.png)
+![view-tickets](https://github.com/makhdoomshabir/Final-Project/blob/Frontend/documentation/viewtickets.png)
+![home-page](https://github.com/makhdoomshabir/Final-Project/blob/Frontend/documentation/homepage.png)
+
 ### Authors
 Adama Kabba
 
