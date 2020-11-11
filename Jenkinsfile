@@ -15,6 +15,7 @@ pipeline{
                         if (env.rollback == 'false'){
                             // Check which dockerhub to use
                             sh"ls -al"
+                            sh"cd Final-Project"
                             frontend = docker.build("krystalsimmonds/sfia-three-react", "./src/main/resources/frontend")
                         }
                     }
