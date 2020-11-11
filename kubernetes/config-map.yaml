@@ -6,6 +6,8 @@ data:
   default.conf: |
     server {
         listen 80;
+        root /app;
+        include /etc/nginx/mime.types;
         location / {
             proxy_pass http://frontend:3000;
         }

@@ -5,17 +5,17 @@ metadata:
 spec:
   selector:
     app: nginx
-  ports: 
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  labels: 
+  labels:
     app: nginx
 spec:
   selector:
@@ -27,34 +27,18 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        # readinessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 80
-        volumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/conf.d
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
       volumes:
-      - name: nginx-config
-        configMap:
-          name: nginx-config
-
-
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: nginx
-#   labels:
-#     app: nginx
-# spec:
-#   containers:
-#   - name: nginx
-#     image: nginx:alpine
-#     ports:
-#     - containerPort: 80
-#     nodeSelector:
-#     - mame: testconn
+        - name: nginx-config
+          configMap:
+            name: nginx-config
