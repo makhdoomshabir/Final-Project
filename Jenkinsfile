@@ -11,22 +11,17 @@ pipeline{
         stages{
             stage('Clone Repo'){
                 steps{
-                    if (env.rollback == 'false'){
-                    sh '''
-                    rm -rf Final-Project
-                    git clone https://github.com/makhdoomshabir/Final-Project.git
-                    cd Final-Project
+                    script{
+                        if (env.rollback == 'false'){
+                            sh """
+                            rm -rf Final-Project
+                            git clone https://github.com/makhdoomshabir/Final-Project.git
+                            cd Final-Project
 
-                    # Export variables to build project
-                    export MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-                    export MYSQL_USER=${MYSQL_USER}
-                    export MYSQL_PASSWORD=${MYSQL_PASSWORD}
-                    export TEST_DATABASE_URI=${TEST_DATABASE_URI}
-                    export DATABASE_URI=${DATABASE_URI}
-                    export SECRET_KEY=${SECRET_KEY}
+                            sudo docker-compose build
+                            """
 
-                    sudo -E MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} MYSQL_USER=${MYSQL_USER} MYSQL_PASSWORD=${MYSQL_PASSWORD} DB_PASSWORD=${env.DB_PASSWORD} TEST_DATABASE_URI=${env.TEST_DATABASE_URI} SECRET_KEY=${env.SECRET_KEY} docker-compose build
-                    '''
+                        }
                     }
                 }
             }
@@ -35,11 +30,10 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
-                                sh'''
-                                docker push krystalsimmonds/sfia-three-react:${env.app_version}
-                                docker push krystalsimmonds/sfia-three-spring:${env.app_version}
-                                docker push krystalsimmonds/mysql:5.7
-                                '''
+                                sh"""
+                                docker push krystalsimmonds/frontend:${env.app_version}
+                                docker push krystalsimmonds/backend:${env.app_version}
+                                """
                             }
                         }
                     }
@@ -47,7 +41,7 @@ pipeline{
             }
             stage('Deploy App'){
                 steps{
-                    sh '''
+                    sh """
                     ssh ubuntu@10.0.2.114 <<EOF
                     sudo rm -rf Final-Project
                     git clone https://github.com/makhdoomshabir/Final-Project.git
@@ -58,22 +52,22 @@ pipeline{
 
                     docker-compose up -d
                     EOF
-                    '''
+                    """
                 }
             }
             stage('Configure kubectl'){
                 steps{
                     withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
-                    sh '''
+                    sh """
                     aws eks update-kubeconfig --name sfia-three
-                    '''
+                    """
                     }
                 }
             }
             stage('Deploy with k8s'){
                 steps{
                     withAWS(credentials: 'aws-credentials', region: 'eu-west-2'){
-                        sh '''
+                        sh """
                         rm -rf Final-Project
                         git clone -b DevOps https://github.com/makhdoomshabir/Final-Project.git
                         cd Final-Project/kubernetes
@@ -83,7 +77,7 @@ pipeline{
                         kubectl apply -f mysql-db.yaml
                         kubectl apply -f backend.yaml
                         kubectl apply -f frontend.yaml
-                        '''
+                        """
                     }
                 }
             }

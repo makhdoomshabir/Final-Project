@@ -2,13 +2,11 @@ version: "3.3"
 services:
   frontend:
     container_name: frontend
-    build: ./src/main/resources
+    build: ./src/main/resources/frontend
     image: krystalsimmonds/sfia-three-react
     ports:
       - target: 3000
         published: 3000
-    stdin_open: true
-    tty: true
     depends_on:
       - backend
 
@@ -16,34 +14,17 @@ services:
     container_name: backend
     build: ./
     image: krystalsimmonds/sfia-three-spring
-    environment:
-      MYSQL_DATABASE=database
-      DB_PASSWORD=${DB_PASSWORD}
-      TEST_DATABASE_URI=${TEST_DATABASE_URI}
-      DATABASE_URI=${DATABASE_URI}
-      SECRET_KEY=${SECRET_KEY}
-      MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     ports:
-      - target: 3001
-        published: 3001
-    depends_on:
-      - database
+      - target: 9500
+        published: 9500
+        protocol: tcp
 
-  database:
-    container_name: database
-    image: mysql:5.7
-    ports:
-      - target: 3306
-        published: 3306
-    command: source Create.sql
-    volumes:
-      - ./database/Create.sql:/docker-entrypoint-initdb.d
-    environment:
-      MYSQL_DATABASE=database
-      TEST_DATABASE_URI=${TEST_DATABASE_URI}
-      DATABASE_URI=${DATABASE_URI}
-      SECRET_KEY=${SECRET_KEY}
-      MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+  #  database:
+  #    container_name: database
+  #    image: mysql:5.7
+  #    ports:
+  #      - target: 3306
+  #        published: 3306
 
   nginx:
     container_name: nginx
@@ -59,3 +40,4 @@ services:
         target: /etc/nginx/nginx.conf
     depends_on:
       - frontend
+      - backend

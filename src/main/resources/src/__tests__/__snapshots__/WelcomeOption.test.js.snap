@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it matches the snapshot 1`] = `
+<div>
+  <div
+    className="card-deck"
+    id="WelcomeOptions"
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          <h3>
+            Azure Devops - (20OctDevOps1)
+          </h3>
+        </div>
+      </div>
+      <a
+        href="/Azure-Devops"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+           
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-arrow-right fa-w-14 "
+            data-icon="arrow-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </button>
+      </a>
+    </div>
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          <h3>
+            Software BAE - (20OCTBAE2)
+          </h3>
+        </div>
+      </div>
+      <a
+        href="/Software-BAE"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+           See Tickets
+        </button>
+      </a>
+    </div>
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          <h3>
+            SDET - (20OCTSDET3)
+          </h3>
+        </div>
+      </div>
+      <a
+        href="/SDET"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+           See Tickets
+        </button>
+      </a>
+    </div>
+  </div>
+  <div
+    className="card-deck"
+    id="WelcomeOptions"
+  >
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          <h3>
+            Cloud Native Engineer - (20SeptCNE)
+          </h3>
+        </div>
+      </div>
+      <a
+        href="/Cloud-Native-Engineer"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="button"
+        >
+           See Tickets
+        </button>
+      </a>
+    </div>
+    <div
+      className="card"
+    >
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          <h3>
+            Scala - (20NovSoftware1)
+          </h3>
+        </div>
+      </div>
+      <a>
+        <a
+          className="btn btn-primary"
+          href="/Scala"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+        >
+           See Tickets
+        </a>
+      </a>
+    </div>
+  </div>
+</div>
+`;

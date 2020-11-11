@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it matches the snapshot 1`] = `
+<div>
+  <nav
+    className="navbar navbar-expand navbar-dark bg-dark fixed-bottom"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="text-center text-muted col-lg-12"
+      >
+        <div>
+          © 
+          2020
+          -
+          2021
+           Team 1 All Rights Reserved
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+`;
