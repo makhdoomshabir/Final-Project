@@ -175,7 +175,7 @@ export default class Tickets extends Component {
                                 </div>
 
                                 <span className={"text-red"}>
-                                    Last Changed: <ReactTimeAgo date={ticket.lastUpdated} locale="en-US"
+                                    Last Updated: <ReactTimeAgo date={ticket.lastUpdated} locale="en-US"
                                                                 timeStyle="round"/>
                                 </span>
                             </Card.Header>
@@ -253,7 +253,7 @@ export default class Tickets extends Component {
                                 </div>
 
                                 <span className={"text-red"}>
-                                    Last seen: <ReactTimeAgo date={ticketClsd.lastUpdated} locale="en-US"
+                                    Resolved: <ReactTimeAgo date={ticketClsd.lastUpdated} locale="en-US"
                                                              timeStyle="round"/>
                                 </span>
                             </Card.Header>
