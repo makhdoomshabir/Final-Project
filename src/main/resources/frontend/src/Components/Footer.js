@@ -9,7 +9,7 @@ const Footer = () => {
                 <Container>
                     <Col lg={12} className="text-center text-muted">
                         <div>
-                            &copy; {fullyear}-{fullyear+1} Team 1 All Rights Reserved
+                            &copy; {fullyear}-{fullyear + 1} Team 1 All Rights Reserved
                         </div>
                     </Col>
                 </Container>

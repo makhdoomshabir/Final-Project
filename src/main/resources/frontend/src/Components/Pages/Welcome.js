@@ -5,8 +5,8 @@ import WelcomeOptions from "../WelcomeOptions";
 const Welcome = () => {
     return (
         <div>
-        <Header/>
-        <WelcomeOptions/>
+            <Header/>
+            <WelcomeOptions/>
         </div>
     )
 }
